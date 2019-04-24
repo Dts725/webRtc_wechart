@@ -1,0 +1,59 @@
+<!--pages/myactive/sign.wxml-->
+<view class="adl">
+  <view class="adl-header">
+    <view class="adl-header-title">{{detail.name?detail.name:''}}</view>
+    <view class="adl-header-info">
+      <text style="margin-right:1rem;">发布人：{{detail.author?detail.author:''}}</text>
+      <text>发布时间：{{detail.create_time?detail.create_time:''}}</text>
+    </view>
+  </view>
+
+  <view class="adl-detail">
+    <view class="adl-info">
+      <view class="row">
+        <view class="adl-info-lf">
+          <image src="../../static/icon/detail/icon1.png" mode="widthFix"></image>
+        </view>
+        <view class="adl-info-rt">
+          <view>{{detail.time?detail.time:''}}</view>
+        </view>
+      </view>
+      <view class="row">
+        <view class="adl-info-lf">
+          <image src="../../static/icon/detail/icon2.png" mode="widthFix"></image>
+        </view>
+        <view class="adl-info-rt">
+          <!-- <view class="font-gray-s">活动地址</view> -->
+          <view>{{detail.place?detail.place:''}}</view>
+        </view>
+      </view>
+      <view class="row">
+        <view class="adl-info-lf">
+          <image src="../../static/icon/detail/icon3.png" mode="widthFix"></image>
+        </view>
+        <view class="adl-info-rt">
+          <!-- <view class="font-gray-s">联系人</view> -->
+          <view>{{detail.author?detail.author:''}}</view>
+        </view>
+      </view>
+      <view class="row">
+        <view class="adl-info-lf">
+          <image src="../../static/icon/detail/icon4.png" mode="widthFix"></image>
+        </view>
+        <view class="adl-info-rt">
+          <!-- <view class="font-gray-s">联系方式</view> -->
+          <view>{{detail.contact?detail.contact:''}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- <view class="c-panel-footer"> -->
+      <button class="btn-sign" type="primary" catchtap="sign">签 到</button>
+    <!-- </view> -->
+
+  </view>
+
+
+
+
+</view>

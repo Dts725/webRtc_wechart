@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的学习",
+  "usingComponents": {
+    "card_base_active": "/pages/components/card_base_active/card_base_active"
+}
+}

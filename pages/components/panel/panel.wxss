@@ -1,0 +1,76 @@
+@import '../../../weui.wxss';
+
+.weui-form-preview {
+  margin-bottom: 10px;
+}
+
+.page__bd_spacing {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.page__ft {
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.page__title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.page__desc {
+  margin-top: 5px;
+  color: #888;
+  text-align: left;
+  font-size: 14px;
+}
+
+.page {
+  background-color: #eee;
+}
+
+/* title样式  */
+
+.panel-title {
+  line-height: 140%;
+  padding: 0.2rem 0;
+  margin: 0;
+  color: #000;
+  text-align: left;
+  text-align-last: left;
+}
+
+/* 取消float  */
+
+.cancel-float {
+  float: none;
+}
+.weui-form-preview__ft{
+  min-height:2.8rem;
+}
+
+.panel-bottom-btns{
+  text-align: right;
+  padding-right:1rem;
+}
+/*  状态  */
+.panel-status {
+  position: absolute;
+  left: 1rem;
+  top:0;
+  /* bottom:0.7rem; */
+  font-size: 0.8rem;
+}
+
+.panel-status-success {
+  color:#4caf50;
+  font-weight:bold;
+}
+.panel-status-cancel {
+  color:#00bcd4;
+}
+.panel-status-end {
+  color:#ff8a37;
+}

@@ -1,0 +1,101 @@
+/**app.wxss**/
+
+@import 'weui.wxss';
+@import "/utils/wxParse/wxParse.wxss";
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.flex-center-wrap {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+.fz-12{
+  font-size: 12px;
+}
+.h-15vh{
+  height: 15vh;
+}
+.w100 {
+  width: 100%;
+}
+.w80 {
+  width: 80%;
+}
+.w85 {
+  width: 80%;
+}
+.w90 {
+  width: 90%;
+}
+
+.w60 {
+  width: 60%;
+}
+.w95{
+  width: 95%;
+}
+.w30{
+  width: 30%;
+}
+.fz-15rem {
+  font-size: 1.5rem;
+}
+.fz-15em {
+  font-size: 1.5em;
+}
+.fz-2em{
+  font-size: 2em;
+}
+.fz-2rem {
+  font-size: 2rem;
+}
+.h100 {
+  height: 100%;
+}
+.t-center {
+  text-align: center;
+}
+.t-left {
+  text-align: left;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.b-radius-100 {
+  border-radius: 100%;
+}
+
+.co-48F{
+  color: #428BFA;
+}
+.co-cc {
+  color : #c1c1c1;
+}
+
+.m-bottom {
+  margin-bottom: 0.5em;
+}

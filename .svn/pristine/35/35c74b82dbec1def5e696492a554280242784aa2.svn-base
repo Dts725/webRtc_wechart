@@ -1,0 +1,141 @@
+<!-- partyGroupService.wxml -->
+<view>
+  <view class="weui-tab">
+    <view class="weui-navbar">
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title">{{item}}</view>
+        </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+    <view class="weui-tab__panel">
+      <!-- --------- 活动报名  --------- -->
+      <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+        <scroll-view class='scroll-box' bindscrolltoupper='getFieldList1' bindscrolltolower="getNextPage" upper-threshold='-70' lower-threshold='-70' scroll-y scroll-with-animation>
+          <card_party_serve wx:for='{{cardDataActive}}' content='{{item}}' wx:key='{{item.id}}' wx:if="{{item.is_show}}" style="width:100%;" cardData="{{item}}" status="{{status}}" bind:detailEvent='detailEvent' bind:signEvent='signEvent' bind:customEvent="customEvent"
+            customName="{{isAdmin?'管理':''}}"></card_party_serve>
+        </scroll-view>
+      </view>
+      <!-- --------- 场地预约  --------- -->
+      <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+        <scroll-view class='scroll-box' scroll-y scroll-with-animation>
+
+          <view class='apt-body'>
+            <!-- 预约场地 -->
+            <view class='apt-row'>
+              <picker name='field' class="picker" bindchange="bindFieldChange" value="{{indexF}}" range="{{field}}" range-key="name">
+                <text class='apt-title'>预约场地：</text> {{field[indexF].name}}
+                <image class='apt-icon' src='../../static/arrow-down.png'></image>
+              </picker>
+            </view>
+            <!-- 预约日期 -->
+            <view class='apt-row'>
+              <picker class="picker" mode="date" value="{{day}}" start="{{dayStart}}" end="{{dayEnd}}" bindchange="bindDayChange">
+                <text class='apt-title'>预约日期：</text> {{aptData.day}}
+                <image class='apt-icon' src='../../static/arrow-down.png'></image>
+              </picker>
+            </view>
+            <!-- 预约时间 -->
+            <view class='apt-row apt-row-no'>
+              <view>
+                <text class='apt-title'>预约时间：</text>
+                <text class='apt-title-info'>请选择连续的时间</text>
+              </view>
+              <checkbox-group class="apt-chk-date" bindchange="checkboxChange">
+                <label class="apt-chk-date-li" wx:for="{{timeList}}" wx:key='item.id'>
+                  <checkbox value="{{item.id}}" checked="{{item.checked}}" disabled='{{item.disabled}}' /> {{item.time}}
+                </label>
+              </checkbox-group>
+            </view>
+            <!-- 准备 -->
+            <view class='apt-row apt-row-no'>
+              <view>
+                <text class='apt-title'>场地准备：</text>
+              </view>
+              <checkbox-group class="apt-chk-date" bindchange="checkboxChange">
+                <label class="apt-chk-date-li" wx:for="{{readyProject}}" wx:key='item.index'>
+                  <checkbox value="{{item}}" checked="{{false}}" disabled='{{ture}}' /> {{item}}
+                </label>
+              </checkbox-group>
+            </view>
+          </view>
+          <!-- 模块2 -->
+          <view class='apt-body'>
+            <!-- 活动人数 bindblur='checkApplication' bindconfirm='checkApplication' -->
+            <view class='apt-row'>
+              <text class='apt-title'>活动人数：</text>
+              <input class='apt-con' id="people" bindblur="detect" placeholder="请输入活动人数" value='{{aptData.people}}' />
+            </view>
+            <!-- 活动用途 bindblur='checkApplication' bindconfirm='checkApplication' -->
+            <view class='apt-row'>
+              <text class='apt-title'>活动用途：</text>
+              <input class='apt-con' id="title" bindblur="detect" placeholder="请输入活动用途" value='{{aptData.title}}' />
+            </view>
+            <!-- 预约人姓名 bindblur='checkName'  bindinput='setName' bindconfirm='checkName' -->
+            <view class='apt-row'>
+              <text class='apt-title'>联系人：</text>
+              <input class='apt-con' id="name" bindblur="detect" placeholder="请输入姓名" value='{{aptData.name}}' />
+            </view>
+          </view>
+          <view class='apt-body'>
+            <!-- 预约电话 bindblur='checkPhone' bindconfirm='checkPhone'  bindinput='setPhone' -->
+            <view class='apt-row'>
+              <text class='apt-title'>预约电话：</text>
+              <view class='apt-con apt-con-phone'>
+                <view class='apt-con-left'>
+                  <input id='phone' bindblur="detect" type='Number' placeholder="联系方式" value='{{aptData.phone}}' disabled='{{isHide}}' />
+                </view>
+                <button class='apt-code' hidden='{{isHide}}' bindtap='getCode' disabled='{{codeDisabled}}'>
+                  {{codeTitle}}
+                </button>
+              </view>
+            </view>
+            <!-- 验证码  bindblur='checkCode' bindconfirm='checkCode' bindinput='checkCode' -->
+            <view class='apt-row' hidden='{{isHide}}'>
+              <text class='apt-title'>验证码：</text>
+              <input class='apt-con' id='code' bindblur="detect" placeholder="请输入验证码" value='{{aptData.code}}' />
+            </view>
+          </view>
+          <view class='apt-body apt-body-btn'>
+            <button class='apt-btn' disabled='{{canClick}}' bindtap='submitApt'>立刻预约</button>
+          </view>
+        </scroll-view>
+      </view>
+      <!-- --------- 参观预约  --------- -->
+      <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+        <view class="tips">
+          <view class="font">
+            <view class='font1'>请至少提前一周开始预约!</view>
+          </view>
+          <view class="tips1">
+            <view class='time'>
+              <!-- <image src='../../static/partyGroupService/icon1.png'></image> -->
+              <view class='time1'>
+                <image class='bj' src='../../static/icon-time.png'></image>
+                <text decode="{{true}}" space="{{true}}">9:00-11:00 13:00-17:00(周一至周五)</text>
+              </view>
+            </view>
+            <view class="phone">
+              <view class='phone1'>
+                  <image class='bj' src='../../static/icon-peoson.png'></image>
+                  <text decode="{{true}}" space="{{true}}">黄伟佳：&nbsp;64625675</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class='show'>
+          <view class="showfont">精彩推荐</view>
+          <view class='photo'>
+            <image class='pht' src="../../static/img01.jpg" mode='aspectFill'></image>
+            <image class='pht' src="../../static/img02.jpg" mode='aspectFill'></image>
+          </view>
+          <view class='photo photo1'>
+            <image class='pht' src="../../static/img03.jpg" mode='aspectFill'></image>
+            <image class='pht' src="../../static/img04.jpg" mode='aspectFill'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

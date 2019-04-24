@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "视频会议",
+  "usingComponents": {
+    "top":"../../components/meeting-top/meeting-top",
+    "center":"../../components/meeting-center-video/meeting-center-video"
+  }
+}

@@ -1,0 +1,99 @@
+/* pages/mystudy/mystudy.wxss */
+
+page {
+  background-color: #f7f7f7;
+}
+
+.header {
+  background-color: #a51e22;
+  width: 100%;
+  /* height: 150rpx; */
+  display: flex;
+  justify-content: center;
+}
+
+/* .headfloat {
+  background-color: #fff;
+  width: 75%;
+  height: 190rpx;
+  position: absolute;
+  top: 20rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 5px 10px 0 rgba(195, 195, 195, 0.2);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.float {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+/* .float:first-of-type {
+  border-right: 2rpx solid #e2e2e2;
+} */
+
+/* .num {
+  color: #333;
+  font-size: 50rpx; */
+  /* font-weight: 700; */
+/* } */
+
+/* .proname {
+  color: #333;
+  font-size: 28rpx;
+} */
+
+.padding {
+  margin-top: 20rpx;
+}
+
+.readcont {
+  background-color: #fff;
+  height: 182rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20rpx;
+}
+
+.readtop {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 34rpx;
+  color: #333;
+  /* font-weight: 700; */
+  width: 80%;
+}
+
+.readtop text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.readbottom {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+.state {
+  height: 56rpx;
+  width: 182rpx;
+  color: #fff;
+  background-color: #0daa27;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 54rpx;
+  border-radius: 5rpx;
+}
+
+.collection {
+  display: flex;
+}

@@ -1,0 +1,150 @@
+/* pages/repairInfo/repairInfo.wxss */
+
+/* 总体设置  */
+
+page, .apt-repair, .weui-tab__content {
+  min-height: 100%;
+  width: 100%;
+  background-color: #eee;
+  box-sizing: border-box;
+}
+
+.apt-repair {
+  padding: 0 0 2rem 0;
+}
+
+/*  行样式  */
+
+.apr-row, .apr-cards {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.apr-row image {
+  margin-left: 9rpx;
+}
+
+.apr-row .img-content {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* .apr-row {
+   padding-right: 0.5rem; 
+} */
+
+.title-img {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0.5rem 0;
+}
+
+.title-img image {
+  width: 6rem;
+  height: 7rem;
+  border-radius: 0.3rem;
+}
+
+/* 身份证照片等  */
+
+.apr-row image {
+  width: 2.5rem;
+  height: 1.5rem;
+  border: 1px dashed #aaa;
+  border-radius: 0.3rem;
+}
+
+.apr-con {
+  color: #888;
+}
+
+/* 证件上传  */
+
+.apr-cards .weui-uploader__input-box {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 0.3rem 0.7rem 0.3rem;
+  border: 1px dashed #aaa;
+  border-radius: 0.3rem;
+}
+
+.apr-cards .weui-uploader__input-box text {
+  color: #888;
+  font-size: 0.6rem;
+}
+
+/* 底部大按钮  */
+
+.apr-btn {
+  padding: 1rem 2rem;
+}
+
+.apr-btn button {
+  background-color: #2f92f8;
+}
+
+/**************** 信息的头部 ***************/
+
+.infos-title {
+  box-sizing: border-box;
+  margin: 1rem 1rem 0.5rem 1rem;
+  text-align: center;
+  border-bottom: 1px dashed #2f92f8;
+  padding-bottom: 0.5rem;
+  color: #2f92f8;
+}
+
+/**************** 信息的 左 中 右 内容 ***************/
+
+.to-left {
+  text-align: left;
+}
+
+.to-center {
+  text-align: center;
+}
+
+.to-end {
+  text-align: right;
+}
+
+.flex6 {
+  flex: 6 !important;
+}
+
+/* 业务信息  */
+
+.infos-default {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 单独一行  */
+
+.infos-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.infos-left {
+  width: 100%;
+  text-align: left;
+}
+.userinfo-avatar {
+  overflow: hidden;
+  display: block;
+  width: 130rpx;
+  height: 130rpx;
+  /* margin: 15rpx; */
+  border-radius: 50%;
+  /* border: 2px solid #d9ebff; */
+  /* box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); */
+}
+.weui-cell_primary{
+  align-items: center;
+}

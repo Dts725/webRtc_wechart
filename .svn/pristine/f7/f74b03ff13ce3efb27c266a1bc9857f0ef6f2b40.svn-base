@@ -1,0 +1,19 @@
+
+<view class="home">
+   <view class='home-container' >
+    <view class='home-image'>
+      <image src='{{src}}'  mode="widthFix"></image>
+    </view>
+    <view class="home-btn">
+      <button 
+        plain="true"
+        class='create-btn'
+        open-type='getUserInfo'
+        bindgetuserinfo="bindGetUserInfo">
+        <image src='../../static/images/icon-create.png'  mode="widthFix"></image>
+        </button>
+        <view class='home-btn__text'>开启我的足迹</view>
+    </view>
+   </view>
+</view>
+

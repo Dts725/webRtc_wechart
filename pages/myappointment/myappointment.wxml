@@ -1,0 +1,20 @@
+<view class='apt-history'>
+  <!-- <panel bind:editEvent='edit' bind:delEvent='del' wx:for='{{aptList}}' title='{{item.day}} {{item.moment}}' content='{{item}}' wx:key='item.id' cnKey='{{cnKey}}' contentType='object'>{{item}}</panel> -->
+  <scroll-view class='scroll-box' bindscrolltoupper='getAptList' scroll-y scroll-with-animation>
+  <panel 
+      bind:cancelEvent='cancel' 
+      wx:for='{{aptList}}' 
+      title='{{item.day}} {{item.moment}}' 
+      content='{{item}}' 
+      wx:key='item.id' 
+      cnKey='{{cnKey}}' 
+      contentType='object' 
+      customBtnStatuClass="{{item.customBtnStatuClass}}"
+      showCustomBtn="{{item.is_show==1}}"
+      customBtnName="{{customBtnName}}"
+      customBtnStatu="{{item.is_show_name}}"
+      >
+      <!-- {{item}} -->
+  </panel>
+  </scroll-view>
+</view>

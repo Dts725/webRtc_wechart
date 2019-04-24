@@ -1,0 +1,157 @@
+/* pages/myactive/myactiveDetail.wxss */
+
+/** 公共样式 **/
+.scroll-box{
+  height: 100%;
+}
+.row {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 0.3rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.font-gray-s {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/** adl 表示active-detail**/
+
+.adl {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+/* header  */
+
+.adl .adl-header {
+  box-sizing: border-box;
+  padding: 1rem;
+  text-align: center;
+  border-bottom:1px dashed #ddd;
+  margin-bottom:0.5rem;
+}
+
+/* header的标题  */
+
+.adl .adl-header .adl-header-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* header中的灰色小字部分  */
+
+.adl .adl-header .adl-header-info {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* 内容区域  */
+
+.adl-detail {
+  margin-bottom: 5rem;
+}
+
+/* 中间大图  */
+
+.adl .adl-img {
+  width: 100%;
+}
+
+/* 中间活动介绍  */
+
+.adl-detail-con {
+  margin-bottom: 1rem;
+}
+.adl-detail-con view{
+  overflow: hidden;
+}
+/* 中间活动信息部分  */
+
+.adl .adl-info {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: inherit;
+  border: 1px solid #ddd;
+  border-radius: 0.3rem;
+}
+
+/* 活动信息的左边按钮  */
+
+.adl .adl-info-lf {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adl .adl-info-lf image {
+  width: 80%;
+}
+
+/* 活动信息的右边  */
+
+.adl .adl-info-rt {
+  flex: 7;
+  box-sizing: border-box;
+  padding-left: 0.8rem;
+  border-left: 1px solid #ddd;
+}
+
+/*************** 底部区域 ****************/
+
+.adl .adl-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  border-top: 1px solid #ddd;
+  height: 4rem;
+  background-color: #fff;
+}
+
+/* 左边积分项  */
+
+.adl .adl-footer-lf {
+  display: flex;
+  flex: 6;
+}
+
+.adl .adl-footer-lf-li {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  /* justify-content: center; */
+  text-align: center;
+  padding: 0.3rem;
+  align-items: center;
+}
+
+/* 右边报名按钮  */
+
+.adl .adl-footer-rt {
+  flex: 4;
+  height: 100%;
+}
+
+.adl .adl-footer-rt button {
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

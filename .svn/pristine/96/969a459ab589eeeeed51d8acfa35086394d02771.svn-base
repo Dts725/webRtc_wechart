@@ -1,0 +1,79 @@
+/* card.wxss */
+
+/* 总体设置 */
+.card{
+  width: 100%;
+  min-height: 2rem;
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding:10px 0;
+  box-sizing: border-box;
+}
+.card1{
+  width: 100%;
+  min-height: 2rem;
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding:10px 15px;
+  box-sizing: border-box;
+}
+.card1 .c-right{
+  width: 100%
+}
+/* 缩略图 */
+.card .thumbnails {
+  width:30%;
+  height: 90px;
+}
+.card1 .thumbnails {
+  width:30%;
+  height: 90px;
+}
+/* 右边部分 */
+.c-right{
+  float:right;
+  width:67%;
+  font-size:14px;
+  
+}
+/* 文章标题+时间 */
+.c-Overall-title{
+  width:100%;
+}
+.c-Overall-title:after{
+  /*清除浮动*/
+  display: block;
+  clear: both;
+  content: "";
+}
+/* 标题 */
+.c-partial-title{
+  font-size:18px;
+  width:80%;
+  float:left;
+  white-space:nowrap;
+  text-overflow:ellipsis; 
+  overflow: hidden;
+  text-align:left;
+}
+/* 时间 */
+.c-partial-time{
+  width:33%;
+  float:right;
+  line-height:1.4rem;
+}
+/* 文章内容 */
+.c-content{
+  text-align:left;
+  font-size:15px;
+  margin-top:10px;
+  line-height:1.5rem;
+  width:98%;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  color: #999;
+}

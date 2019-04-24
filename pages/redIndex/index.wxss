@@ -1,0 +1,56 @@
+.home,.home-container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.home-container{
+  background:#272d39;
+ }
+.home-image{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top:10vw
+}
+.home-image image,
+button image{
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: center
+}
+.home-btn{
+  position: absolute;
+  bottom:0vw;
+  width: 100vw;
+  height:35vw;
+ 
+}
+button,.create-btn{
+	 width: 25vw;
+   border: none;
+   outline: none;
+   margin: auto;
+   background: #Fff
+ }
+button::after {
+  border: none;
+}
+.home-btn__text{
+  width: 80vw;
+  text-align: center;
+  color: #4a5265;
+  margin: auto;
+}
+button-hover[plain],
+button-active[plain],
+.create-btn{
+  border: none !important;
+  outline: none;
+}
+
+

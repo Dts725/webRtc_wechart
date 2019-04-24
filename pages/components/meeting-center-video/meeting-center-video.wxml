@@ -1,0 +1,24 @@
+<view class='flex-between  h100'>
+  <!-- 拉流用标签 -->
+
+  <view  class='w50 flex-center h100'>
+    <live-player  id="player" class='h100 fr' src="{{srcPoint}}" mode="live" autoplay object-fit="contain" >
+      <cover-image class='coverImage' data-id='player' bindtap='_fullScreenFn' src="{{coverSrc}}" />
+    </live-player>
+  </view>
+
+<!-- 推流用标签 -->
+  <view  class='w50 flex-center h100'>
+    <live-pusher id='pusher'  url="{{urlRtc}}" mode="RTC" class='h100  fr' autopush object-fit="fillCrop">
+
+      <cover-image class='coverImage' data-id='pusher' bindtap='_fullScreenFn' src="{{coverSrc}}" />
+    </live-pusher>
+  </view>
+
+
+
+  <!-- <view style='display:none'>
+    <live-pusher   url="{{urlRtc}}" mode="RTC" autopush >
+    </live-pusher>
+  </view> -->
+</view>

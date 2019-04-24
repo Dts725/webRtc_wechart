@@ -1,0 +1,6 @@
+<!-- pages/myactive/myactive.wxml -->
+<view class='content'>
+  <scroll-view class='scroll-box' bindscrolltoupper='getList' scroll-y scroll-with-animation>
+    <card wx:for='{{cardData}}' content='{{item}}' wx:key='{{item.id}}' style="width:100%;" cardData="{{item}}" status="{{item.status}}" bind:detailEvent='detailEvent' bind:signEvent='signEvent' imgsrc="{{item.imgSrc}}" qrcodeShow="{{item.qrcodeShow}}" bind:qrcodeEvent="qrcodeEvent"></card>
+  </scroll-view>
+</view>

@@ -1,0 +1,120 @@
+// pages/onlineElection/main/main.js.js
+const app = getApp();
+let sorts = require('../../../utils/W.sort.js');
+Page({
+
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+	url:app.globalData.url,
+	flow:{
+		show:false,
+		url:'Meeting_Flow',		// 流程地址
+		list:[],	// 流程数据
+		keys:[
+          {name:'签到',step:1,src:'../../../static/meeting/icon01.png'},
+          {name:'九严禁',step:2,src:'../../../static/meeting/icon01.png'},
+          {name:'候选人批复',step:3,src:'../../../static/meeting/icon01.png'},
+          {name:'候选人介绍',step:4,src:'../../../static/meeting/icon01.png'},
+          {name:'选举办法',step:5,src:'../../../static/meeting/icon01.png'},
+          {name:'监票人名单',step:6,src:'../../../static/meeting/icon01.png'},
+          {name:'投票说明',step:7,src:'../../../static/meeting/icon01.png'},
+          {name:'投票计票',step:8,src:'../../../static/meeting/icon01.png'},
+          {name:'选举结果',step:9,src:'../../../static/meeting/icon01.png'},
+          {name:'表态发言',step:10,src:'../../../static/meeting/icon01.png'},
+        ],
+	}
+  },
+
+  test(){
+    console.log('测试成功很好用')
+  },
+  showFlows(){
+	this.setData({
+		'flow.show':!this.data.flow.show
+	});
+  },
+  getFlowList(id){
+	  let _this=this;
+	  wx.request({
+	    url: _this.data.url + _this.data.flow.url+'?meeting_id='+id?id:'',
+	    method: 'get',
+	    success: (res) => {
+			console.log('getFlowList::',res);
+	      if (res.data.code == 0) {
+			  res.data.data.data.forEach(el=>{
+				el.name = _this.data.flow.keys[el.flow_step-1].name;
+				el.src = _this.data.flow.keys[el.flow_step-1].src;
+			  });
+	  			wx.hideLoading();
+	  			this.setData({
+	  				'flow.list':res.data.data.data.sort(sorts.default.compare('flow_step'))
+	  			});
+	        
+	      }
+	    },
+	    fail: (res) => {
+	      console.log('fail', res);
+	    }
+	  });
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+	console.log('onLoad会议初始拿到的:::',options);
+	this.getFlowList(options.id);
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function (options) {
+// 	console.log('onShow会议初始拿到的:::',options);
+// 	this.getFlowList(options.id);
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

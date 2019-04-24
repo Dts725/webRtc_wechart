@@ -1,0 +1,23 @@
+/* pages/components/meeting-top/meeting-top.wxss */
+.flex-center-wrap {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fz-12{
+  font-size: 12px;
+}
+
+.w100 {
+  width: 100%;
+}
+.h100 {
+  height: 100%;
+}

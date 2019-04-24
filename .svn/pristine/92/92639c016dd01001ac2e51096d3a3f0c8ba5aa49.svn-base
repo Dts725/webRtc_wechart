@@ -1,0 +1,101 @@
+<wxs src="../../common/split.wxs" module="tools" />
+<view class='select'>
+   <view class='select-container'>
+      <view class='select-tabs'>
+          <scroll-view
+              scroll-y
+              style="height:100vh">
+              <view class="scroll-view-item select-tab" wx:for="{{tabs}}" wx:for-item="item" wx:key="index">
+                  <view class="select-btn {{currentItem==index?'active-tag':''}}" data-index="{{index}}" bindtap="tagChoose">
+                    <text>{{item.province_name}}</text>
+                    <view class='select-label' wx:if="{{item.total !== 0}}">
+                      {{item.total}} 
+                    </view>
+                  </view>
+               </view>
+            </scroll-view>
+      </view>
+      <view class='select-content'>
+           <scroll-view
+              scroll-y
+              style="height:80vh">
+                  <view class='ul' wx:for="{{currentLists}}" wx:for-item="item" wx:key="key" wx:for-index="cityIndex" >
+                      <view class="li" data-index="{{cityIndex}}" bindtap='changeToggle'>
+                        <view class="left">
+                         <text>{{item.city_name}}</text>
+                          <view class='select-content-label' wx:if="{{item.total !== 0}}">
+                             {{item.total}} 
+                          </view>
+                        </view>
+                        <view class="right">
+                          <view class='select-image'  wx:if="{{selectedFlag[cityIndex]}}">
+                            <image src='../../static/images/up.svg'></image>
+                          </view>
+                          <view class='select-image' wx:else>
+                            <image src='../../static/images/down.svg'></image>
+                          </view>
+                        </view>
+                      </view>
+                      <view hidden="{{!selectedFlag[cityIndex]}}">
+                            <block wx:for="{{item.views}}" wx:for-item="subitem" wx:for-index="ViewsIndex" wx:key="index">
+                              <view class="li-sub">
+                                <view class="li-sub_text">
+                                  <view class="{{isScroll ? 'marquee_content':''}}">
+                                     <text>{{subitem.scenic_spots_name}}</text>
+                                  </view>
+                                </view>
+                                <view class='select-content-opeation'>
+                                    <view class='select-content-photo' hidden="{{subitem.tourist_footprint_id === 0}}" bindtap='uploadImage' data-footerId="{{subitem.tourist_footprint_id}}"  data-cityIndex="{{cityIndex}}" data-provinceIndex="{{currentItem}}" data-viewIndex="{{ViewsIndex}}" data-photos="{{subitem.tourist_photos}}">
+                                       <image wx:if="{{subitem.tourist_photos}}" src="{{tools.splits(subitem.tourist_photos)}}"></image>
+                                       <image wx:else src='{{iconImg}}' mode="widthFix"></image>
+                                    </view>
+                                    <view class='select-content-footer'  bindtap="toggleFooter" data-provinceIndex="{{currentItem}}" data-cityIndex="{{cityIndex}}" data-viewIndex="{{ViewsIndex}}" data-viewsId="{{subitem.scenic_spots_id}}" data-footerId="{{subitem.tourist_footprint_id}}">
+                                    <image src="../../static/images/{{subitem.tourist_footprint_id !== 0 ? 'footer-active':'footer'}}.png"  mode="widthFix"></image>
+                            
+                                    </view>
+                                </view>
+                              </view>
+                            </block>
+                             <view class="li-sub add-city" bindtap='addViews' data-cityId="{{item.city_id}}">
+                               <image src='../../static/images/add-city.png' mode="widthFix"></image>
+                             </view>
+                      </view>
+                  </view>
+            </scroll-view>
+             <view class='select-button'>
+                <button type='default' class='footer-btn' bindtap='createFooter'>
+                <view class="select-button-image"><image src='../../static/images/icon-footer.png'  mode="widthFix"></image></view>
+                <view>生成足迹</view>
+                </button>
+            </view>
+      </view>
+   </view>
+  <!-- 模态框 -->
+   <view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}"></view>
+   <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+     <!--drawer content-->
+      <view class="drawer_title">{{type === "addViews" ? '添加景点':'图片'}}</view>
+      <view class="drawer_content" wx:if="{{type !== 'addViews'}}">
+          <view class='grid' wx:for="{{modalDatas}}" wx:for-item="item" wx:key="index">
+              <image src="{{imgUrl}}{{item}}"></image>
+              <view class='grid-delete' bindtap='deleteImage' data-key="{{index}}"><image src='../../static/images/delete.svg'></image></view>
+          </view>
+           <view class='grid' bindtap='modalAddImage'>
+             <image src='../../static/images/add.svg'></image>
+          </view>
+       </view>
+      <view class="drawer_input" wx:else>
+         <view class='drawer_input-views'>景点名称:</view>
+         <view class='drawer_input-input'>
+           <input placeholder="请填写景点名称" bindinput="inputviews" auto-focus />
+         </view>
+      </view>
+    <view class='draw_screen_btn'>
+     <view class="btn_cancel" bindtap="cancal" data-statu="close">{{type === 'addViews'?'取消':'关闭'}}</view>
+     <view class="btn_ok" wx:if="{{type === 'addViews'}}" bindtap="update" data-statu="addViews">确定</view>
+     </view>
+   </view>
+    <view class='myCanvas'>
+      <canvas canvas-id='attendCanvasId' style="width: {{canWidth}}px;height: {{canHeight}}px;overflow:hidden"></canvas>
+    </view>
+</view>

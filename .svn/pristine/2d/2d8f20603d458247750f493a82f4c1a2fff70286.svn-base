@@ -1,0 +1,80 @@
+/* pages/onlineElection/main/main.js.wxss */
+
+.button {
+  background-color: #fff;
+  opacity: 0.6;
+  width: 40px;
+  padding: 5px;
+  height: 1em;
+  line-height: 100%;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 85%;
+  z-index: 101;
+}
+
+.mov {
+  height: 70vh;
+  width: 100%;
+  background-color: rgba(red, green, blue, 0.2);
+}
+
+/* flow 流程菜单 ↓ */
+
+.flow-menu{
+	transition: left 0.4s ease-in;
+	min-width: 50%;
+	height: 100%;
+	background-color: #2334a8;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	color: #fff;
+	box-sizing: border-box;
+	padding: 0.7rem;
+	font-size:1rem;
+}
+.flow-menu .row{
+	padding:0.5rem 0;
+}
+.flow-menu .flow-li{
+	display:flex;
+	align-items:center;
+}
+.flow-menu .flow-li-icon{
+	width:1rem;
+	height: 1rem;
+	display:inline-block;
+	margin-right:0.5rem;
+}
+.flow-menu .flow-li-text{
+	display:inline-block;
+}
+
+.flow-title {
+  font-size: 1.2rem;
+  line-height: 3.5rem;
+}
+
+.meeting-body {
+  transition: all 0.45s ease-in;
+  position: relative;
+  top: 0;
+  left: 50%;
+
+}
+.meeting-hide {
+  transition: all 0.4s ease-in;
+  position: relative;
+  top: 0;
+  left: 0%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* flow 流程菜单 ↑ */

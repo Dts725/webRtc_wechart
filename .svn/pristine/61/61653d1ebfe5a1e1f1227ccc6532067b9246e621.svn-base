@@ -1,0 +1,115 @@
+/* pages/myactive/sign.wxss */
+
+/** 公共样式 **/
+.scroll-box{
+  height: 100%;
+}
+.row {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 0.3rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.font-gray-s {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/** adl 表示active-detail**/
+
+.adl {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+/* header  */
+
+.adl .adl-header {
+  box-sizing: border-box;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom:0.5rem;
+}
+
+/* header的标题  */
+
+.adl .adl-header .adl-header-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* header中的灰色小字部分  */
+
+.adl .adl-header .adl-header-info {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* 内容区域  */
+
+.adl-detail {
+  margin-bottom: 5rem;
+}
+
+/* 中间大图  */
+
+.adl .adl-img {
+  width: 100%;
+}
+
+/* 中间活动介绍  */
+
+.adl-detail-con {
+  margin-bottom: 1rem;
+}
+
+/* 中间活动信息部分  */
+
+.adl .adl-info {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: inherit;
+  border: 1px solid #ddd;
+  border-radius: 0.3rem;
+}
+
+/* 活动信息的左边按钮  */
+
+.adl .adl-info-lf {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.adl .adl-info-lf image {
+  width: 80%;
+}
+
+/* 活动信息的右边  */
+
+.adl .adl-info-rt {
+  flex: 7;
+  box-sizing: border-box;
+  padding-left: 0.8rem;
+  border-left: 1px solid #ddd;
+}
+
+/*************** 底部区域 ****************/
+
+
+/* 底部签到按钮  */
+.btn-sign{
+  width:80%;
+  margin:2rem auto;
+}

@@ -1,0 +1,44 @@
+/* pages/welcome/welcome.wxss */
+page{
+  background-color: #a51e22;
+  height: 100%;
+  width: 100%;
+}
+/* page,
+.welcome_bg {
+	width: 100%;
+	height: 100%;
+} */
+
+.welcome_bg {
+  width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+/* 内容区域 */
+.welcome_box {
+	position: absolute;
+	width:100%;
+	top: 62%;
+}
+.welcome_box_title{
+	text-align:center;
+	font-size:1.5rem;
+	color:#fff;
+}
+.welcome_box_con{
+	text-align:center;
+	color:rgba(255,255,255,0.5);
+	font-size:0.9rem;
+}
+	
+/* 按钮 */
+.welcome_box_btn{
+	color:#fff;
+	background-color: transparent;
+	border-radius:2rem;
+	border:1px solid #fff;
+	width:50%;
+	margin-top:3rem;
+}

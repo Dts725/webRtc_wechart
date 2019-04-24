@@ -1,0 +1,17 @@
+<view  class='flex-between  h100'>
+    <view class='w50 flex-center h100'>
+   <live-player
+    id="playerLive"
+    src="{{src}}"
+    mode="live"
+    class='h100 fr'
+    autoplay=true
+    object-fit="fillCrop">
+
+    <cover-image class='coverImage' bindtap='_fullScreenFn' src="{{coverSrc}}"/>
+
+    <!-- <cover-image src="../../../static/full.png"/> -->
+    </live-player>
+    </view>
+    <view class='w50 flex-center h100'  style='background-color:skyBlue;'>用户视频</view>
+</view>

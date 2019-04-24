@@ -1,0 +1,32 @@
+/* pages/components/meeting-center-video/meeting-center-video.wxss */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fr {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.w50 {
+  width: 50%;
+
+}
+.h100 {
+  height: 100%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.coverImage {
+  position: absolute;
+  bottom: 0px;
+  right: 5px;
+  width: 80px;
+  height: 80px;
+}

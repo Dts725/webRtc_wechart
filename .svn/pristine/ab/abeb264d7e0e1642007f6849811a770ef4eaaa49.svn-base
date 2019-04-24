@@ -1,0 +1,20 @@
+/* pages/components/meeting-center-video/meeting-center-video.wxss */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.w50 {
+  width: 50%;
+
+}
+.h100 {
+  height: 100%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

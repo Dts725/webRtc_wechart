@@ -1,0 +1,7 @@
+<!-- pages/handlingGuideline/handlingGuidelineInfo.wxml -->
+<import src="../../utils/wxParse/wxParse.wxml" />
+<info_base_active infoData="{{infoDatas}}" bind:thumbEvent="thumbEvent" bind:collectEvent="collectEvent"></info_base_active>
+<!-- 内容 -->
+<view class="content">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+</view>

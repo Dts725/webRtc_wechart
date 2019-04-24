@@ -1,0 +1,39 @@
+/**app.wxss**/
+
+@import 'weui.wxss';
+@import "/utils/wxParse/wxParse.wxss";
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.flex-center-wrap {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.fz-12{
+  font-size: 12px;
+}
+.h-15vh{
+  height: 15vh;
+}
+.w100 {
+  width: 100%;
+}
+.h100 {
+  height: 100%;
+}

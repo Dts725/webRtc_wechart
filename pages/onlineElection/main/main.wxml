@@ -1,0 +1,546 @@
+<!-- pages/onlineElection/main/main.js.wxml -->
+<import src="../../../utils/wxParse/wxParse.wxml" />
+<view class='fz-12'>
+  <!-- <view class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"> -->
+<<<<<<< .mine
+  <view class="meeting-hide">
+    <view class='h-15vh'>
+      <top></top>
+    </view>
+    <view class='h-15vh'>
+      <center class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"></center>
+    </view>
+    <movable-area class="mov">
+      <view class="flex-center" style='height:70vh;'>
+        <!-- 统计页面 -->
+      </view>
+      <movable-view bindtap="showFlows" class='button' x="{{0}}" y="{{0}}" direction="all">
+        <!-- 菜单 -->
+        <image src="../../../static/meeting/menuIcon.png"></image>
+      </movable-view>
+      <!-- ------------------ 内容展示区域 ↓ ------------------ -->
+      <view class="mt-con" style="{{flow.tipName?'background-color:rgba(0,0,0,0.5);':''}}">
+        当前进行的流程：{{flow.curFlow}}
+        <text class="mt-con-tip">{{flow.tipName}}</text>
+        <!-- 签到 -->
+        <view class="mt-con-sign" data-type="">
+          <button bindtap="sign" wx:if="{{flow.curFlow==1 && flow.curFlowStatus==1}}">马上签到</button>
+        </view>
+        <!-- 遮罩层 被上方的元素挤下去了，top等参数无效 -->
+        <!-- <view class="mt-con-mask" wx:if="{{flow.tipName}}"></view> -->
+        <!-- 签到结果 -->
+        <view class="mt-con-sign-result" wx:if="{{flow.curFlowStatus==2}}">
+          <view class="mt-con-sign-result-title">签到结果统计</view>
+          <div class="mt-con-sign-result-con">
+            <div class="mt-con-sign-result-wraper">
+              <p class="blue">
+                <strong>{{flow.sign.attend}}</strong>
+                人
+              </p>
+              <span>实到</span>
+              <image src="../../../static/meeting/pie01.png"></image>
+            </div>
+            <div class="mt-con-sign-result-wraper">
+              <p class="red">
+                <strong>{{flow.sign.required}}</strong>
+                人
+              </p>
+              <span>应到</span>
+              <image src="../../../static/meeting/pie02.png"></image>
+            </div>
+            <div class="mt-con-sign-result-wraper">
+              <p class="green">
+                <strong>{{flow.sign.ratio}}%</strong>
+                人
+              </p>
+              <span>占比</span>
+              <image src="../../../static/meeting/pie03.png"></image>
+            </div>
+          </div>
+          <!-- 顶部tab切换 备用 -->
+          <!-- <view class="weui-tab">
+||||||| .r3190
+	<view class="meeting-hide">
+
+    
+  <view class='h-15vh'>
+    <top></top>
+  </view>
+
+  <view class='h-15vh'>
+    <center class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"></center>
+  </view>
+ <movable-area  class="mov">
+  <view bindtap='test' class="flex-center" style='height:70vh;'>
+    <!-- 统计页面 -->
+  </view>
+  
+  
+
+    <movable-view bindtap="showFlows" class='button'
+      x="{{0}}" y="{{0}}" direction="all" > <!-- 菜单 -->
+	  <image src="../../../static/meeting/menuIcon.png"></image>
+    </movable-view>
+	<!-------------------- 内容展示区域 ↓ -------------------->
+	<view class="mt-con" style="{{flow.tipName?'background-color:rgba(0,0,0,0.5);':''}}">
+		当前进行的流程：{{flow.curFlow}}
+		<text class="mt-con-tip">{{flow.tipName}}</text>
+		<!-- 签到 -->
+		<view class="mt-con-sign" data-type="">
+			<button bindtap="sign" wx:if="{{flow.curFlow==1 && flow.curFlowStatus==1}}">马上签到</button>
+		</view>
+		<!-- 遮罩层 被上方的元素挤下去了，top等参数无效-->
+		<!-- <view class="mt-con-mask" wx:if="{{flow.tipName}}"></view> -->
+		
+		<!-- 签到结果 -->
+		<view class="mt-con-sign-result" wx:if="{{flow.curFlowStatus==2}}">
+			<view class="mt-con-sign-result-title">签到结果统计</view>
+			<div class="mt-con-sign-result-con">
+				<div class="mt-con-sign-result-wraper">
+					<p class="blue"><strong>{{flow.sign.attend}}</strong>人</p>
+					<span>实到</span>
+					<image src="../../../static/meeting/pie01.png"></image>
+				</div>
+				<div class="mt-con-sign-result-wraper">
+					<p class="red"><strong>{{flow.sign.required}}</strong>人</p>
+					<span>应到</span>
+					<image src="../../../static/meeting/pie02.png"></image>
+				</div>
+				<div class="mt-con-sign-result-wraper">
+					<p class="green"><strong>{{flow.sign.ratio}}%</strong>人</p>
+					<span>占比</span>
+					<image src="../../../static/meeting/pie03.png"></image>
+				</div>
+			</div>
+			
+			
+			
+			
+			<!-- 顶部tab切换 备用 -->
+			<!-- <view class="weui-tab">
+=======
+	<view class="meeting-hide">
+
+    
+  <view class='h-15vh'>
+    <top></top>
+	当前进行的流程：{{flow.curFlow}}
+  </view>
+
+  <view class='h-15vh'>
+    <center class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"></center>
+  </view>
+ <movable-area  class="mov">
+  <view bindtap='test' class="flex-center" style='height:70vh;'>
+    <!-- 统计页面 -->
+  </view>
+  
+  
+
+    <movable-view bindtap="showFlows" class='button'
+      x="{{0}}" y="{{0}}" direction="all" > <!-- 菜单 -->
+	  <image src="../../../static/meeting/menuIcon.png"></image>
+    </movable-view>
+	<!-------------------- 内容展示区域 ↓ -------------------->
+	<view class="mt-con" style="{{flow.curFlow==1?'background-color:rgba(0,0,0,0.5);':''}}">
+		<text class="mt-con-tip" wx:if="{{flow.curFlow==1}}">{{flow.tipName}}</text>
+		<!-- 签到 -->
+		<view class="mt-con-sign" wx:if="{{flow.curFlow==1}}">
+			<button bindtap="sign" wx:if="{{flow.curFlow==1 && flow.curFlowStatus==1}}">马上签到</button>
+		</view>
+		<!-- 遮罩层 被上方的元素挤下去了，top等参数无效-->
+		<!-- <view class="mt-con-mask" wx:if="{{flow.tipName}}"></view> -->
+		
+		<!-- 签到结果 -->
+		<view class="mt-con-sign-result" wx:if="{{flow.curFlowStatus==2}}">
+			<view class="mt-con-sign-result-title">签到结果统计</view>
+			<div class="mt-con-sign-result-con">
+				<div class="mt-con-sign-result-wraper">
+					<p class="blue"><strong>{{flow.sign.attend}}</strong>人</p>
+					<span>实到</span>
+					<image src="../../../static/meeting/pie01.png"></image>
+				</div>
+				<div class="mt-con-sign-result-wraper">
+					<p class="red"><strong>{{flow.sign.required}}</strong>人</p>
+					<span>应到</span>
+					<image src="../../../static/meeting/pie02.png"></image>
+				</div>
+				<div class="mt-con-sign-result-wraper">
+					<p class="green"><strong>{{flow.sign.ratio}}%</strong>人</p>
+					<span>占比</span>
+					<image src="../../../static/meeting/pie03.png"></image>
+				</div>
+			</div>
+			
+			
+			
+			
+			<!-- 顶部tab切换 备用 -->
+			<!-- <view class="weui-tab">
+>>>>>>> .r3191
+			  <view class="weui-navbar">
+			    <block wx:for="{{flow.sign.tabs}}" wx:key="*this">
+			      <view id="{{index}}" class="weui-navbar__item {{flow.sign.activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+			        <view class="weui-navbar__title">{{item}}</view>
+			      </view>
+			    </block>
+			    <view class="weui-navbar__slider" style="left: {{flow.sign.sliderLeft}}px; transform: translateX({{flow.sign.sliderOffset}}px); -webkit-transform: translateX({{flow.sign.sliderOffset}}px);"></view>
+			  </view>
+			  <view class="weui-tab__panel">
+			    <view class="weui-tab__content" >
+			      <!-- 党员签到 -->
+          <!-- <view class='mt-con-sign-result-1' wx:if="{{flow.sign.activeIndex==0}}">
+			        党员
+			      </view> -->
+          <!-- 群众签到 -->
+          <!-- <view class='mt-con-sign-result-2' wx:if="{{flow.sign.activeIndex==1}}">
+				    群众
+				  </view>
+			    </view>
+			  </view>
+			</view> -->
+        </view>
+        <!-- 2-7 项的内容 -->
+        <!-- <view class="mt-con-content" wx:if="{{flow.curFlow>1&&flow.curFlow<8}}">
+			<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+		</view> -->
+        <!-- 2-7 项的内容 -->
+        <!-- 第8项内容 start-->
+        <!-- <view class='flex-center-wrap  w95'   wx:if="{{flow.curFlow>1&&flow.curFlow === 4}}"> -->
+
+<<<<<<< .mine
+        <!-- 此处生产环境重新配置 wx:if -->
+        <view class='flex-center-wrap  w100'  wx:if="{{flow.curFlow>1&&flow.curFlow === 8}}">
+          <view class="fw-700 w95 t-left fz-2em">投票计票</view>
+          <view class="co-cc w95 t-left m-bottom">选举委员7名, 含书记1名, 副书记1名(按姓氏笔画排序)</view>
+          <view class='flex-between w95 t-table'>
+            <view class="{{focursStatus == 0 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}" data-id='0' bindtap='focursFn'>书记</view>
+            <view class="{{focursStatus ==1 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}" data-id='1' bindtap='focursFn'>副书记</view>
+            <view class="{{focursStatus ==2 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}" data-id='2' bindtap='focursFn'>委员</view>
+          </view>
+          <!-- 一条数据start -->
+          <view wx:for="{{nnounceResults}}" wx:for-index="index" wx:for-item="item" wx:key="index" class='flex-between w95 t-result'>
+            <image class='t-imags' src='{{item.src}}'></image>
+            <view class='w80'>
+              <view class='flex-between process'>
+                <view>
+                  <span class='fw-700'>{{item.name}}</span>
+                </view>
+                <view>
+                  <span class='fz-15rem fw-700 red'>{{item.process}}</span>
+                  <span>/票</span>
+                </view>
+              </view>
+
+              <view>
+                <progress percent="{{item.process}}" activeColor="#E94649" border-radius="100"   active-mode='forwards'/>
+              </view>
+            </view>
+          </view>
+          <!-- 一条数据end -->
+          <!-- 另选书记计票 start -->
+          <view wx-if="{{otherResult.length !== 0}}" class='flex-center-wrap  w95'>
+            <view class="fw-700 t-other co-48F fz-15em">另选书记计票</view>
+            <!-- 一条数据start -->
+            <view wx:for="{{otherResult}}" wx:for-index="index" wx:for-item="item" wx:key="index" class='flex-between w95 t-result'>
+              <image class='t-imags' src='{{item.src}}'></image>
+              <view class='w80'>
+                <view class='flex-between process'>
+                  <view>
+                    <span class='fw-700'>{{item.name}}</span>
+                  </view>
+                  <view>
+                    <span class='fz-15rem fw-700 red'>{{item.process}}</span>
+                    <span>/票</span>
+                  </view>
+                </view>
+                <view>
+                  <progress percent="{{item.process}}" activeColor="#E94649" border-radius="100"  active-mode='forwards'/>
+                </view>
+              </view>
+            </view>
+            <!-- 一条数据end -->
+          </view>
+          <!-- 另选书记计票 end -->
+        </view>
+        <!-- 第8项内容 end-->
+
+
+        
+      <!-- 第9项 start -->
+
+      <!-- 生产环境重新配置 wx:if -->
+            <view class='flex-center-wrap  w100'   wx:if="{{flow.curFlow>1&&flow.curFlow === 9}}">
+          <view class="fw-700 w95 t-left fz-2em">公布结果</view>
+          <view class='flex-between w95 t-table'>
+            <view class="{{focursStatus == 0 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}" data-id='0' bindtap='scortFn'>书记</view>
+            <view class="{{focursStatus ==1 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}" data-id='1' bindtap='scortFn'>副书记</view>
+            <view class="{{focursStatus ==2 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}" data-id='2' bindtap='scortFn'>委员</view>
+          </view>
+          <!-- 一条数据start -->
+          <view wx:for="{{coutnResult}}" wx:for-index="index" wx:for-item="item" wx:key="index" class='flex-between w95 t-result'>
+
+          <view wx:if="{{index === 0}}" class='bg-E54 t-scrot flex-center'>{{index+1}}</view>
+          <view wx:elif="{{index === 1}}" class='bg-F82 t-scrot flex-center'>{{index+1}}</view>
+          <view wx:else="{{index >1}}" class='bg-cc t-scrot flex-center'>{{index+1}}</view>
+            <image class='t-imags' src='{{item.src}}'></image>
+            <view class='w60'>
+              <view class='flex-between process'>
+                <view>
+                  <span class='fw-700'>{{item.name}}</span>
+                </view>
+                <view>
+                  <span class='fz-15rem fw-700 red'>{{item.process}}</span>
+                  <span>/票</span>
+                </view>
+              </view>
+
+              <view>
+                <progress percent="{{item.process}}" activeColor="#E94649" border-radius="100"   active-mode='forwards'/>
+              </view>
+            </view>
+          </view>
+         
+      </view>
+
+      <!-- 第9项 end -->
+      
+      </view>
+
+
+
+
+      <!-- ------------------ 内容展示区域 ↑ ------------------ -->
+    </movable-area>
+  </view>
+  <!-- ------------------ 流程菜单 ↓ ------------------ -->
+  <!-- <view  class="{{flow.show ? 'flow-show' : 'flow-hide'}}">
+		<text class="flow-title">大会议程</text>
+		<view class="row" wx:for="{{flow.list}}" wx:key='index'>
+			<view class="flow-li">
+				<img src="{{item.src}}" alt=""/>
+				<text>{{item.name}}</text>
+			</view>
+			<view class="flow-li-status">
+				<text>{{item.status}}</text>
+			</view>
+||||||| .r3190
+		<!-- 2-7 项的内容 -->
+		<view class="mt-con-content" wx:if="{{flow.curFlow>1&&flow.curFlow<8}}">
+			<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+=======
+		<!------------------------ 3和5-7 项的内容 ------------------------>
+		<view class="mt-con-content" wx:if="{{flow.curFlow>4&&flow.curFlow<8 || flow.curFlow==3}}">
+			<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+>>>>>>> .r3191
+		</view>
+<<<<<<< .mine
+||||||| .r3190
+		
+		
+	</view>
+	<!-------------------- 内容展示区域 ↑ -------------------->
+  </movable-area>
+  </view>
+	
+	
+	<!-------------------- 流程菜单 ↓ -------------------->
+	<!-- <view  class="{{flow.show ? 'flow-show' : 'flow-hide'}}">
+		<text class="flow-title">大会议程</text>
+		<view class="row" wx:for="{{flow.list}}" wx:key='index'>
+			<view class="flow-li">
+				<img src="{{item.src}}" alt=""/>
+				<text>{{item.name}}</text>
+			</view>
+			<view class="flow-li-status">
+				<text>{{item.status}}</text>
+			</view>
+		</view>
+=======
+		<!------------------------ 4 候选人介绍 ------------------------>
+		<view class="mt-flow-con-4" wx:if="{{flow.curFlow==4}}">
+			<text class="mt-flow-con-tip">{{flow.tipName}}</text>
+			<!-- 书记 -->
+			<view class="mt-flow-wraper">
+				<view class="mt-flow-wraper-left">
+					<text class="mt-flow-name">{{flow.houxuan.secretary.name}}</text>
+					<image src="../../../static/meeting/{{flow.houxuan.secretary.sex==1?'gender01':'gender02'}}.png"></image>
+					<!-- <text>{{flow.houxuan.secretary.sex==1?'男':'女'}}</text> -->
+					<text class="mt-flow-age">{{flow.houxuan.secretary.age}}岁</text>
+				</view>
+				<view class="mt-flow-wraper-right">
+					候选职位：<text>书记</text>
+				</view>
+			</view>
+			<!-- 副书记 -->
+			<view class="mt-flow-wraper">
+				<view class="mt-flow-wraper-left">
+					<text class="mt-flow-name">{{flow.houxuan.deputy_secretary.name}}</text>
+					<image src="../../../static/meeting/{{flow.houxuan.deputy_secretary.sex==1?'gender01':'gender02'}}.png"></image>
+					<!-- <text>{{flow.houxuan.deputy_secretary.sex==1?'男':'女'}}</text> -->
+					<text class="mt-flow-age">{{flow.houxuan.deputy_secretary.age}}岁</text>
+				</view>
+				<view class="mt-flow-wraper-right">
+					候选职位：<text>副书记</text>
+				</view>
+			</view>
+			<!-- 委员 -->
+			<view class="mt-flow-wraper" wx:for="{{flow.houxuan.commissioner}}">
+				<view class="mt-flow-wraper-left">
+					<text class="mt-flow-name">{{item.name}}</text>
+					<image src="../../../static/meeting/{{item.sex==1?'gender01':'gender02'}}.png"></image>
+					<!-- <text>{{item.sex==1?'男':'女'}}</text> -->
+					<text class="mt-flow-age">{{item.age}}岁</text>
+				</view>
+				<view class="mt-flow-wraper-right">
+					候选职位：<text>委员</text>
+				</view>
+			</view>
+		</view>
+		<!------------------------ 8 投票计票 ------------------------>
+		<view class="mt-flow-con-8" wx:if="{{flow.curFlow==8}}">
+			<!-- <text class="mt-flow-con-tip">{{flow.tipName}}</text> -->
+			<text class="mt-flow-con-tip">投票</text>
+			<text class="mt-flow-con-tip-vice">选举的委员包含：书记1名，副书记1名。</text>
+			<view class="mt-flow-con-8-wraper">
+			<!-- 书记 -->
+			<view class="mt-flow-wraper">
+				<view class="mt-flow-wraper-left">
+					<text class="mt-flow-wraper-identity bg-red">书记</text>
+					<text class="mt-flow-name">{{flow.houxuan.secretary.name}}</text>
+					<image src="../../../static/meeting/{{flow.houxuan.secretary.sex==1?'gender01':'gender02'}}.png"></image>
+					<!-- <text>{{flow.houxuan.secretary.sex==1?'男':'女'}}</text> -->
+					<text class="mt-flow-age">{{flow.houxuan.secretary.age}}岁</text>
+				</view>
+				<view class="mt-flow-wraper-right">
+					<div class="mt-flow-btn-border">我要投票</div>
+					<div >弃权</div>
+				</view>
+			</view>
+			<!-- 副书记 -->
+			<view class="mt-flow-wraper">
+				<view class="mt-flow-wraper-left">
+					<text class="mt-flow-wraper-identity bg-blue">副书记</text>
+					<text class="mt-flow-name">{{flow.houxuan.deputy_secretary.name}}</text>
+					<image src="../../../static/meeting/{{flow.houxuan.deputy_secretary.sex==1?'gender01':'gender02'}}.png"></image>
+					<!-- <text>{{flow.houxuan.deputy_secretary.sex==1?'男':'女'}}</text> -->
+					<text class="mt-flow-age">{{flow.houxuan.deputy_secretary.age}}岁</text>
+				</view>
+				<view class="mt-flow-wraper-right">
+					<div class="mt-flow-btn-border">我要投票</div>
+					<div >弃权</div>
+				</view>
+			</view>
+			<!-- 委员 -->
+			<view class="mt-flow-wraper" wx:for="{{flow.houxuan.commissioner}}">
+				<view class="mt-flow-wraper-left">
+					<text class="mt-flow-wraper-identity bg-green">委员</text>
+					<text class="mt-flow-name">{{item.name}}</text>
+					<image src="../../../static/meeting/{{item.sex==1?'gender01':'gender02'}}.png"></image>
+					<!-- <text>{{item.sex==1?'男':'女'}}</text> -->
+					<text class="mt-flow-age">{{item.age}}岁</text>
+				</view>
+				<view class="mt-flow-wraper-right">
+					<div class="mt-flow-btn-border">我要投票</div>
+					<div >弃权</div>
+				</view>
+			</view>
+			</view>
+			
+			<!-- 另选他人 -->
+			<view class="mt-flow-select-other-wraper">
+				<view class="mt-flow-select-other-wraper-title">另选他人</view>
+				<view class="mt-flow-select-other-row">
+					<view class="section">
+					  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+						<view class="picker">
+						  <text>书记</text>：{{array[index]}}
+						</view>
+					  </picker>
+					</view>
+				</view>
+				
+				<view class="mt-flow-con-8-bottom">
+					<button>我要投票</button>
+					<button>取消</button>
+				</view>
+			</view>
+		</view>
+		
+	</view>
+	<!-------------------- 内容展示区域 ↑ -------------------->
+  </movable-area>
+  </view>
+	
+	
+	<!-------------------- 流程菜单 ↓ -------------------->
+	<!-- <view  class="{{flow.show ? 'flow-show' : 'flow-hide'}}">
+		<text class="flow-title">大会议程</text>
+		<view class="row" wx:for="{{flow.list}}" wx:key='index'>
+			<view class="flow-li">
+				<img src="{{item.src}}" alt=""/>
+				<text>{{item.name}}</text>
+			</view>
+			<view class="flow-li-status">
+				<text>{{item.status}}</text>
+			</view>
+		</view>
+>>>>>>> .r3191
+	</view> -->
+<<<<<<< .mine
+  <!-- 原生组件版 -->
+  <cover-view bindtap="showFlows" class="flow-menu" style="{{flow.showMenu?'left:0':'left:-50%'}}">
+    <cover-view class="flow-title">大会议程</cover-view>
+    <cover-view class="row" wx:for="{{flow.list}}" wx:key='index'>
+      <cover-view class="flow-li">
+        <cover-image class="flow-li-icon" src="{{item.src}}"></cover-image>
+        <cover-view class="flow-li-text">{{item.name}}</cover-view>
+      </cover-view>
+      <cover-view class="flow-li-status">
+        <cover-view>{{item.status}}</cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+  <!-- ------------------ 流程菜单 ↑ ------------------ -->
+||||||| .r3190
+	
+	<!-- 原生组件版 -->
+	<cover-view bindtap="showFlows" class="flow-menu" style="{{flow.showMenu?'left:0':'left:-50%'}}">
+		<cover-view class="flow-title">大会议程</cover-view>
+		<cover-view class="row" wx:for="{{flow.list}}" wx:key='index'>
+			<cover-view class="flow-li">
+				<cover-image class="flow-li-icon" src="{{item.src}}"></cover-image>
+				<cover-view class="flow-li-text">{{item.name}}</cover-view>
+			</cover-view>
+			<cover-view class="flow-li-status">
+				<cover-view>{{item.status}}</cover-view>
+			</cover-view>
+		</cover-view>
+	</cover-view>
+	<!-------------------- 流程菜单 ↑ -------------------->
+	
+
+  
+
+=======
+	
+	<!-- 原生组件版 -->
+	<cover-view bindtap="showFlows" class="flow-menu" style="{{flow.showMenu?'left:0':'left:-50%'}}">
+		<cover-view class="flow-title">大会议程</cover-view>
+		<cover-view class="row" wx:for="{{flow.keys}}" wx:key='index'>
+			<cover-view class="flow-li">
+				<cover-image class="flow-li-icon" src="{{item.src}}"></cover-image>
+				<cover-view class="flow-li-text">{{item.name}}</cover-view>
+			</cover-view>
+			<cover-view class="flow-li-status">
+				<cover-view>{{item.status}}</cover-view>
+			</cover-view>
+		</cover-view>
+	</cover-view>
+	<!-------------------- 流程菜单 ↑ -------------------->
+	
+
+  
+
+>>>>>>> .r3191
+</view>

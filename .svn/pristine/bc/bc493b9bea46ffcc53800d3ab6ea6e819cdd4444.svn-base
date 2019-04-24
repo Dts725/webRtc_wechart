@@ -1,0 +1,57 @@
+/* pages/components/info_base_active/info_base_active.wxss */
+
+/*整体*/
+
+.overall-page {
+  
+}
+
+.overall-title {
+    border-bottom: 1px #f2f2f2 dashed;
+    height: 100%;
+}
+
+.overall-title-name {
+    text-align: center;
+    font-weight: 800px;
+    /* height:50px;
+    line-height:50px; */
+    display: block;
+    margin: 20px 0;
+}
+
+.overall-title-content {
+    font-size: 15px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-around;
+    color: #666;
+}
+
+.over-title-author {
+}
+
+.over-title-time {}
+
+.overall-content {
+    text-indent: 2rem;
+    text-align: left;
+    padding: 0 5px;
+    padding-bottom: 70px;
+}
+
+.overall-foot {
+    position: fixed;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    height: 50px;
+    padding: 10px 0;
+}
+
+.overall-foot-thumb {}
+
+.overall-foot-collect {}

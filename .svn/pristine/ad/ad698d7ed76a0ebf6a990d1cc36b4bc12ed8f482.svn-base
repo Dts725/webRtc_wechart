@@ -1,0 +1,67 @@
+/* pages/mypoints/mypoints.wxss */
+page{
+  background-color: #f7f7f7;
+}
+.headerPic {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  min-height: 100px;
+  /* padding-bottom: 0.7rem; */
+}
+.userinfo {
+  width: 750rpx;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: cneter;
+  min-height: 108px;
+}
+.userinfo-avatar {
+  display: block;
+  margin-top: 25rpx;
+  margin-bottom: 15rpx;
+}
+.userinfo-avatar text{
+  color: #333;
+  font-size: 24rpx;
+  text-align: center;
+}
+.headerPic .userinfo-nickname {
+  font-size: 50rpx;
+  color: #2f92f8;
+  padding-bottom: 11rpx;
+}
+.detail{
+  font-size: 24rpx;
+  color: #999;
+  padding: 10px 15px;
+}
+.weui-cell_primary{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.front{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.apr-label{
+  color: #333;
+  font-size: 35rpx;
+  font-weight: 600;
+}
+.nowdata{
+  color: #999;
+  font-size: 30rpx;
+
+}
+.addpoints{
+  color: #a41e1f;
+  font-size: 38rpx;
+  font-weight: 600;
+}

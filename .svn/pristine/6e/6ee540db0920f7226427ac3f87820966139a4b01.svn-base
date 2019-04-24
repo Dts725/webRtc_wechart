@@ -1,0 +1,33 @@
+<!-- pages/components/card/card.wxml -->
+<view class="card" wx:if="{{cardData.title&& cardData.create_time}}">
+  <image class="c-img c-img-disable-{{cardData.status}}" wx:if="{{cardData.image}}" src='{{cardData.image}}' mode="scaleToFill" lazy-load="true"></image>
+  <view class="c-panel">
+    <view class="c-panel-title">{{cardData.title}}</view>
+    <view class="c-panel-body">
+      <view class="c-panel-row" wx:if="{{cardData.time}}">
+        <text class="c-panel-strong">活动时间：</text>
+        <text class="c-panel-rt-con">{{cardData.time}}</text>
+      </view>
+      <view class="c-panel-row" wx:if="{{cardData.adress}}">
+        <text class="c-panel-strong">活动地点：</text>
+        <text class="c-panel-rt-con">{{cardData.adress}}</text>
+      </view>
+      <view class="c-panel-row" wx:if="{{cardData.unit}}">
+        <text class="c-panel-strong">所属社团：</text>
+        <text class="c-panel-rt-con">{{cardData.unit}}</text>
+      </view>
+    </view>
+    <view class="c-panel-footer">
+      <button class="c-btn c-detail" catchtap="_detailEvent">详情</button>
+      <!-- 状态按钮 -->
+      <button class="c-btn c-sign c-img-disable-{{cardData.status}} c-disable-sign{{cardData.status}}" type="primary" disabled='{{cardData.is_show!==1 || cardData.is_sign!==0 && cardData.is_sign!==1}}' catchtap="_signEvent" wx:if="{{cardData.status!=-10}}">
+        {{cardData.is_show == 3?'已结束': (cardData.is_sign==0?'立刻报名':(cardData.is_sign==1?'取消报名':'名额已满'))}}
+      </button>
+      <!-- 自定义按钮 -->
+      <button class="c-btn c-custom {{customClass}}" wx:if="{{customName}}" catchtap="_customEvent">
+        {{customName}}
+      </button>
+      <image class="c-qcode" src="{{imgsrc}}" wx:if="{{imgsrc}}" bindtap="_qrcodeEvent"></image>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,11 @@
+<!--card_base_active.wxml-->
+<view class="{{cardData.image? 'card' : 'card1'}}"  bindtap="_turnToInfo">
+    <image class="thumbnails" src='{{cardData.image}}' lazy-load="true" wx:if="{{cardData.image}}" mode="aspectFill"/>
+    <view class="c-right">
+        <view class="c-Overall-title">
+            <text class="c-partial-title">{{cardData.title}}</text>
+            <!-- <text class="c-partial-time">{{cardData.time}}</text> -->
+        </view>
+        <view class="c-content">{{cardData.content}}</view>
+    </view>
+</view>

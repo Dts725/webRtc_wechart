@@ -1,0 +1,72 @@
+/* handlingGuideline.wxss */
+/* 重写选项卡样式 */
+.weui-navbar__title{
+  font-weight:800;
+  font-size:16px;
+}
+.weui-bar__item_on .weui-navbar__title{
+  color:#a51e22;
+}
+.weui-navbar__slider{
+  background-color:#a51e22;
+  width: 64px
+}
+
+/* 重写复选框样式 */
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked{
+   border: 1px solid #a51e22;
+   background: #a51e22;
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
+   width: 40rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   height: 40rpx;/* 选中后对勾大小，不要超过背景的尺寸 */
+   line-height: 40rpx;
+   text-align: center;
+   font-size:30rpx; /* 对勾大小 30rpx */
+   color:#fff; /* 对勾颜色 白色 */
+   background: transparent;
+   transform:translate(-50%, -50%) scale(1);
+   -webkit-transform:translate(-50%, -50%) scale(1);
+}
+page{
+    height:100%;
+    background-color: #f7f7f7;
+}
+.weui-navbar{
+  background-color: #fff;
+}
+.overall-page{
+    background-color:#f2f2f2;
+    height:100%;
+}
+.weui-tab__panel{
+  margin-top: 60px;
+  padding-top: 0;
+  background-color: #fff;
+}
+.overall-title{
+    padding:5px 10px;
+    height:45px;
+    line-height:44px;
+
+    /*清除浮动*/
+    display: block;
+    clear: both;
+    content: "";
+}
+.overall-name{
+    text-overflow: ellipsis; /*超出部分省略号表示*/
+    overflow: hidden; /*超出部分隐藏*/
+    white-space: nowrap; /*不折行*/
+    width:65%;
+    float:left;
+    border-bottom:1px solid #e2e2e2;
+}
+.overall-time{
+    width:35%;
+    float:right;
+    text-align:right;
+    border-bottom:1px solid #e2e2e2;
+}

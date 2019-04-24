@@ -1,0 +1,4 @@
+<view  class='flex-between  h100'>
+    <view class='w50 flex-center h100' style='background-color:pink;'>会场视频</view>
+    <view class='w50 flex-center h100'  style='background-color:skyBlue;'>用户视频</view>
+</view>

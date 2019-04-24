@@ -1,0 +1,312 @@
+/* partyGroupService.wxss */
+
+/* 重写选项卡样式 */
+
+.weui-navbar__title {
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.weui-bar__item_on .weui-navbar__title {
+  color: #a51e22;
+}
+
+.weui-navbar__slider {
+  background-color: #a51e22;
+}
+
+/* 重写复选框样式 */
+
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border: 1px solid #a51e22;
+  background: #a51e22;
+}
+
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 30rpx; /* 对勾大小 30rpx */
+  color: #fff; /* 对勾颜色 白色 */
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+/* 场地预约 */
+
+page, .apt {
+  height: 100%;
+}
+
+.apt {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #eee;
+}
+
+.apt-body {
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+/* 滚动容器  */
+
+.weui-tab__content, .apt-history, .scroll-box {
+  height: 100%;
+  background-color: #f2f2f2;
+}
+
+/* 行容器 */
+
+.apt-row {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+/* 左侧标题 */
+
+.apt-title {
+  font-weight: bold;
+  display: inline-block;
+  width: 35%;
+  /* font-size:15px; */
+}
+
+.apt-title-info {
+  color: #1aad19;
+}
+
+/* 右侧内容 */
+
+.apt-con {
+  width: 64%;
+  display: inline-block;
+}
+
+/* 预约场地和日期 */
+
+.picker {
+  width: 100%;
+}
+
+/* 预约场地和日期的右侧图标 */
+
+.apt-icon {
+  float: right;
+  margin-top: 0.5rem;
+  width: 1rem;
+  height: 0.7rem;
+}
+
+/* 预约日期  */
+
+.apt-row-no {
+  display: block;
+  /* padding-bottom: 0; */
+}
+
+/* 预约时间  */
+
+.apt-chk-date {
+  width: 90%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.apt-chk-date-li {
+  width: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+/* 预约时间-时间 */
+
+.apt-chk-date-li-icon {
+  position: relative;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  background-color: #fcfff4;
+  border-radius: 10px;
+}
+
+.apt-chk-date-li-icon-checked {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  background-color: #1aad19;
+  border-radius: 10px;
+}
+
+/* 底部按钮  */
+
+.apt-body-btn {
+  background-color: transparent;
+}
+
+.apt-btn {
+  margin: 0 12px 10px 12px;
+  background-color: #2f92f8;
+  color: #fff;
+}
+
+.apt-con-phone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 验证码按钮左侧的input  */
+
+.apt-con-left {
+  /* width:7.8rem; */
+  width: 59%;
+}
+
+/* 验证码按钮  */
+
+.apt-code {
+  margin: 0;
+  text-align: center;
+  color: #2f92f8;
+  border: 1px solid #2f92f8;
+  line-height: 1.5rem;
+  display: inline-block;
+  background-color: #fff;
+  width: 40%;
+}
+
+/*  顶部tab切换样式  */
+
+.page__bd {
+  padding-bottom: 0;
+}
+
+.weui-navbar {
+  background-color: #fff;
+}
+
+.weui-tab__content {
+  padding-top: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* 颜色 */
+
+.weui-cell {
+  padding: 0;
+}
+
+.tips {
+  height: 290rpx;
+  width: 90%;
+  background: linear-gradient(to right, #d8531a, #dd3d3d);
+  margin: auto;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.font {
+  color: #fff;
+  height: 115rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.font1{
+  width: 90%;
+  line-height: 110rpx;
+  border-bottom: 2px solid #eca297;
+  box-sizing: border-box;
+  font-size: 40rpx;
+}
+
+.tips1{
+  height: 173rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.time{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.time1{
+  color: #fff;
+  font-size: 35rpx;
+  width: 90%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.phone{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.phone1{
+  color: #fff;
+  font-size: 35rpx;
+  width: 90%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.phone2{
+  flex: 1
+}
+.phone3{
+  text-align: right
+}
+.bj{
+  height: 33rpx;
+  width: 33rpx;
+  margin-right: 10rpx;
+}
+.show{
+  background: #fff;
+  width: 100%;
+  /* margin-bottom: 10rpx; */
+}
+.showfont{
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 800;
+  margin-top: 32rpx;
+}
+.photo{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 35rpx;
+}
+.photo1{
+  margin-bottom: 20rpx;
+}
+.pht{
+  width: 335rpx;
+  height: 252rpx;
+  border-radius: 20rpx;
+}

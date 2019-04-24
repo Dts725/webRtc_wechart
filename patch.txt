@@ -1,0 +1,74 @@
+江川路智慧党建小程序(新增Add 编辑Edit 重构Refactoring)
+
+2018/8/6 新建项目 
+	E+新增页面 app.json
+	A+基层活动 pages/baselineActivity
+	A+党群服务 pages/partyGroupService
+	A+视频直播 pages/liveVideo
+	A+办事指南 pages/handlingGuideline
+	A+个人中心 pages/personalCenter
+	A+基层活动 列表组件 components/card_base_active	
+
+2018/8/7
+	E+党建活动和在线学习页面样式 pages/baselineActivity
+	A+活动报名组件 components/card_party_serve	
+	E+活动报名页面样式 pages/partyGroupService
+
+2018/8/8
+	E+视频直播页面样式 pages/liveVideo
+	A+视频直播列表组件 components/card_live_video
+
+2018/8/9
+	E+视频直播页面功能(标签卡切换数据) pages/liveVideo
+	A+办事指南页面样式 pages/handlingGuideline
+	A+个人中心页面样式 pages/personalCenter
+	E+党群服务(场地预约)页面样式 pages/partyGroupService
+
+2018/8/10
+	A+基层活动详情页 baselineActivityInfo
+	A+基层活动详情页组件及样式 components/info_base_active
+	A+党群服务详情页及样式 pages/partyGroupService/partyGroupServiceInfo
+
+2018/8/13
+	E+办事指南详情页 handlingGuidelineInfo	
+	E+基层活动详情页组件样式 components/info_base_active
+	A+个人中心我的认证、我的预约、我的活动页面（from HNsmallAppNew）
+		repairInfo、myappointment、myactive
+
+2018/8/14
+	E+基层活动数据 pages/baselineActivity //轮播图的选取有业务逻辑问题
+
+2018/8/15
+	E+办事指南数据 	pages/handlingGuideline 
+				   pages/handlingGuidelineInfo
+	E+注册页面及数据	pages/register		 
+	E+我的信息页面及数据	 pages/repairInfo 
+	E+党群服务-场地预约 增加页面功能（未完）
+
+2018/8/16
+	R+场地预约页面数据及逻辑 pages/partyGroupService
+
+2018/8/22
+	E+视频直播页面数据及逻辑 pages/liveVideo 
+
+2018/8/23
+	E+视频直播页面修复ios不能全屏，新增播放、暂停功能，状态栏三秒未点击自动消失、新增倒计时功能（未完，还差转换时间） pages/liveVideo 
+
+2018/8/27
+	E+手风琴面板 pages/liveVideo
+
+2018/8/28 
+	E+修改内容字段存在的标签 pages/baselineActivity
+	E+修改详情页获取数据接口方法 pages/baselineActivityIngo
+
+2018/8/30
+	E+视频直播页面修复ios不能点击显示状态栏问题	
+
+/*清除浮动*/
+display: block;
+clear: both;
+content: "";
+
+text-overflow: ellipsis; /*超出部分省略号表示*/
+overflow: hidden; /*超出部分隐藏*/
+white-space: nowrap; /*不折行 f33h*/

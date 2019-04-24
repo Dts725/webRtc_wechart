@@ -1,0 +1,271 @@
+/* liveVideo.wxss */
+
+/*整体*/
+
+.overall-page {
+  background-color: #f2f2f2;
+}
+
+/*视频播放*/
+
+#myVideo {
+  width: 100%;
+}
+
+/* 倒计时 */
+
+.countDown {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position:reactive;
+  text-align: center;
+  /* position:absolute;
+  top: 50%;
+  left:50%;
+  transform: translateX(-50%) translateY(-50%); */
+}
+.down{
+  position: absolute;
+  width: 100%;
+  /* height: 10%; */
+  top: 0;
+  text-align: center;
+  color: white;
+}
+.icon{
+  width: 3rem;
+  height: 3rem;
+  margin-left: 42%
+}
+.block{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  top: 0;
+}
+.rimage{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.vimage{
+  /* width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100% */
+  /* height: 90% */
+}
+
+/* 播放状态栏 */
+
+.controls {
+  position: relative;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.statusBar {
+  position: absolute;
+  /* bottom: -15px; */
+  top: 95%;
+  height: 50px;
+  width: 100%;
+  margin-top: -25px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  z-index: 999
+}
+
+.statusBarDisappear {
+  display: none;
+}
+
+.play {
+  height: 100%;
+}
+
+/*视频介绍*/
+
+.overall-title {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px 0;
+  /* line-height: 35px */
+}
+
+.overall-title-name {
+  font-weight: 800;
+}
+
+.overall-title-time {
+  font-size: 15px;
+  line-height: 30px;
+}
+
+.overall-content {
+  font-size: 15px;
+  background-color: #fff;
+  padding: 0 10px;
+  line-height: 1.5rem;
+  text-overflow: ellipsis;
+  /*超出部分省略号表示*/
+  overflow: hidden;
+  /*超出部分隐藏*/
+  white-space: nowrap;
+  /*不折行*/
+}
+
+.overall-bottom {
+  background-color: #fff;
+  font-size: 14px;
+  padding: 10px 10px;
+}
+
+.overall-bottom text {
+  font-weight: 500;
+}
+
+/* 小图标 */
+
+.small-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: -5px;
+  margin-right: 2px;
+}
+
+.fontRed {
+  color: #a51e22;
+}
+
+/*视频点播*/
+
+.content {
+  background-color: #fff;
+  margin-top: 10px;
+}
+
+.content-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 5px 10px 0;
+}
+
+.content-title-name {
+  font-weight: 800;
+}
+
+.content-title-sort {
+  text-align: right;
+  font-size: 15px;
+  line-height: 30px;
+}
+
+/*时间 点播量*/
+
+.sort-time, .sort-click {
+  color: #a51e22;
+}
+
+/* 选项卡 */
+
+.weui-navbar__title {
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.weui-bar__item_on .weui-navbar__title {
+  color: #a51e22;
+}
+
+.weui-navbar__slider {
+  background-color: #a51e22;
+}
+
+.weui-tab__content {
+  text-align: center;
+}
+
+.weui-navbar__slider {
+  width: 5em;
+}
+
+/* 手风琴 */
+
+.container-wrap {
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.item-li {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  /* margin-top: 22rpx; */
+}
+
+.item-li .item-title {
+  width: 100%;
+  height: 100rpx;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+}
+
+.item-li .item-content {
+  padding: 35rpx 50rpx;
+  box-sizing: border-box;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.item-li .item-content text {
+  color: #4e4e4e;
+  font-size: 26rpx;
+}
+.item-li .item-content1 {
+  padding: 35rpx 50rpx;
+  box-sizing: border-box;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.item-li .item-content1 text {
+  color: #4e4e4e;
+  font-size: 26rpx;
+}
+
+.item-li .item-title text {
+  color: #000;
+  line-height: 100rpx;
+  font-size: 28rpx;
+}
+/* 小图标 */
+.small-icon-play{
+    width:20px;
+    height:20px;
+    margin-top:5px;
+    margin-right: 10px;
+}
+/* .overall-title button{
+  background-color: #a51e22;
+  margin-right: 5px;
+  margin-top: 2px;
+} */
+
+.item-content .wxParse-p{
+  display:block;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  overflow:hidden;
+}
+.weui-tab__panel{
+  padding-top: 5px
+}

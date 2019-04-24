@@ -1,0 +1,3 @@
+<view>
+<div bindtap='router'>点击查看正在进行中的会议</div>
+</view>

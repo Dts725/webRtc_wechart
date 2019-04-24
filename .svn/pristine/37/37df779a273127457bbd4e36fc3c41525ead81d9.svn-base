@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "报名详情",
+  "usingComponents": {
+    "info_base_active": "/pages/components/info_base_active/info_base_active"
+  }
+}

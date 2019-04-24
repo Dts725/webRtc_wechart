@@ -1,0 +1,89 @@
+/* card_party_serve.wxss */
+
+/* 总体设置  */
+.card {
+  width: 100%;
+  min-height: 2rem;
+  background-color: #fff;
+  margin: 10px 0;
+}
+
+/* 顶部大图片  */
+.card .c-img {
+  width: 100%;
+  /* height: 180px; */
+  /* width: 375px;
+  height: 160px;  */
+}
+
+/* 中间内容面板  */
+.card .c-panel {
+  box-sizing: border-box;
+  padding: 0 0.5rem 0.5rem;
+}
+
+.card .c-panel-title, .card .c-panel-body, .card .c-panel-footer {
+  padding: 0.5rem 0;
+  box-sizing: border-box;
+}
+
+/* title部分  */
+.card .c-panel-title {
+  font-weight: bold;
+  /* font-size: 1rem; */
+}
+
+/* 中间内容  */
+.card .c-panel-body {
+  font-size: 0.8rem;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  color: #888;
+}
+
+.card .c-panel-row, .card .c-panel-body text {
+  color: inherit;
+}
+
+/* 底部按钮  */
+.card .c-panel-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-btn {
+  box-sizing: border-box;
+  margin: 0 0.2rem;
+  padding: 0.5rem 1.5rem;
+  line-height: 100%;
+}
+
+.card .c-detail {
+  background-color: #2f92f8;
+  color: #fff;
+}
+
+/* 二维码按钮  */
+.c-qcode {
+  /* width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.3rem; */
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 0.3rem;
+  margin-left: 0.3rem;
+}
+
+/************************** 灰色 *****************************/
+
+.card .c-img-disable-0 {
+  filter: grayscale(100%) !important;
+  color: #333;
+}
+
+/************************** 黄色 *****************************/
+
+.card .c-disable-sign3 {
+  background-color: #f90 !important;
+}

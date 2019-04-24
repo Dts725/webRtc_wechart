@@ -1,0 +1,12 @@
+var splits = function (val) {
+  if (val){
+    var value = val.split(',')[0];
+    if (value.indexOf('partyfile') > -1){
+      return 'https://file.shyunhua.com/' + value
+    }
+      return value;
+  }else{
+     return ''
+  }
+}
+module.exports.splits = splits;

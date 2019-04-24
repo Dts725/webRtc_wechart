@@ -1,0 +1,46 @@
+/* pages/onlineElection/main/main.js.wxss */
+
+.button{
+  background-color: #fff;
+  opacity: 0.6;
+  width: 40px;
+  padding: 5px;
+  height: 1em;
+  line-height: 100%;
+  text-align: center;
+  position: absolute;
+  top: 60%;
+  right: 10px;
+	z-index:101;
+}
+
+
+.mov {
+  height: 70vh;
+  width: 100%;
+  background-color: rgba(red, green, blue, 0.2);
+  
+}
+
+/* flow 流程菜单 ↓ */
+.flow{
+	min-width:50%;
+	height:100%;
+	background-color:#2334A8;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:100;
+	color:#fff;
+	box-sizing:border-box;
+	padding:0.7rem;
+}
+.flow-title{
+	font-size:1rem;
+	line-height:3rem;
+}
+.row{
+	display: flex;
+	justify-content: space-between;
+}
+/* flow 流程菜单 ↑ */

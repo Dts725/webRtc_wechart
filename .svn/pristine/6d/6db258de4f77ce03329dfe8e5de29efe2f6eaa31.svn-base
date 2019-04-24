@@ -1,0 +1,31 @@
+/* pages/onlineElection/index.wxss */
+.mt-container{
+	box-sizing: border-box;
+	/* padding:0.5rem; */
+}
+.mt-warper-row{
+	margin:0.3rem 0;
+	background-color:#f3f3f3;
+	padding:0.3rem 0.5rem;
+}
+.mt-row{
+	display: flex;
+	justify-content: space-between;
+}
+.mt-row-title{
+	font-weight: 400;
+	font-size:1rem;
+}
+.mt-row-time{
+	font-size:0.8rem;
+	color:#A5A5A5;
+}
+.mt-row-sign{
+	color:#03C96D;
+}
+.mt-row-status{
+	font-size:0.8rem;
+}
+.status-1{
+	color:#E15245;
+}

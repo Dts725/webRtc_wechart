@@ -1,0 +1,105 @@
+<!-- liveVideo.wxml -->
+<import src="../../utils/wxParse/wxParse.wxml" />
+<view class="overall-page">
+  <!-- rtmp:\/\/live.hkstv.hk.lxdns.com\/live\/hks -->
+  <live-player id="myliveVideo" src="{{rtmpScorce}}" mode="RTC" autoplay bindstatechange="statechange" binderror="error" bindtap="changeStatusBar" style="width: 100%; height: 225px;">
+    <cover-view class="controls" bindtap='changeStatusBar'>
+       <cover-view class="countDown" scroll-top="0">
+        <cover-view class='rimage' wx:if="{{count !=0}}">
+          <cover-image class='vimage' src="{{image}}"></cover-image>
+        </cover-view>
+        <cover-view class='block' wx:if="{{count !=0}}"></cover-view>
+        <cover-view class='down'  wx:if="{{countNum!=0}}">
+          <!-- <cover-image class='icon' src='../../static/down.png'></cover-image> -->
+          距直播：{{countTimes}}
+        </cover-view>
+      </cover-view>
+      <cover-view class="statusBar {{statusBarLive==0?'statusBarDisappear':''}}">
+        <cover-view class="play" bindtap="liveVideoPlay" >
+          <cover-image class="small-icon" src="../../static/\liveVideo/{{isLivePlayed==true?'pause':'play'}}.png" />
+        </cover-view>
+        <cover-view class="play" bindtap="fullScreen">
+          <cover-image class="small-icon" src="../../static/\liveVideo/{{isFullScreen==true?'exitFullScreen':'fullScreen'}}.png" />
+        </cover-view>
+      </cover-view>
+    </cover-view>
+  </live-player>
+  <!-- <scroll-view class='scroll-box' bindscrolltoupper='getList' scroll-y scroll-with-animation> -->
+  <!-- http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400 -->
+  <!-- <video id="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls objectFit="fill" initial-time='0'></video> -->
+  <view class="overall-title">
+    <label class="overall-title-name">{{foldContent[0].title}}</label>
+    <!-- <label class="overall-title-time">上传于 2018-04-24</label> -->
+    <!-- <button id="{{cardData.id}}" size="mini" plain="{{false}}" bindtap="_startPlaying" hover-class="startPlay"> -->
+      <image class="small-icon-play" src='../../static/play.gif'></image>
+    <!-- </button> -->
+  </view>
+  <!-- <view class="overall-content">
+        施索华，上海交通大学马克思主义学院副教授，上海市高校思想政治理论课名师工作室“施索华工作室”主持人，上海市“人文关怀心理疏导示范点”主持人。先后获得全国优秀教师、全国高校思想政治理论课优秀教师、全国高校思想政治理论课教学能手、全国高校思想政治理论课教师年度标兵人物、上海市基层理论宣讲先进个人、上海市高校思想政治理论课优秀教师、上海市科教系统优秀共产党员、上海市育才奖、上海交通大学校长奖、上海交通大学“最受学生欢迎教师”奖、上海交通大学学生工作特别贡献奖、上海交通大学优秀教学成果奖、上海交通大学首届“凯原”十佳教师、上海交通大学首届“唐立新教学名师奖”等。其著作《施说心语—大学生的心灵花园与成长驿站》获2009年教育部“高校德育创新发展研究成果”三等奖。《“施礼”有话—与大学生的心灵对话》为中国教育报推荐为2013年全国教师暑期阅读书目之一。2007年上海市高校思想政治理论课“精彩一课”主讲，2007年教育部高校思想政治理论课“精彩一课”主讲，2012年教育部国家级精品视频课《大学生思想道德修养与文化素质》在“爱课程网”、“国家精品课程资源网”、“大学生在线”“上海交通大学南洋学堂”上线。
+    </view>
+    <view class="overall-bottom">
+        <image class="small-icon" src='../../static/eye.png'></image>
+        <text class="{{sortTime==true?'':'fontRed'}}">1.5万次</text>
+        <image class="small-icon" src='../../static/thumb01.png'></image>
+        <text class="{{sortTime==true?'':'fontRed'}}">已赞10</text>
+        <image class="small-icon" src='../../static/attention0{{sortTime==true?2:1}}.png'></image>
+        <text class="{{sortTime==true?'':'fontRed'}}">已关注</text>
+        <image class="small-icon" src='../../static/user.png'></image>
+        <text class="{{sortTime==true?'':'fontRed'}}">在线用户500+</text>
+    </view> -->
+  <!-- 手风琴 -->
+  <view class='container-wrap'>
+    <block wx:for="{{foldContent}}" wx:key="{{item.id}}">
+      <view class='item-li'>
+        <view class='item-title'>
+          <text>{{item.start_time}}</text>
+          <!-- <text></text> -->
+        </view>
+        <view class='item-content' bindtap='showHide' wx:if='{{foldContent[0].shows}}' data-changeid="{{item.id}}">
+          <!-- <text>{{item.contents}}</text> -->
+          <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+        </view>
+        <view class='item-content1' bindtap='showHide' wx:if='{{!foldContent[0].shows}}' data-changeid="{{item.id}}">
+          <!-- <text>{{item.contents}}</text> -->
+          <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+        </view>
+      </view>
+    </block>
+  </view>
+  <!-- 手风琴 -->
+  <view class="content">
+    <view class="content-title">
+      <view class="content-title-name">视频点播</view>
+      <view class="content-title-sort">
+        <label id="sortTime" bindtap="onSort" class="sort{{sortTime==true?'-time':''}}">
+          时间
+        </label>
+        <label id="sortClick" bindtap="onSort" class="sort{{sortTime==false?'-click':''}}">
+          点播量
+        </label>
+      </view>
+    </view>
+    <view class="weui-tab">
+      <!-- <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block> -->
+        <!-- <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view> -->
+      <!-- </view> -->
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <card_live_video wx:for='{{cardDataVideo}}' content='{{item}}' wx:key='{{item.id}}' cardData="{{item}}" ids="{{isPlay}}" bind:startPlaying="startPlaying"></card_live_video>
+        </view>
+        <!-- <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <card_live_video wx:for='{{cardDataVideo}}' content='{{item}}' wx:key='{{item.id}}' cardData="{{item}}" ids="{{isPlay}}" bind:startPlaying="startPlaying"></card_live_video>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+          <card_live_video wx:for='{{cardDataVideo}}' content='{{item}}' wx:key='{{item.id}}' cardData="{{item}}" ids="{{isPlay}}" bind:startPlaying="startPlaying"></card_live_video>
+        </view> -->
+      </view>
+    </view>
+  </view>
+  <!-- </scroll-view> -->
+</view>

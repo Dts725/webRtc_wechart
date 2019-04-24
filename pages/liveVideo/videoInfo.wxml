@@ -1,0 +1,13 @@
+<import src="../../utils/wxParse/wxParse.wxml" />
+<view>
+    <view class="overall-page">
+        <video class='overall-video' src="{{infoDatas.video_src}}"></video>
+        <view class="overall-title">
+            <label class="overall-title-name">{{infoDatas.title}}</label>
+            <label class="overall-title-time">{{infoDatas.time}}</label>
+        </view>
+        <view class="content1">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+        </view>
+    </view>
+</view>

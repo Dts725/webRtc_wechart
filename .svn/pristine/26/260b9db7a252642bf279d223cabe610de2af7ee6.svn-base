@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "视频直播",
+    "usingComponents": {
+        "card_live_video": "/pages/components/card_live_video/card_live_video"
+    }
+}

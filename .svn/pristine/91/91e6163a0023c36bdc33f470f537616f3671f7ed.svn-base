@@ -1,0 +1,15 @@
+/* pages/handlingGuideline/handlingGuidelineInfo.wxss */
+
+/* 内容样式 */
+
+.content {
+    width: 90%;
+    margin: 0 auto;
+}
+page{
+  /* text-align: center; */
+  box-sizing: border-box
+}
+image{
+  width: 100% !important
+}

@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "党群服务",
+    "usingComponents": {
+        "card_party_serve": "/pages/components/card_party_serve/card_party_serve"
+    }
+}

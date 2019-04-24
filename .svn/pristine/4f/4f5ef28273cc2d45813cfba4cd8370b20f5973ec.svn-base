@@ -1,0 +1,447 @@
+// liveVideo.js
+var sliderWidth = 80; // 需要设置slider的宽度，用于计算中间位置
+const app = getApp();
+let dateformat = require('../../utils/dateformat.js');
+let WxParse = require('../../utils/wxParse/wxParse.js');
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    page: 1,
+    current_page: 0,
+    countInterval: {},
+    interval: {},
+    url: 'https://apijcdj.shyunhua.com/',
+    danmuList: [{
+      text: '第 1s 出现的弹幕',
+      color: '#ff0000',
+      time: 1
+    }],
+    //时间 or 点播量
+    sortTime: true,
+    //选项卡
+    tabs: ["十九大", "三会一课", "两学一做"],
+    tabId: 0,
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0,
+    //视频直播源
+    rtmpScorce: '',
+    //视频列表
+    cardDataVideo: [],
+    isPlay: -1, //单个视频停止播放
+    isLivePlayed: true, //直播视频是否播放
+    isFullScreen: false, //直播视频是否全屏
+    statusBarLive: 3, //播放状态栏显示时间倒计时
+    clearSettimeOut: {},
+    countNum: 0, //倒计时
+    count: 1, //倒计时
+    countTimes: '', //倒计时显示
+    countTimer: '',
+    image: '',
+    iosTime: '',
+    //手风琴
+    foldContent: [{
+      id: '01',
+      title: '',
+      // contents: '',
+      shows: true,
+    }]
+  },
+
+  /**
+   * medthod
+   */
+  //获取视频点播列表
+  getList(url) {
+    wx.request({
+      url: app.globalData.url + url,
+      success: (res) => {
+        if (res.data.code == 0) {
+          if (res.data.data.data.length <= 0) {
+            wx.showToast({
+              title: '已经到底了~~',
+              icon: 'none',
+              duration: 2000
+            });
+            this.setData({
+              page: this.data.page - 1,
+              current_page: this.data.page - 1,
+            })
+            return false;
+          }
+          wx.hideLoading();
+          let newData = res.data.data.data;
+          let timeData = [];
+          newData.forEach(element => {
+            if (element.image || element.album) {
+              element.image = app.globalData.fileUrl + '/' + (element.image || element.album);
+            }
+            element.content = element.content.replace(/\<\/?.*?\>/g, '').replace(/\&nbsp\;/g, '');
+            if (element.create_time.length == 10) {
+              element.create_time = new Date(Number(element.create_time) * 1000).getTime()
+            } else if (element.create_time.length == 13) {
+              element.create_time = new Date(Number(element.create_time)).getTime()
+            } else if (element.create_time.length == 16) {
+              element.create_time = new Date(Number(element.create_time.slice(13))).getTime()
+            } else {
+              element.create_time = new Date(0).getTime()
+            }
+          })
+
+          if (this.data.page != this.data.current_page && this.data.page != 1){
+            newData = this.data.cardDataVideo.concat(newData);
+          }
+
+          if (!this.data.sortTime) {
+            for (var i = 0; i < newData.length; i++) {
+              for (var j = i; j < newData.length; j++) {
+                if (newData[i].views_count < newData[j].views_count) {
+                  timeData = newData[j];
+                  newData[j] = newData[i];
+                  newData[i] = timeData;
+                }
+              }
+            }
+          } else {
+            for (var i = 0; i < newData.length; i++) {
+              for (var j = i; j < newData.length; j++) {
+                if (newData[i].create_time < newData[j].create_time) {
+                  timeData = newData[j];
+                  newData[j] = newData[i];
+                  newData[i] = timeData;
+                }
+              }
+            }
+          }
+          newData.forEach(item => {
+            item.create_time = dateformat.dateformat.format(new Date(item.create_time), 'yyyy-MM-dd')
+          })
+          this.setData({
+            cardDataVideo: newData
+          })
+        }
+      },
+      fail: (res) => {
+        console.log('fail', res);
+      }
+    });
+  },
+  //获取直播源
+  getVideoSource(url) {
+    let that = this
+    wx.request({
+      url: this.data.url + url,
+      success: (res) => {
+        if (res.data.code == 0 && res.data.data[0] == 'no live stream') {
+          let time = res.data.data.live_announce[0] ? res.data.data.live_announce[0].start_time : '';
+          let newData = this.data.foldContent;
+          let article = res.data.data.live_announce[0] ? res.data.data.live_announce[0].content : '暂无信息';
+          let image = res.data.data.live_announce[0] ? app.globalData.fileUrl + '/' + res.data.data.live_announce[0].album : '../../static/banner.jpg';
+          WxParse.wxParse('article', 'html', article, that, 5);
+
+          newData[0].title = res.data.data.live_announce[0] ? res.data.data.live_announce[0].title : '暂无直播';
+          time = time ? dateformat.dateformat.format(new Date(Number(time) * 1000), 'yyyy-MM-dd hh:mm:ss') : ''
+          newData[0].start_time = time ? '直播时间：' + time : '';
+          this.setData({
+            countTimer: time,
+            foldContent: newData,
+            image: image,
+            rtmpScorce: '',
+            count: 1,
+            iosTime: res.data.data.live_announce[0] ? res.data.data.live_announce[0].start_time : '',
+          });
+        } else {
+          let time = res.data.data.OnlineInfo.LiveStreamOnlineInfo[0].start_time;
+          let newData = this.data.foldContent;
+          let article = res.data.data.OnlineInfo.LiveStreamOnlineInfo[0].content;
+          WxParse.wxParse('article', 'html', article, that, 5);
+
+          newData[0].title = res.data.data.OnlineInfo.LiveStreamOnlineInfo[0].title;
+          time = dateformat.dateformat.format(new Date(Number(time) * 1000), 'yyyy-MM-dd hh:mm:ss')
+          newData[0].start_time = '直播时间：' + time;
+          this.setData({
+            countTimer: time,
+            foldContent: newData,
+            rtmpScorce: res.data.data.OnlineInfo.LiveStreamOnlineInfo[0].play_rtmp,
+            count: 0,
+            iosTime: res.data.data.OnlineInfo.LiveStreamOnlineInfo[0].start_time
+          });
+        }
+      },
+      fail: (res) => {
+        console.log('fail', res);
+      }
+    });
+  },
+  //选项卡
+  tabClick: function(e) {
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id,
+      tabId: e.currentTarget.id,
+    });
+    this.getList('live/video_on_demand?type=' + (Number(this.data.tabId) + 1) + '&is_show=1')
+  },
+  //切换排序
+  onSort(istrue) {
+    if (istrue.target.id == "sortTime") {
+      this.setData({
+        sortTime: true
+      });
+
+    } else {
+      this.setData({
+        sortTime: false
+      });
+
+    }
+    // this.getList('live/video_on_demand?type=' + (Number(this.data.tabId) + 1) + '&is_show=1&page=' + this.data.page)
+    this.getList('live/video_on_demand?type=' + (Number(this.data.tabId) + 1) + '&is_show=1')
+    // http://apijcdj.shyunhua.com/live/video_on_demand?create_time=asc
+  },
+  //播放按钮
+  startPlaying(e) {
+    // if (this.data.isPlay != e.detail.con.id)
+    //   this.setData({
+    //     isPlay: e.detail.con.id
+    //   });
+    // else
+    //   this.setData({
+    //     isPlay: -1
+    //   });
+    // 
+    wx.navigateTo({
+      url: '../../pages/liveVideo/videoInfo?id=' + e.detail.con.id
+    })
+  },
+
+  statechange(e) {
+    // console.log('live-player code:', e.detail.code)
+    if (e.detail.code == 2004)
+      this.setData({
+        countNum: 0
+      });
+  },
+  error(e) {
+    console.error('live-player error:', e.detail.errMsg)
+  },
+
+  //隐藏or显示 播放和全屏按钮
+  changeStatusBar(e) {
+    console.log('!!!!!!!!!!!', e)
+    if (this.data.statusBarLive > 0) {
+      this.setData({
+        statusBarLive: 0
+      });
+      clearTimeout(this.clearSettimeOut);
+    } else {
+      this.setData({
+        statusBarLive: 3
+      });
+      this.statusBarDisappear();
+    }
+  },
+  //直播播放、暂停
+  liveVideoPlay() {
+    if (this.data.isLivePlayed)
+      this.audioCtx.pause() //暂停
+    else
+      // this.audioCtx.play() //播放
+      this.audioCtx.resume({ //恢复
+        success: res => {
+          console.log('resume success')
+        },
+        fail: res => {
+          console.log('resume fail')
+        }
+      })
+
+    this.setData({
+      isLivePlayed: !this.data.isLivePlayed
+    });
+    console.log(this.audioCtx)
+  },
+  //全屏、退出全屏
+  fullScreen() {
+    if (this.data.isFullScreen) {
+      this.audioCtx.exitFullScreen() //退出全屏
+
+    } else {
+      this.audioCtx.requestFullScreen({
+        direction: 90
+      }) //进入全屏
+      this.audioCtx.showStatusBar() //ios专用
+    }
+
+    this.setData({
+      isFullScreen: !this.data.isFullScreen
+    });
+  },
+  // 状态栏倒计时三秒消失
+  statusBarDisappear() {
+    //三秒消失
+    if (this.data.statusBarLive > 0) {
+      this.clearSettimeOut = setTimeout(() => {
+        this.setData({
+          statusBarLive: 0
+        })
+      }, 3000);
+    }
+  },
+  // 倒计时
+  countDown() {
+    this.countInterval = setInterval(() => {
+      // this.data.countNum = Math.ceil((new Date(this.data.countTimer).getTime() - new Date().getTime()) / 1000);
+      this.data.countNum = Math.ceil(this.data.iosTime - (new Date().getTime() / 1000));
+      this.getVideoSource('admin/live/live_online_list');
+      if (this.data.countNum <= 0) {
+        this.setData({
+          countNum: 0
+        });
+      }
+      if (this.data.count == 0) {
+        this.setData({
+          countNum: 0
+        });
+        clearTimeout(this.countInterval);
+      }
+    }, 1000)
+    this.interval = setInterval(() => {
+      if (this.data.countNum > 0) {
+        let d = Math.floor(this.data.countNum / 3600 / 24) < 10 ? '0' + Math.floor(this.data.countNum / 3600 / 24) : Math.floor(this.data.countNum / 3600 / 24),
+          h = Math.floor(this.data.countNum / 3600 % 24) < 10 ? '0' + Math.floor(this.data.countNum / 3600 % 24) : Math.floor(this.data.countNum / 3600 % 24),
+          a = Math.floor(this.data.countNum / 3600) < 10 ? '0' + Math.floor(this.data.countNum / 3600) : Math.floor(this.data.countNum / 3600),
+          m = Math.floor((this.data.countNum - a * 3600) / 60) < 10 ? '0' + Math.floor((this.data.countNum - a * 3600) / 60) : Math.floor((this.data.countNum - a * 3600) / 60),
+          s = Math.floor(this.data.countNum - a * 3600 - m * 60) < 10 ? '0' + Math.floor(this.data.countNum - a * 3600 - m * 60) : Math.floor(this.data.countNum - a * 3600 - m * 60);
+        this.setData({
+          countNum: this.data.countNum - 1
+        });
+        this.setData({
+          countTimes: d + '天' + h + '时' + m + '分' + s + '秒'
+        });
+      } else if (this.data.countNum == 0) {
+        clearInterval(this.interval);
+      }
+    }, 1000);
+    // dateformat.dateformat.format(new Date(Number(element.date_time) * 1000), 'yyyy-MM-dd hh:mm')
+  },
+  // 手风琴
+  showHide(e) {
+    console.log(e)
+    var contentFor = this.data.foldContent;
+    for (var i = 0; i < contentFor.length; i++) {
+      if (e.currentTarget.dataset.changeid == contentFor[i].id) {
+        var printPrice = "foldContent[" + i + "].shows";
+        if (this.data.foldContent[i].shows) {
+          this.setData({
+            [printPrice]: false
+          });
+        } else {
+          this.setData({
+            [printPrice]: true
+          });
+        }
+      } else {
+        var printPrice1 = "foldContent[" + i + "].shows";
+        this.setData({
+          [printPrice1]: false
+        });
+      }
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    // 获取视频直播源
+    this.getVideoSource('admin/live/live_online_list');
+    this.getList('live/video_on_demand?type=1&is_show=1')
+    //选项卡
+    var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        that.setData({
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+        });
+      }
+    });
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+    this.getVideoSource('admin/live/live_online_list');
+    this.getList('live/video_on_demand?type=1&is_show=1')
+    this.audioCtx = wx.createLivePlayerContext('myliveVideo')
+    this.statusBarDisappear(); //状态栏倒计时三秒消失
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    clearTimeout(this.countInterval);
+    clearInterval(this.interval);
+    this.getVideoSource('admin/live/live_online_list');
+    this.getList('live/video_on_demand?type=' + (Number(this.data.tabId) + 1) + '&is_show=1')
+    this.audioCtx = wx.createLivePlayerContext('myliveVideo')
+    this.statusBarDisappear(); //状态栏倒计时三秒消失
+    this.countDown(); //倒计时
+    wx.clearStorage()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+    clearTimeout(this.countInterval);
+    this.audioCtx.stop();
+    this.setData({
+      rtmpScorce: 'rtmp://null'
+    })
+    wx.clearStorage()
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+    clearTimeout(this.countInterval);
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    this.setData({
+      page: 1
+    });
+    this.getVideoSource('admin/live/live_online_list');
+    this.getList('live/video_on_demand?type=1&is_show=1')
+    wx.stopPullDownRefresh()
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    this.setData({
+      page: this.data.page + 1
+    });
+    this.getList('live/video_on_demand?type=1&is_show=1&page=' + this.data.page)
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+})

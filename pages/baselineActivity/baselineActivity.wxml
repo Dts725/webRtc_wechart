@@ -1,0 +1,43 @@
+<!-- baselineActivity.wxml -->
+<!-- <import src="../../utils/wxParse/wxParse.wxml" /> -->
+<view class="backcolor">
+    <!-- <template is="wxParse" data="{{wxParseData:article.nodes}}" /> -->
+    <swiper indicator-dots="{{false}}" autoplay="{{false}}" interval="5000" duration="1000">
+        <block wx:for="{{swiper}}" content='{{item}}' wx:for-index="idx" wx:key='{{idx}}'>
+            <swiper-item>
+                <view class="image-outside"  id="{{item.id}}" bindtap="jump">
+                    <image src="{{item.image}}" class="slide-image" style="width:100%" height="150" mode="aspectFill"/>
+                    <view class="image-introduction">
+                        <view class="image-introduction-marquee">
+                            <text class="image-introduction-content">{{item.title}}</text>
+                            <text class="content-space"></text>
+                        </view>
+                        <view class="image-dots">
+                            <p class="image-dot image-dot{{idx==dotIdx?'-selected':''}}" wx:for="{{swiper}}" wx:for-index="dotIdx" wx:key='{{dotIdx}}' fixed="true" maxlength="2">
+                                o
+                            </p>
+                        </view>
+                    </view>
+                </view>
+            </swiper-item>
+        </block>
+    </swiper>
+    <view class="weui-tab">
+        <view class="weui-navbar">
+            <block wx:for="{{tabs}}" wx:key="*this">
+                <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
+                </view>
+            </block>
+            <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+            <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                <card_base_active wx:for='{{cardDataActive}}' content='{{item}}' wx:key='{{item.id}}' num="{{activeIndex}}" cardData="{{item}}" bind:turnToInfo="turnToInfo"></card_base_active>
+            </view>
+            <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                <card_base_active wx:for='{{cardDataActive}}' content='{{item}}' wx:key='{{item.id}}' num="{{activeIndex}}" cardData="{{item}}" bind:turnToInfo="turnToInfo"></card_base_active>
+            </view>
+        </view>
+    </view>
+</view>

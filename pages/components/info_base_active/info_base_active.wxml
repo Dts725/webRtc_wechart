@@ -1,0 +1,23 @@
+<!-- pages/components/info_base_active/info_base_active.wxml -->
+<view class="overall-page">
+    <view class="overall-title">
+        <text class="overall-title-name">{{infoData.title}}</text>
+        <!-- <view class="overall-title-name">{{infoData.title}}</view> -->
+        <view class="overall-title-content">
+            <text class="over-title-author" wx:if="{{infoData.author}}">发布人：{{infoData.author}}
+            </text>
+            <text class="over-title-time" wx:if="{{infoData.time}}">发布时间：{{infoData.time}}</text>
+        </view>
+    </view>
+    <!-- <view class="overall-content">
+        {{infoData.content}}
+    </view> -->
+    <!-- <view class="overall-foot" wx:if="{{infoData.isthumb||infoData.isthumb==false}}">
+        <button type="default" bindtap="_thumbEvent" class="overall-foot-thumb" hover-class="thumb">
+            点赞
+        </button>
+        <button type="default" bindtap="_collectEvent" class="overall-foot-collect" hover-class="collect">
+            收藏
+        </button>
+    </view> -->
+</view>

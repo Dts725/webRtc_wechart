@@ -1,0 +1,75 @@
+<!-- pages/register/register.wxml -->
+<view style='height:100%; width:100%;'>
+  <!-- <view class="apr-cards">
+    <view class='apr-cards-photo'>
+      <view class="weui-uploader__input-box" hover-class="weui-cell_active" hidden='{{showPhoto}}'>
+        <view class="weui-uploader__input" bindtap="chooseImage"></view>
+      </view>
+      <image class='card-img' src='{{showPhoto}}' hidden='{{!showPhoto}}' bindtap="chooseImage"></image>
+    </view>
+    <view class='card-info'>
+      <view class='card-title'>请拍照上传头像</view>
+      <text class='card-info-con'>( 自拍头像要清晰，否则无法通过审核。)</text>
+    </view>
+  </view> -->
+  <view class='form-content'>
+    <!-- <form bindsubmit="formSubmit" bindreset="formReset"> -->
+    <view>
+      <view class='name'>
+        <view class='icon-wrapper'>
+          <image class='form-icon' src="../../static/registericon/icon01.png"></image>
+        </view>
+        <view>
+          <input class="weui-input" bindblur="getUserName" bindinput='getUserName' value='{{field.username}}' placeholder="真实姓名" />
+        </view>
+      </view>
+      <view class='party'>
+        <view class='icon-wrapper'>
+          <image class='form-icon' src="../../static/registericon/icon04.png"></image>
+        </view>
+        <view>
+         <picker disabled='{{isDisabled}}' class='party-select {{parties[index] ? "party-fulled":"party-empty"}}' bindchange="bindPickerChange" value="{{index}}" range="{{parties}}">
+              <view class="weui-input">{{parties[index]? parties[index]:'请选择党组织'}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class='card'>
+        <view class='icon-wrapper'>
+          <image class='form-icon' src="../../static/registericon/icon04.png"></image>
+        </view>
+        <!-- <view>
+          <input class="weui-input" bindblur="getCard" type='idcard' value='{{field.card}}' placeholder="请输入身份证号" />
+        </view> -->
+        <view>
+          <input class="weui-input" bindblur="getPsd" type='text' password value='{{field.psd}}' placeholder="请输入密码" />
+        </view>
+      </view>
+      <view class='phone'>
+        <view class='icon-wrapper'>
+          <image class='form-icon' src="../../static/registericon/icon02.png"></image>
+        </view>
+        <view>
+          <input class="weui-input" type='number' bindinput="getPhone" bindblur="getPhone" value="{{field.phone}}" placeholder="请输入手机号" />
+        </view>
+        <view>
+          <view class="weui-vcode-btn" wx:if="{{textCode == '获取验证码'}}" bindtap="getValidateCode">
+            {{textCode}}
+          </view>
+          <view class="weui-vcode-btn newBtn" wx:else>再次发送({{countDown}})</view>
+        </view>
+      </view>
+      <view class='code'>
+        <view class='icon-wrapper'>
+          <image class='form-icon' src="../../static/registericon/icon03.png"></image>
+        </view>
+        <view>
+          <input class="weui-input" bindinput="getCode" type='number' value='{{field.code}}' placeholder="手机验证码" />
+        </view>
+      </view>
+    </view>
+    <!-- </form> -->
+    <view class="weui-btn-area">
+      <button class="submit-btn" bindtap="bundleInfo">确定绑定</button>
+    </view>
+  </view>
+</view>

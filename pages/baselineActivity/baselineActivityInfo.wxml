@@ -1,0 +1,21 @@
+<!-- baselineActivity_Info.wxml -->
+<import src="../../utils/wxParse/wxParse.wxml" />
+<view wx:if="{{diff==0}}">
+    <info_base_active infoData="{{infoDatas}}" bind:thumbEvent="thumbEvent" bind:collectEvent="collectEvent"></info_base_active>
+    <!-- 内容 -->
+    <view class="content">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+</view>
+<view wx:if="{{diff==1}}">
+    <view class="overall-page">
+        <video class='overall-video' src="{{infoDatas.video_src}}"></video>
+        <view class="overall-title">
+            <label class="overall-title-name">{{infoDatas.title}}</label>
+            <label class="overall-title-time">{{infoDatas.time}}</label>
+        </view>
+        <view class="content1">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+        </view>
+    </view>
+</view>

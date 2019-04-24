@@ -1,0 +1,7 @@
+<!--pages/welcome/welcome.wxml-->
+<image class='welcome_bg' src='../../static/welcome.jpg' mode='widthFix'></image>
+<view class='welcome_box'>
+	<view class='welcome_box_title'>江川微党建</view>
+	<view class='welcome_box_con'>党建活动、场地预约、在线学习、视频直播……</view>
+	<button class='welcome_box_btn' open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">立刻体验</button>
+</view>

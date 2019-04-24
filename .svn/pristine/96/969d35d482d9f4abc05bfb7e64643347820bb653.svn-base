@@ -1,0 +1,32 @@
+<!-- handlingGuideline.wxml
+<view class="overall-page">
+    <view class="overall-title" wx:for="{{titleData}}" content='{{item}}' wx:key='{{item.id}}' id="{{item.id}}" bindtap="watchInfo">
+        <view class="overall-name">{{item.title}}</view>
+        <view class="overall-time">{{item.time}}</view>
+    </view>
+</view> -->
+
+<!-- partyGroupService.wxml -->
+<view>
+    <view class="weui-tab">
+        <view class="weui-navbar">
+            <block wx:for="{{tabs}}" wx:key="*this">
+                <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
+                </view>
+            </block>
+            <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+            <!-- <view class="weui-tab__content" wx:if="{{activeIndex == 0}}"> -->
+            <view class="weui-tab__content">
+              <scroll-view class='scroll-box' scroll-y scroll-with-animation>
+                <view class="overall-title" wx:for="{{titleData}}" content='{{item}}' wx:key='{{item.id}}' id="{{item.id}}" bindtap="watchInfo">
+                    <view class="overall-name">{{item.title}}</view>
+                    <view class="overall-time">{{item.time}}</view>
+                </view>
+              </scroll-view>
+            </view>
+        </view>
+    </view>
+    </view>

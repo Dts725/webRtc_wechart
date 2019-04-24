@@ -1,0 +1,28 @@
+<view class="weui-form-preview">
+  <view class="weui-form-preview__hd">
+    <view class='weui-form-preview__label cancel-float panel-title'>{{title}}</view>
+  </view>
+  <view class="weui-form-preview__bd" id='{{content.id}}'>
+    <!-- 内容数据为数组时候  -->
+    <block wx:if="{{contentType=='array'}}">
+      <view class="weui-form-preview__item" wx:for='{{content}}' wx:key='item.id'>
+        <view class="weui-form-preview__label">{{item.title}}</view>
+        <view class="weui-form-preview__value">{{item.con}}</view>
+      </view>
+    </block>
+    <!-- 内容数据为对象时  -->
+    <block wx:if="{{contentType=='object'}}">
+      <view class="weui-form-preview__item" wx:for='{{cnKey}}' wx:key='index'>
+        <view class="weui-form-preview__label" wx:if="{{index!=='id'}}">{{item}}</view>
+        <view class="weui-form-preview__value" wx:if="{{index!=='id'}}">{{content[index]}}</view>
+      </view>
+    </block>
+
+  </view>
+  <view class="weui-form-preview__ft">
+    <view class='panel-status panel-status-{{customBtnStatuClass}}'>{{customBtnStatu}}</view>
+    <!-- <text class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" catchtap='_editEvent' wx:if='{{showEditBtn}}'>编辑</text> -->
+    <text class="weui-form-preview__btn weui-form-preview__btn_primary panel-bottom-btns" hover-class="weui-form-preview__btn_active" catchtap='_cancelEvent' wx:if='{{showCustomBtn}}'>{{customBtnName}}</text>
+    <!-- <text class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active" catchtap='_delEvent' wx:if='{{showDelBtn}}'>删除</text> -->
+  </view>
+</view>

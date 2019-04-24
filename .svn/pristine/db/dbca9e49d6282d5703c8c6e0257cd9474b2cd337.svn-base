@@ -1,0 +1,18 @@
+<!-- pages/mystudy/mystudy.wxml -->
+<view class='mystudy'>
+  <view class='header'>
+    <!-- <view class='headfloat'>
+      <view class='float'>
+        <text class='num'>10</text>
+        <text class='proname'>已完成阅读(篇)</text>
+      </view>
+      <view class='float'>
+        <text class='num'>25</text>
+        <text class='proname'>收藏文章(篇)</text>
+      </view>
+    </view> -->
+  </view>
+  <view class="padding">
+    <card_base_active wx:for='{{cardDataActive}}' content='{{item}}' wx:key='{{item.id}}' num="{{activeIndex}}" cardData="{{item}}" bind:turnToInfo="turnToInfo"></card_base_active>
+  </view>
+</view>

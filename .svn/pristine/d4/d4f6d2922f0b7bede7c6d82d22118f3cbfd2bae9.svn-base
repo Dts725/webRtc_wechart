@@ -1,0 +1,17 @@
+<!--card_live_video.wxml-->
+<view class="card" id="{{cardData.id}}" bindtap="_startPlaying">
+    <image class="thumbnails" src='{{cardData.image}}' wx:if="{{cardData.image}}" lazy-load="true" mode="aspectFill"/>
+    <view class="c-right">
+        <view class="c-Overall-title">
+            <view class="c-partial-title">{{cardData.title}}</view>
+            <text class="c-partial-time">{{cardData.create_time}}</text>
+            <image class="small-icon" src='../../../static/eye.png' mode="aspectFill"></image>
+            <text class="c-partial-click">{{cardData.views_count}}次</text>
+        </view>
+          <!-- <button id="{{cardData.id}}" size="mini" plain="{{false}}" bindtap="_startPlaying" hover-class="startPlay">播放
+            <image class="small-icon" src='../../../static/{{ids==cardData.id?"playing.gif":"played.gif"}}'></image>
+          </button> -->
+        <!-- <image wx:else class="small-icon" src='../../../static/played.gif' ></image> -->
+        <view class="c-content">{{cardData.content}}</view>
+    </view>
+</view>

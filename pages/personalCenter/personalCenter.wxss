@@ -1,0 +1,68 @@
+/* personalCenter.wxss */
+page{
+    background-color:#f2f2f2;
+}
+/* 头像 */
+.headerPic {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #a51e22;
+  min-height: 148px;
+  padding-bottom: 0.7rem;
+}
+.headerPic .userinfo-nickname {
+  font-size: 30rpx;
+  color: #fff;
+  padding-bottom: 11rpx;
+}
+
+.headerPic .verify-icon {
+  width: 120rpx;
+  height: 36rpx;
+}
+.userinfo {
+  width: 750rpx;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: cneter;
+  margin-top: 7px;
+  min-height: 108px;
+}
+.userinfo-avatar {
+  overflow: hidden;
+  display: block;
+  width: 130rpx;
+  height: 130rpx;
+  margin: 15rpx;
+  border-radius: 50%;
+  border: 2px solid #d9ebff;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 菜单-修改weui样式↓ */
+.weui-panel__bd {
+  margin-top: 20rpx;
+  width: 100%;
+}
+
+.weui-panel__bd .weui-cell__hd {
+  display: flex;
+}
+
+.weui-panel__bd .weui-cell__hd image {
+  width: 24px;
+  height: 24px;
+}
+/* 菜单-底部列表的样式↓ */
+.user-lists {
+  box-sizing: border-box;
+  height: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+  padding: 0;
+}
