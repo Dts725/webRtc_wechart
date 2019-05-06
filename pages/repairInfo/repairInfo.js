@@ -81,6 +81,7 @@ Page({
         if (res.data.code === 0) {
           // app.globalData.personInfo = res.data.data
           let info = res.data.data
+          console.log(info,520)
           me.setData({
             personInfo: me.infoConvert(info),
             gender: info.sex

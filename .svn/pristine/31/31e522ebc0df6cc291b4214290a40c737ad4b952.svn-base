@@ -1,0 +1,77 @@
+{
+  "pages": [
+    "pages/personalCenter/personalCenter",
+    "pages/liveVideo/liveVideo",
+    "pages/baselineActivity/baselineActivity",
+    "pages/partyGroupService/partyGroupService",
+    "pages/welcome/welcome",
+    "pages/liveVideo/videoInfo",
+    "pages/register/register",
+    "pages/handlingGuideline/handlingGuideline",
+    "pages/repairInfo/repairInfo",
+    "pages/mystudy/mystudy",
+    "pages/partyGroupService/partyGroupServiceInfo",
+    "pages/myactive/myactive",
+    "pages/myappointment/myappointment",
+    "pages/handlingGuideline/handlingGuidelineInfo",
+    "pages/baselineActivity/baselineActivityInfo",
+    "pages/mypoints/mypoints",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/redIndex/index",
+    "pages/redSelect/index",
+    "pages/redMap/index",
+
+    "pages/map/index",
+    "pages/rubbish/index",
+    "pages/onlineElection/index",
+    "pages/onlineElection/main/main"
+ 
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#a51e22",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#a51e22",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/baselineActivity/baselineActivity",
+        "text": "基层活动",
+        "iconPath": "static/tabbar_icon/bottom_icon01.png",
+        "selectedIconPath": "static/tabbar_icon/bottom_icon02.png"
+      },
+      {
+        "pagePath": "pages/redIndex/index",
+        "text": "红色足迹",
+        "iconPath": "static/personalCenter/foot-icon.png",
+        "selectedIconPath": "static/personalCenter/foot.png"
+      },
+      {
+        "pagePath": "pages/liveVideo/liveVideo",
+        "text": "视频直播",
+        "iconPath": "static/tabbar_icon/bottom_icon05.png",
+        "selectedIconPath": "static/tabbar_icon/bottom_icon06.png"
+      },
+      {
+        "pagePath": "pages/handlingGuideline/handlingGuideline",
+        "text": "党务通",
+        "iconPath": "static/tabbar_icon/bottom_icon07.png",
+        "selectedIconPath": "static/tabbar_icon/bottom_icon08.png"
+      },
+      {
+        "pagePath": "pages/personalCenter/personalCenter",
+        "text": "个人中心",
+        "iconPath": "static/tabbar_icon/bottom_icon09.png",
+        "selectedIconPath": "static/tabbar_icon/bottom_icon10.png"
+      }
+    ]
+  },
+  "debug": true
+
+}

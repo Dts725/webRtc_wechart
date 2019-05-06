@@ -13,6 +13,9 @@ page, .apt-history {
 .weui-tab__content, .scroll-box{
   height: 100%;
 }
+.nodata{
+  text-align: center
+}
 
 
 

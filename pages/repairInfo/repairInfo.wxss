@@ -148,3 +148,9 @@ page, .apt-repair, .weui-tab__content {
 .weui-cell_primary{
   align-items: center;
 }
+.party-con{
+  display: inline-block;
+  width: 70%;
+  text-align: right
+
+}

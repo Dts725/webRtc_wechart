@@ -31,6 +31,10 @@
   align-items: center;
   align-content: center;
 }
+.flex-h-center{
+	display: flex;
+	align-items: center;
+}
 .fz-12{
   font-size: 12px;
 }
@@ -98,4 +102,65 @@
 
 .m-bottom {
   margin-bottom: 0.5em;
+}
+
+.h1px{
+	width:100%;
+	height:1px;
+}
+
+.white{
+	color:#fff;
+}
+.red{
+	color:#EA4748;
+}
+.blue{
+	color:#51A0FF;
+}
+.green{
+	color:#04C96F;
+}
+.green-light{
+	color:#d1f5a8;
+}
+.gray{
+	color:#A1A1A1;
+}
+.gray-light{
+	color:#e6e6e6;
+}
+.warning{
+	color:#fff3d0;
+}
+.bg-red{
+	background-color:#EA4748;
+}
+.bg-blue{
+	background-color:#51A0FF;
+}
+.bg-green{
+	background-color:#04C96F;
+}
+.bg-green-light{
+	background-color:#d1f5a8;
+}
+.bg-gray{
+	background-color:#A1A1A1;
+}
+.bg-gray-light{
+	background-color:#e6e6e6;
+}
+.bg-warning{
+	background-color:#fff3d0;
+}
+.line-blue{
+	background-color: 1px solid #0D1C7B;
+}
+.line-blue-lignt{
+	background-color: 1px solid #0D1C7B;
+}
+.is-active-blue{
+	color:#fff !important;
+	background-color:#51A0FF !important;
 }

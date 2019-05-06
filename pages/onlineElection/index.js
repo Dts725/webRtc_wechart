@@ -21,7 +21,7 @@ Page({
 	let id = e.target.dataset.data.id;
     // wx.redirectTo({
 	wx.navigateTo({
-      url: './main/main?id='+id+'&user_id='+app.globalData.personInfo.id,
+      url: './main/main?id='+id+'&user_id='+app.globalData.personInfo.id+'&meeting_name='+e.currentTarget.dataset.data.meeting_name
     })
   },
 	getNextPage(e,d,f){
@@ -63,6 +63,7 @@ Page({
 // 			wx.showLoading({
 // 			  title: '加载中',
 // 			});
+console.log('获取会议列表url:::',url);
 		wx.request({
 		  url: _this.data.url + url,
 		  method: 'get',

@@ -2,6 +2,7 @@
 const AgoraMiniappSDK = require('../../../utils/mini-app-sdk-production.js');
 // 测试
 const APPID = 'a247df868d144f6dbe956114b4a242d4';
+const client = new AgoraMiniappSDK.Client();
 
 // 江川项目
 // const APPID = 'cdfad6ea2173410c9c36f1df1e9c6d72';
@@ -21,17 +22,25 @@ Component({
     coverSrc: '../../../static/images/full.png',
     fullScreenFlag: false,
     urlRtc: '',
-    hostId: 9528,
-    locallId: 2564,
     srcHost: '',
     srcPoint: '',
+    flag: true
 
   },
 
   attached() {
     // 在组件实例进入页面节点树时执行
-    this._startPlaying()
+    // this._startPlaying(this.data.meeting_id, this.data.user_id)
+    // this.orderRemote()
+    // this.orderRemote()
   },
+
+  detached() {
+    client.leave()
+    client.destroy()
+    console.log('组建退出')
+  },
+
 
 
   /**
@@ -40,19 +49,96 @@ Component({
    * triggerEvent 用于触发事件, {}中的内容为返回的对象
    */
   methods: {
+
+    // 订阅远端视频流
+    orderRemote(useId, index) {
+      console.log('订阅地址远端00', useId, index)
+
+      // 第一次进入直接订阅
+      client.subscribe(useId, (url) => {
+        this.setData({
+          flag: true,
+          srcPoint: url,
+        })
+
+      })
+      if (index === 1) {
+        client.subscribe(uid, (url) => {
+          this.setData({
+            flag: true,
+            srcPoint_02: url,
+          })
+
+        })
+      }
+      client.on("stream-added", e => {
+        let uid = e.uid;
+        console.log('订阅地址远端01', uid, useId, index)
+
+        if (uid === useId) {
+          console.log('订阅地址远端02', uid, useId, index)
+
+          // 拉流
+          client.subscribe(uid, (url) => {
+            this.setData({
+              flag: true,
+              srcPoint: url,
+            })
+
+          })
+          if (index === 1) { 
+            client.subscribe(uid, (url) => {
+              this.setData({
+                flag: true,
+                srcPoint_02: url,
+              })
+
+            })
+          }
+        } 
+
+  
+      }, err => {
+        console.log('订阅错误', err)
+      })
+
+    },
+
+    // 取消订阅远端视频流
+    exRemote() {
+
+      client.unsubscribe(uid, onSuccess, onFailure);
+
+    },
+
+    // 手动推流
+    publish() {
+      client.publish(url => {
+        console.log('推流成功地址', url)
+        this.setData({
+          urlRtc: url,
+          flag: false
+        })
+      })
+    },
+
+
+
+
+
     _fullScreenFn(e) {
 
-       let _this = this;
+      let _this = this;
       let id = e.currentTarget.dataset.id
-      let ctx =''
+      let ctx = ''
 
-      console.log('非ID',id)
+      console.log('非ID', id)
 
       if (id === 'player') {
-         ctx = wx.createLivePlayerContext(id, this)
+        ctx = wx.createLivePlayerContext(id, this)
 
       } else {
-      //  ctx = wx.createLivePusherContext(id, this)
+        //  ctx = wx.createLivePusherContext(id, this)
         ctx = wx.createLivePlayerContext(id, this)
 
       }
@@ -80,10 +166,10 @@ Component({
         ctx.requestFullScreen({
           direction: 90,
           success: res => {
- 
+
           },
           fail: res => {
-              console.log(res)
+            console.log(res)
 
           },
           complete: res => {
@@ -99,39 +185,18 @@ Component({
 
 
     },
+
     /* 查看详情 */
-    _startPlaying() {
-      let client = new AgoraMiniappSDK.Client();
+    _startPlaying(room, uid) {
       // 初始化客户端
 
       client.init(APPID, res => {
 
+        console.log('初始化客户端成功', room, uid)
+
         // 创建视频流 chancl roomid uid
-        client.join(null, '2556', this.data.locallId, res => {
-          client.publish(url => {
-            console.log('推流成功地址', url)
-            this.setData({
-              urlRtc: url,
-            })
-          })
-
-        })
-
-        client.on("stream-added", e => {
-          let uid = e.uid;
-          console.log('黑恶黑hi', uid)
-
-          if (uid === this.data.hostId) {
-            // 拉流
-            client.subscribe(uid, (url) => {
-              this.setData({
-                srcPoint: url,
-              })
-
-            })
-          } else {
-
-          }
+        client.join(undefined, room, uid, ovt => {
+          console.log('加入房间成功', ovt)
 
         })
       })

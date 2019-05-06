@@ -10,6 +10,7 @@ Page({
     url: app.globalData.url,
     // 所有人的预约
     aptList: [],
+    nodata:false,
     // 字段名对应的中文名
     cnKey: {
       id: '',
@@ -84,6 +85,7 @@ Page({
       url: this.data.url + 'admin/appointment/appointment_list?uid=' + app.globalData.personInfo.id,
       success: (res) => {
         if (res.data.code == 0) {
+          this.nodata = false
           let data = res.data.data.data;
           for (var i = 0; i < data.length; i++) {
             let startTime = new Date(data[i].day + ' ' + _this.data.timeList[data[i].moment.split(',')[0] - 1].time.slice(0, 2) + ':00:00').getTime(),
@@ -108,6 +110,8 @@ Page({
           _this.setData({
             aptList: res.data.data.data
           });
+        }else{
+          this.nodata = true
         }
       },
       fail: (res) => {

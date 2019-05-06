@@ -1,0 +1,204 @@
+@import "../../common/scroll.wxss";
+@import "../../common/modal.wxss";
+
+.select{
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+}
+.select-container{
+  display: flex;
+  height: 100vh;
+}
+/* 左侧tabs */
+.select-tabs{
+  width: 40vw;
+  height: 100%;
+  overflow: hidden;
+  background: #161e2b;
+}
+
+.select-tab{
+  margin: 1vw 0;
+}
+.select-btn{
+  width: 100%;
+  height: 12.5vw;
+  line-height: 12.5vw;
+  margin: auto;
+  text-align: center;
+  position: relative;
+}
+.select-btn.active-tag{
+ background:#272d39;
+ border-left: 1vw solid #7b1517
+}
+.select-label{
+  position: absolute;
+  right: 3vw;
+  top: 3vw;
+  width: 6vw;
+  height: 6vw;
+  font-size: 3vw;
+  background:#EC3803;
+  border-radius: 50%; 
+  text-align: center;
+  line-height: 6vw;
+}
+/* 右侧container */
+.select-content{
+  width: 60vw;
+  height: 100%;
+  background: #272d39  ;
+ 
+}
+.ul{
+  margin: 5vw auto;
+  width: 90%;
+}
+.li {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 12vw;
+  line-height: 12vw;
+  border-bottom: 0.2vw solid #424A57;
+ }
+
+ .li-sub{
+   display: flex;
+   justify-content: space-between;
+   width:90%;
+   height: 12vw;
+   line-height: 12vw;
+   border-bottom: 0.2vw dashed #424A57;
+   padding-left: 5vw;
+ }
+ .add-city {
+   align-items: center
+ }
+ .add-city image{
+   width:6.5vw;
+   height:6.25vw;
+   object-fit:cover;
+   object-position:center;
+   overflow:hidden;
+   border-radius:50%;
+}
+@keyframes kf-marque-animation{ 0% { transform: translateX(0); } 100% { transform: translateX(-33.3%); } }
+ .li-sub_text{
+   width: 80%;
+   height: 100%;
+   overflow: hidden;
+   text-overflow:clip;
+   white-space: nowrap;
+ }
+.marquee_content{
+    display: inline-block;
+    position: relative;
+    padding-right: 0px;
+    animation: kf-marque-animation 8s linear infinite;
+    white-space: nowrap;
+    font-size: 3.75vw
+}
+.marquee_noscroll{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.select-image{
+  display: inline-block;
+  width: 6.25vw;
+  height: 12vw;
+}
+.select-image image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+.left{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-size: 5vw;
+}
+.select-content-label{
+  position: absolute;
+  left: 15vw;
+  top: 3vw;
+  width: 6vw;
+  height: 6vw;
+  background:#EC3803;
+  border-radius: 50%; 
+  text-align: center;
+  line-height: 6vw;
+  font-size: 3vw;
+}
+.select-content-opeation{
+  width: 20vw;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end
+}
+.select-content-photo,.select-content-footer{
+  width: 45%;
+  height: 100%;
+  line-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.select-content-footer{
+  margin-left: 2vw
+}
+.select-content-photo image,
+.select-content-footer image{
+  width: 7.8125vw;
+  height:7.8125vw;
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+  border-radius: 50%
+}
+/* 生成我得足迹 */
+.select-button{
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.select-button button,.footer-btn{
+  position:relative;
+  width: 90%;
+  margin: auto;
+  background: #a52325;
+  border-radius:9.375vw;
+  color: #fff !important;
+  font-weight: bold;
+  transition: all 0.1s;
+  outline: none;
+  display: flex;
+  align-items: center
+
+}
+.select-button-image{
+  width: 10vw;
+  height: 100%;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+
+}
+.select-button-image image{
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: center
+}
+
+.myCanvas {
+   width:0;
+   height: 0;
+   overflow: hidden;
+}

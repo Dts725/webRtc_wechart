@@ -42,13 +42,42 @@
    font: 6.25vw "microsoft yahei";
    border-top: 1px solid #E8E8EA;
    display: flex;
-   justify-content: space-around
+   justify-content: space-around;
+   position: relative;
  }
+ button-hover[plain],
+ button-active[plain],
 .btn_ok{
+  border: none !important;
+  outline: none;
+}
+.btn_ok{
+  background: none !important;
+  outline: none !important;
+  border: none !important;
   color: #3CC51F;
+  line-height: auto !important;
+  position: static;
+  padding: 0
 }
 .btn_cancel{
-  color: #EC3803
+  color: #EC3803;
+  display: flex;
+  align-items: center;
+  justify-content: center 
+}
+.btn-cancel-update{
+  position: absolute;
+  right: 3vw;
+  top: 3vw
+}
+.btn-cancel-update image{
+   width:8.5vw;
+   height:8.25vw;
+   object-fit:cover;
+   object-position:center;
+   overflow:hidden;
+
 }
 .drawer_box .top{
 	padding-top:2.5vw;

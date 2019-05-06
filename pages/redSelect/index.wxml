@@ -40,9 +40,13 @@
                             <block wx:for="{{item.views}}" wx:for-item="subitem" wx:for-index="ViewsIndex" wx:key="index">
                               <view class="li-sub">
                                 <view class="li-sub_text">
-                                  <view class="{{isScroll ? 'marquee_content':''}}">
+                                  <!-- <view class="{{isScroll ? 'marquee_content':''}}">
                                      <text>{{subitem.scenic_spots_name}}</text>
-                                  </view>
+                                  </view> -->
+                                   <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
+                                     <text>{{subitem.scenic_spots_name}}</text>
+                                   </scroll-view>
+                                  <!-- <view class='marquee_noscroll'><text>{{subitem.scenic_spots_name}}</text></view> -->
                                 </view>
                                 <view class='select-content-opeation'>
                                     <view class='select-content-photo' hidden="{{subitem.tourist_footprint_id === 0}}" bindtap='uploadImage' data-footerId="{{subitem.tourist_footprint_id}}"  data-cityIndex="{{cityIndex}}" data-provinceIndex="{{currentItem}}" data-viewIndex="{{ViewsIndex}}" data-photos="{{subitem.tourist_photos}}">
@@ -90,10 +94,18 @@
            <input placeholder="请填写景点名称" bindinput="inputviews" auto-focus />
          </view>
       </view>
-    <view class='draw_screen_btn'>
-     <view class="btn_cancel" bindtap="cancal" data-statu="close">{{type === 'addViews'?'取消':'关闭'}}</view>
-     <view class="btn_ok" wx:if="{{type === 'addViews'}}" bindtap="update" data-statu="addViews">确定</view>
+    <view class='btn-cancel-update' bindtap="cancal" data-statu="close" wx:if="{{type === 'addViews'}}">
+         <image src='../../static/images/close.svg'></image>
      </view>
+    <view class='draw_screen_btn'  wx:if="{{type === 'addViews'}}">
+       <form bindsubmit="update" name='confirm' report-submit="true" data-statu="addViews">
+            <button class="btn_ok"  form-type="submit">确定</button>
+     </form>
+    </view>
+    <view class='draw_screen_btn'  wx:else>
+      <view class="btn_cancel" bindtap="cancal" data-statu="close">关闭</view>
+    </view>
+    
    </view>
     <view class='myCanvas'>
       <canvas canvas-id='attendCanvasId' style="width: {{canWidth}}px;height: {{canHeight}}px;overflow:hidden"></canvas>

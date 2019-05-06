@@ -1,0 +1,11 @@
+<view class='flex-center-wrap h100'>
+	<!-- <view>上海金属结构厂有限公司支部换届选举大会</view> -->
+	<view class="mt-left" bindtap="_applicationSpeech">
+		<image src="../../../static/meeting/hand-icon.png"></image>
+		<text>{{name}}</text>
+	</view>
+	<view class='flex-center'>
+		<view>在线列表图片</view>
+		<view>在线21人</view>
+	</view>
+</view>

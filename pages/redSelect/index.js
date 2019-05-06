@@ -50,7 +50,7 @@ Page({
         var result = res.data.data
         var tabs = [];
         var allcityNumber = [];
-        console.log(result)
+        // console.log(result)
         result.map(function (item) {
           tabs.push({
             province_id: item.province_id,
@@ -427,7 +427,7 @@ Page({
       }
     })
   },
-  //模态添加景点
+  //模态添加图片
   modalAddImage: function () {
     var that = this
     wx.chooseImage({
@@ -474,6 +474,7 @@ Page({
 
   //模态
   update: function (e) {
+    console.log(e)
     var currentStatu = e.currentTarget.dataset.statu;
     var that = this;
     if (currentStatu === 'addViews') {
@@ -489,7 +490,8 @@ Page({
             province_id: that.data.tabs[that.data.addProvinceId].province_id,
             city_id: that.data.addCityId,
             scenic_spots_name: that.data.inputViewsContent,
-            commiter_id: app.globalData.openid
+            commiter_id: app.globalData.openid,
+            formId: e.detail.formId
           },
           success: function (res) {
             if (res.data.code === 0) {
@@ -501,7 +503,7 @@ Page({
               that.cancal()
             } else {
               wx.showToast({
-                title: '添加失败',
+                title: res.data.status,
                 icon: 'success',
                 duration: 2000
               })

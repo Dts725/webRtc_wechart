@@ -26,7 +26,7 @@ Page({
     var that = this
     return {
       title: '红色足迹',
-      path: 'pages/personalCenter/personalCenter',
+      path: 'pages/redIndex/index',
       success: function (res) {
         // 转发成功
         wx.showToast({

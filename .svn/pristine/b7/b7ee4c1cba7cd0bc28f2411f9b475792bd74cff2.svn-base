@@ -1,0 +1,54 @@
+<view class='apt-repair'>
+  <view class="weui-panel">
+    <view class="weui-cells weui-cells_in-small-appmsg">
+      <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>头像</text>
+          <view class="userinfo-avatar">
+            <open-data type="userAvatarUrl"></open-data>
+          </view>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>姓名</text>
+          <text class='apr-con'>{{personInfo.name}}</text>
+        </view>
+      </navigator>
+      <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>性别</text>
+          <text class='apr-con'>{{gender==1?'男':'女'}}</text>
+        </view>
+      </navigator>
+        <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>党组织</text>
+          <text class='apr-con party-con'>{{personInfo.organization_name ? personInfo.organization_name : '其他'}}</text>
+        </view>
+      </navigator>
+      <!-- <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>出生日期</text>
+          <text class='apr-con'>{{personInfo.birth}}</text>
+        </view>
+      </navigator> -->
+    </view>
+  </view>
+  <view class="weui-panel">
+    <view class="weui-cells weui-cells_in-small-appmsg">
+      <!-- <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>身份证</text>
+          <text class='apr-con'>{{personInfo.card}}</text>
+        </view>
+      </navigator> -->
+      <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>手机号</text>
+          <text class='apr-con'>{{personInfo.phone}}</text>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view>

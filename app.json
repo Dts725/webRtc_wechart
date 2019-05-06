@@ -22,9 +22,9 @@
     "pages/redSelect/index",
     "pages/redMap/index",
     "pages/map/index",
+    "pages/rubbish/index",
     "pages/onlineElection/index",
     "pages/onlineElection/main/main"
- 
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -45,10 +45,10 @@
         "selectedIconPath": "static/tabbar_icon/bottom_icon02.png"
       },
       {
-        "pagePath": "pages/partyGroupService/partyGroupService",
-        "text": "党群服务",
-        "iconPath": "static/tabbar_icon/bottom_icon03.png",
-        "selectedIconPath": "static/tabbar_icon/bottom_icon04.png"
+        "pagePath": "pages/redIndex/index",
+        "text": "红色足迹",
+        "iconPath": "static/personalCenter/foot-icon.png",
+        "selectedIconPath": "static/personalCenter/foot.png"
       },
       {
         "pagePath": "pages/liveVideo/liveVideo",
@@ -70,5 +70,6 @@
       }
     ]
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

@@ -1,6 +1,7 @@
 <view class='apt-history'>
   <!-- <panel bind:editEvent='edit' bind:delEvent='del' wx:for='{{aptList}}' title='{{item.day}} {{item.moment}}' content='{{item}}' wx:key='item.id' cnKey='{{cnKey}}' contentType='object'>{{item}}</panel> -->
-  <scroll-view class='scroll-box' bindscrolltoupper='getAptList' scroll-y scroll-with-animation>
+   <view class='nodata' wx:if="nodata">暂无预约信息</view>
+  <scroll-view class='scroll-box' bindscrolltoupper='getAptList' scroll-y scroll-with-animation wx:else>
   <panel 
       bind:cancelEvent='cancel' 
       wx:for='{{aptList}}' 

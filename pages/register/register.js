@@ -120,7 +120,6 @@ Page({
       // }
     }
     var is_partymember;
-    console.log(this.data.parties[this.data.index])
     if (this.data.parties[this.data.index]){
       if (this.data.parties[this.data.index] === '其他'){
         is_partymember = 2
@@ -128,7 +127,6 @@ Page({
         is_partymember = 1
       }
     }
-   
     if (!tip) {
       let data = {
         code: this.data.field.code,
@@ -137,7 +135,8 @@ Page({
         phone: this.data.field.phone,
         openid: openid,
         wx_nickname: app.globalData.userInfo.nickName,
-        is_partymember: is_partymember
+        is_partymember: is_partymember,
+        sex: app.globalData.userInfo.gender
       };
 
       wx.request({
@@ -145,6 +144,7 @@ Page({
         method: 'POST',
         data: data,
         success: function (response) {
+          console.log(response)
           if (response.data.code == 0) {
              app.getPersonInfo()
              wx.showToast({
@@ -155,29 +155,14 @@ Page({
             wx.switchTab({
               url: '../../pages/personalCenter/personalCenter'
             });
-          }
-          if (response.data.code == 205) {
+          }else{
             wx.showToast({
               title: response.data.status,
               icon: 'none',
               duration: 1500
             });
           }
-          if (response.data.code == 206) {
-            wx.showToast({
-              title: response.data.status,
-              icon: 'none',
-              duration: 1500
-            });
-          }
-          console.log(response)
-          if (response.data.code == 208) {
-            wx.showToast({
-              title: response.data.status,
-              icon: 'none',
-              duration: 1500
-            });
-          }
+          
         }
 
       })
@@ -268,8 +253,10 @@ Page({
             response.data.data.map(function(item){
               arr.push(item.org_name)
             })
+            arr = arr.concat(['其他'])
             that.setData({
-              parties: arr
+              parties: arr,
+              isDisabled: false,
             })
           }else{
             if(e.detail.value){
@@ -288,7 +275,7 @@ Page({
       }
     })
   },
-  
+  // 党组织
   bindPickerChange(e) {
     console.log('picker发送选择改变，携带值为', e.detail)
     this.data.field.party = e.detail.value

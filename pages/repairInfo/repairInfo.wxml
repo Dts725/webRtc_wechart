@@ -21,6 +21,12 @@
           <text class='apr-con'>{{gender==1?'男':'女'}}</text>
         </view>
       </navigator>
+        <navigator url="" class="weui-cell weui-cell_access">
+        <view class="weui-cell__bd weui-cell_primary apr-row">
+          <text class='apr-label'>党组织</text>
+          <text class='apr-con party-con'>{{personInfo.organization_name ? personInfo.organization_name : '其他'}}</text>
+        </view>
+      </navigator>
       <!-- <navigator url="" class="weui-cell weui-cell_access">
         <view class="weui-cell__bd weui-cell_primary apr-row">
           <text class='apr-label'>出生日期</text>

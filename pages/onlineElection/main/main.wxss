@@ -3,7 +3,8 @@
 .button {
   background-color: transparent;
   opacity: 0.6;
-  width: 40px;
+  width:4.5vh;
+  height:4.5vh;
   /* padding: 5px; */
   /* height: 1em; */
   /* line-height: 100%; */
@@ -12,6 +13,9 @@
   top: 40%;
   left: 85%;
   z-index: 101;
+	border-radius:2rem;
+	box-shadow:0 0 10px #aaa;
+	overflow: hidden;
 }
 .button image{
 	width:4.5vh;
@@ -19,48 +23,100 @@
 }
 
 .mov {
-  height: 70vh;
+  height: 75vh;
   width: 100%;
   background-color: rgba(red, green, blue, 0.2);
 }
 
+.mt-top-con{
+	height: 10vh;
+}
 /* flow 流程菜单 ↓ */
 
 .flow-menu{
+	/* 左侧的 */
+/* 	box-sizing: border-box;
 	transition: left 0.4s ease-in;
 	min-width: 50%;
+	width: 50%;
 	height: 100%;
 	background-color: #2334a8;
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 100;
 	color: #fff;
-	box-sizing: border-box;
 	padding:2vh;
-	font-size:2.5vh;
+	font-size:2vh;
+	z-index:10000; */
+	
+	/* 由下而上出现的 */
+	box-sizing: border-box;
+	transition: bottom 0.4s ease-in;
+	min-width: 50%;
+	width: 50%;
+	height: 75%;
+	background-color: #2334a8;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: #fff;
+	padding:2vh;
+	font-size:2vh;
 	z-index:10000;
 }
 .flow-menu .row{
-	padding:0.8vh 0;
+	padding:1vh 0;
+	position: relative;
+}
+/* 横线 */
+/*  border-bottom: 1px solid #3E51D1;
+	box-shadow: 0 1px 0px #0D1C7B; */
+.flow-menu .row:nth-child(4), .flow-menu .row:nth-child(9){
+	padding-bottom:3vh;
+	margin-bottom: 2vh;
+}
+/* .flow-menu .row:nth-child(4) .line-blue-lignt, 
+.flow-menu .row:nth-child(4) .line-blue, 
+.flow-menu .row:nth-child(9) .line-blue-lignt,
+.flow-menu .row:nth-child(9) .line-blue,
+{
+	height: 1px;
+} */
+.flow-menu-line{
+	width:100%;
+	height: 2px;
+}
+.flow-menu-line2{
+	position: absolute;
+	bottom:0;
+	width:100%;
+	height: 2px;
 }
 .flow-menu .flow-li{
 	display:flex;
 	align-items:center;
 }
 .flow-menu .flow-li-icon{
-	width:3vh;
-	height:3vh;
+	width:2.4vh;
+	height:2.4vh;
 	display:inline-block;
-	margin-right:1vh;
+	margin-right:1.8vh;
+}
+.flow-menu .flow-li-icon-right{
+	width:2.4vh;
+	height:2.4vh;
+	display:inline-block;
+	/* margin-right:2vh; */
 }
 .flow-menu .flow-li-text{
 	display:inline-block;
 }
 
 .flow-title {
-  font-size: 4vh;
-  line-height: 15vh;
+  /* font-size: 4vh;
+  line-height: 15vh; */
+	font-size:3.2vh;
+	line-height:10vh;
 }
 
 .meeting-body {
@@ -113,6 +169,28 @@
 	background-color:#67c23a;
 	color:#fff;
 }
+/******** 无内容时的显示内容 ↓ ********/
+.mt-no-info{
+	position: relative;
+	top:35%;
+	text-align: center;
+	/* margin:5vh 0; */
+	font-weight: bold;
+	font-size:2.5vh;
+	opacity:0.5;
+}
+.mt-no-info-title text{
+	font-size:3.5vh;
+	color:#D8531A;
+}
+.mt-no-info-title{
+	color:#008000;
+}
+.mt-no-info-con{
+	color:#418AFB;
+	font-size: 3vh;
+}
+/******** 无内容时的显示内容 ↑ ********/
 /**************** 签到统计 ↓ ****************/
 .mt-con .mt-con-sign-result-title{
 	font-size: 3vh;
@@ -263,9 +341,78 @@
 	border-top:none;
 	border-bottom-left-radius:1vh;
 	border-bottom-right-radius:1vh;
-	padding:0.5vh 2vh 0.5vh 0;
+	/* padding:0.5vh 2vh 0.5vh 0; */
 }
-	
+/* 另选他人 - 标题 */
+.mt-flow-select-other-wraper-title{
+	position:relative;
+	height:2rem;
+	line-height:2rem;
+	color:#fff;
+	font-size:0.8rem;
+	font-weight:bold;
+	text-align:center;
+}
+.mt-flow-select-other-wraper-title-line{
+	width:100%;
+	height:3px;
+	background-color:#51A0FF;
+}
+.mt-flow-select-other-wraper-title-con{
+	position:absolute;
+	top:0;
+	background-color:#51A0FF;
+	height:100%;
+	width:96%;
+	left:2%;
+	border-bottom-left-radius:1rem;
+	border-bottom-right-radius:1rem;
+	letter-spacing:1px;
+}
+/* 另选他人 - 书记 副书记 委员等等 */
+.mt-flow-select-other-wraper-con{
+	padding:2vh;
+}
+.mt-flow-select-other-wraper-con-name{
+	width:15%;
+	font-weight:bold;
+	display:inline-block;
+	min-width:2rem;
+}
+.mt-flow-select-other-row{
+	line-height: 1.2rem;
+	margin:0.5vh 0;
+}
+.mt-flow-select-other-wraper-con-name-con{
+	width:83%;
+	border-radius:4px;
+	padding:0 1%;
+	display: inline-block;
+}
+.mt-flow-select-other-wraper-title-icon{
+	position:absolute;
+	right:2vh;
+	width:1rem;
+	height:1rem;
+	top:1.5vh;
+}
+.mt-flow-con-8-bottom{
+	display: flex;
+	justify-content: space-around;
+	padding:2vh 2vh 4vh 2vh;
+}
+.mt-flow-con-8-bottom button{
+	width:60%;
+	font-size:0.8rem;
+	border-radius:2rem;
+	border:none;
+}
+/* 投票完成提示信息 */
+.mt-flow-con-8-result-tip{
+	line-height:10vh;
+	font-size:2.6vh;
+	color:#008000;
+}
 /**************** 候选人介绍 投票 ↑ ****************/
 
 	
@@ -299,6 +446,32 @@
 	position:absoulte;
 	top:0;
 }
+/* 选举结果部分 */
+.flex-center-wrap{
+	height: 100%;
+}
+.flex-center-wrap-top{
+	height: 6rem;
+	/* height: 26%; */
+	width:100%;
+}
+.flex-center-wrap-top-con-1{
+	height: 2rem;
+}
+.flex-center-wrap-top-con-2{
+	box-sizing:border-box;
+	height: 1.7rem;
+}
+.flex-center-wrap-top-con-3{
+	box-sizing:border-box;
+	height: 2.2rem;
+	overflow: hidden;
+}
+.flex-center-wrap-con{
+	height: calc(100% - 6.1rem);
+/* 	height: 73%; */
+	width:100%;
+}
 .focurs {
   font-weight: 700;
   padding: 0.2em;
@@ -319,10 +492,11 @@ height: 4em;
 border-radius: 100%;
 }
 .t-result {
-  margin: 5px;
+  margin: 5px 0;
   padding: 0.8em 0.5em 0.8em 0;
   border-radius: 2px;
-  box-shadow: 0px 0px 5px #aeaeae;
+  /* box-shadow: 0px 0px 5px #aeaeae; */
+	border:1px solid #ddd;
 }
 .t-scrot {
   color: #fff;
@@ -344,34 +518,12 @@ border-radius: 100%;
 
 }
 .t-table {
- padding: 0.5rem 0;
+ padding: 0.4rem 0;
 }
 
 .t-other {
   padding: 0.5em 0;
 }
+
 /** 内容展示区域 ↑ **/
 
-.red{
-	color:#EA4748;
-}
-.blue{
-	color:#51A0FF;
-}
-.green{
-	color:#04C96F;
-<<<<<<< .mine
-}
-
-||||||| .r3190
-}=======
-}
-.bg-red{
-	background-color:#EA4748;
-}
-.bg-blue{
-	background-color:#51A0FF;
-}
-.bg-green{
-	background-color:#04C96F;
-}>>>>>>> .r3191

@@ -17,8 +17,9 @@ Page({
       { id: 2, url: '../myactive/myactive', img: '../../static/personalCenter/person03.png', text: '我的活动' },
       { id: 3, url: '../mystudy/mystudy', img: '../../static/personalCenter/person04.png', text: '我的学习' },
       { id: 4, url: '../mypoints/mypoints', img: '../../static/personalCenter/person05.png', text: '我的积分' },
-      { id: 5, url: '../redIndex/index', img: '../../static/personalCenter/person07.png', text: '红色足迹' },
-      { id: 6, url: '../onlineElection/index', img: '../../static/personalCenter/person08.png', text: '在线选举' },
+      { id: 5, url: '../partyGroupService/partyGroupService', img: '../../static/tabbar_icon/bottom_icon04.png', text: '党群服务' },
+      { id: 6, url: '../rubbish/index', img: '../../static/images/rubbish.svg', text: '垃圾分类' },
+      { id: 7, url: '../onlineElection/index', img: '../../static/personalCenter/person08.png', text: '在线选举' },
     ]
   },
 
