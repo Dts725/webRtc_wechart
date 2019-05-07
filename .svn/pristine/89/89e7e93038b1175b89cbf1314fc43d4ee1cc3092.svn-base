@@ -7,9 +7,6 @@ let top = require('../../../pages/components/meeting-top/meeting-top.js')
 let center = require('../../../pages/components/meeting-center-video/meeting-center-video.js')
 // let libs = Object.assign({}, top,center)
 /**
- * 
-    // "center":"../../components/meeting-center-video/meeting-center-video"
- * 
  * WxParse.wxParse(bindName , type, data, target,imagePadding)
  * 1.bindName绑定的数据名(必填)
  * 2.type可以为html或者md(必填)
@@ -189,6 +186,7 @@ Page({
     // child.orderRemote(data[0].id, 0)
 
     for (let i = 0; i < data.length; i++) {
+      console.log("调用子路由前夕")
       child.orderRemote(data[i].id, i)
 
     }
@@ -199,14 +197,7 @@ Page({
   /************我要发言模式 */
   hostFn() {
     let child = this.selectComponent('#liceCenter');
-    console.log('调用推送')
     child.publish()
-  },
-
-  // 停止推送
-  unPublish () {
-    let child = this.selectComponent('#liceCenter');
-    child.unPublish()
   },
 
   /** 申请发言 **/
@@ -221,8 +212,6 @@ Page({
       }
       // 下麦逻辑
       if (this.getIndexByKey(this.data.meeting.upper, this.data.user_id, 'id') > -1) {
-
-        this.unPublish()
         this.sendMessage({
           down: 1
         });
@@ -232,34 +221,23 @@ Page({
   },
   /** 设置申请状态和名字 **/
   applicationSpeechStatusName() {
-  
+
     if (this.getIndexByKey(this.data.meeting.apply, this.data.user_id, 'id') > -1) {
       this.setData({
         'meeting.speechName': '申请中',
         'meeting.speechStatus': '2',
       });
     } else if (this.getIndexByKey(this.data.meeting.upper, this.data.user_id, 'id') > -1) {
-      if (this.ArrayValueChange(this.data.oldApply, this.data.meeting.upper).changed) {
- 
-        this.data.oldApply= this.data.meeting.upper
-       
-          console.count('点击下麦')
-              this.hostFn()
-
+    
+      if (this.ArrayValueChange(this.data.oldApply, this.data.meeting.apply).changed) {
+        this.data.oldApply = this.data.meeting.apply
+        this.hostFn()
       }
       this.setData({
         'meeting.speechName': '点击下麦',
         'meeting.speechStatus': '3',
       });
     } else {
-   
-      if (this.ArrayValueChange(this.data.oldApply, this.data.meeting.upper).changed) {
-        this.data.oldApply= this.data.meeting.upper
-          this.unPublish()
-      console.count('申请发言')
-      }
-
- 
       this.setData({
         'meeting.speechName': '申请发言',
         'meeting.speechStatus': '1',
@@ -1116,7 +1094,7 @@ Page({
 
     // 初始化会议
 
-    this.selectComponent('#liceCenter')._startPlaying(this.data.meeting_id, Number(this.data.user_id))
+    this.selectComponent('#liceCenter')._startPlaying(this.data.meeting_id, Number(options.user_id))
   },
 
   /**

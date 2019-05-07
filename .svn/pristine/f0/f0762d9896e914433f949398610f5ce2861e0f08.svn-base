@@ -8,7 +8,7 @@
 
 		<!-- <view class='h-15vh'> -->
 		<view class='mt-top-con h-15vh'>
-			<top bind:speechEvent="ApplicationSpeech" name="{{meeting.speechName}}" list="{{meeting.speakList}}"></top>
+			<top bind:speechEvent="ApplicationSpeech" name="{{meeting.speechName}}" list="{{meeting.party}}"></top>
 		</view>
 
 		<!-- 视频 -->

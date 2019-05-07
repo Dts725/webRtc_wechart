@@ -6,10 +6,8 @@
 	</view>
 	<view class='flex-center mt-right'>
 		<view class="mt-right-imgs">
-			<image wx:for="{{list}}" src="{{item.image?item.image:'../../../static/meeting/header.png'}}"></image>
-			<!-- <text wx:for="{{list}}">{{item.name}}</text> -->
+			<image wx:for="list" src="{{item.image?item.image:'../../../static/meeting/hand-icon.png'}}"></image>
 		</view>
-		<view class="mt-right-num">申请发言 {{list.length}}人</view>
-<!-- 		<view class="mt-right-num">参会党员{{list.length}}人</view> -->
+		<view class="mt-right-num">参会党员{{list.length}}人</view>
 	</view>
 </view>

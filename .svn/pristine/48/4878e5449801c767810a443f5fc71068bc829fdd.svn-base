@@ -17,7 +17,7 @@
 	
 	<!-- 推流用标签 -->
 	  <view  wx:else  class='w50 flex-center h100'>
-	    <live-pusher id='pusher'  url="{{urlRtc}}" mode="RTC" class='h100  fr' autopush  beauty="2" whiteness="2"> 
+	    <live-pusher id='pusher'  url="{{urlRtc}}" mode="RTC" class='h100  fr' autopush object-fit="contain">
 
 	    </live-pusher>
 	  </view>

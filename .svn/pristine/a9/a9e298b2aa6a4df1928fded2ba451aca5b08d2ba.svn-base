@@ -1,11 +1,11 @@
 // pages/components/meeting-center-video/meeting-center-video.js
 const AgoraMiniappSDK = require('../../../utils/mini-app-sdk-production.js');
 // 测试
-// const APPID = 'a247df868d144f6dbe956114b4a242d4';
+const APPID = 'a247df868d144f6dbe956114b4a242d4';
 const client = new AgoraMiniappSDK.Client();
 
 // 江川项目
-const APPID = 'cdfad6ea2173410c9c36f1df1e9c6d72';
+// const APPID = 'cdfad6ea2173410c9c36f1df1e9c6d72';
 Component({
   /**
    * 组件的属性列表
@@ -24,11 +24,7 @@ Component({
     urlRtc: '',
     srcHost: '',
     srcPoint: '',
-    flag: true,
-
-    firstFlag : true,
-
-    userId : []
+    flag: true
 
   },
 
@@ -37,13 +33,12 @@ Component({
     // this._startPlaying(this.data.meeting_id, this.data.user_id)
     // this.orderRemote()
     // this.orderRemote()
-
   },
 
   detached() {
-    // this.unpublish()
-    // client.leave()
-    // client.destroy()
+    client.leave()
+    client.destroy()
+    console.log('组建退出')
   },
 
 
@@ -55,62 +50,47 @@ Component({
    */
   methods: {
 
-    // 停止订阅
-    unsubscribe () {
-      let arr = Array.from(new Set(this.data.userId))
-      arr.map (res => {
-        client.unsubscribe(res)
+    // 订阅远端视频流
+    orderRemote(useId, index) {
+      console.log('订阅地址远端00', useId, index)
+
+      // 第一次进入直接订阅
+      client.subscribe(useId, (url) => {
+        this.setData({
+          flag: true,
+          srcPoint: url,
+        })
 
       })
-    },
+      if (index === 1) {
+        client.subscribe(uid, (url) => {
+          this.setData({
+            flag: true,
+            srcPoint_02: url,
+          })
 
-    // 订阅远端视频流
-    orderRemote(userId, index) {
-      console.log('订阅地址远端00', userId, index)
-
-    //   // 第一次进入直接订阅
-    // if(this.data.firstFlag) {
-    //   client.subscribe(userId, (url) => {
-    //     this.data.userId.push(userId);
-    //     this.setData({
-    //       flag: true,
-    //       srcPoint: url,
-    //     })
-
-    //   })
-    //   if (index === 1) {
-    //     client.subscribe(userId, (url) => {
-    //       this.setData({
-    //         flag: true,
-    //         srcPoint_02: url,
-    //       })
-
-    //     })
-    //   }
-    // }
+        })
+      }
       client.on("stream-added", e => {
-
         let uid = e.uid;
-        console.count('订阅地址远端01', e)
+        console.log('订阅地址远端01', uid, useId, index)
 
-        if (uid === userId) {
-          // console.log('订阅地址远端02', uid, userId, index)
+        if (uid === useId) {
+          console.log('订阅地址远端02', uid, useId, index)
 
           // 拉流
+          client.subscribe(uid, (url) => {
+            this.setData({
+              flag: true,
+              srcPoint: url,
+            })
 
-          if (index >0) { 
+          })
+          if (index === 1) { 
             client.subscribe(uid, (url) => {
               this.setData({
                 flag: true,
                 srcPoint_02: url,
-              })
-
-            })
-          } else {
-            client.subscribe(uid, (url) => {
-              this.setData({
-                flag: true,
-                srcPoint: url,
               })
 
             })
@@ -125,7 +105,11 @@ Component({
     },
 
     // 取消订阅远端视频流
-   
+    exRemote() {
+
+      client.unsubscribe(uid, onSuccess, onFailure);
+
+    },
 
     // 手动推流
     publish() {
@@ -135,16 +119,6 @@ Component({
           urlRtc: url,
           flag: false
         })
-      })
-    },
-
-    // 停止推流
-
-    unPublish () {
-      client.unpublish();
-      this.setData({
-        urlRtc: "",
-        flag: true
       })
     },
 
