@@ -1,0 +1,166 @@
+<import src="./piechart.wxml" />
+<view class='preview'>
+<!-- header -->
+  <view class='preview-person'>
+     <view class='preview-person__image'>
+       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+     </view>
+     <view class='preview-person__name'>王主任，您好！</view>
+  </view>
+   <!-- tab栏 -->
+  <view class='preview-tabs'>
+     <view class='preview-tabs__static'>
+        <view class='preview-tabs__static-item'>
+           <image src='../../static/images/4icon01.png' mode="cover"></image>
+           <view class='preview-tabs__static-item-text'>1200<text style="font-size:3vw;">人</text></view>
+           <view>党员</view>
+        </view>
+        <view class='preview-tabs__static-item'>
+           <image src='../../static/images/4icon02.png' mode="cover"></image>
+           <view class='preview-tabs__static-item-text'>1200<text style="font-size:3vw;">人</text></view>
+           <view>预备党员</view>
+        </view>
+        <view class='preview-tabs__static-item'>
+            <image src='../../static/images/4icon03.png' mode="cover"></image>
+           <view class='preview-tabs__static-item-text'>1200<text style="font-size:3vw;">个</text></view>
+           <view>居民区</view>
+        </view>
+        <view class='preview-tabs__static-item'>
+            <image src='../../static/images/4icon04.png' mode="cover"></image>
+           <view class='preview-tabs__static-item-text'>1200<text style="font-size:3vw;">户</text></view>
+           <view>住户</view>
+        </view>
+     </view>
+
+     <view class='preview-tabs__dynamic'>
+       <view class='preview-tabs__dynamic-item'>
+         <view class='preview-tabs__dynamic-item-tab'>
+            <image src='../../static/images/2icon01.png' mode='cover'></image>
+            <view>
+              <view class='preview-tabs__dynamic-item-tab-text'>180 <text style="font-size:3vw;">人</text></view>
+              社区工作者
+              </view>
+            </view>
+         <button class='preview-tabs__dynamic-item-btn '>查看详情</button>
+       </view>
+       <view class='preview-tabs__dynamic-item'>
+         <view class='preview-tabs__dynamic-item-tab'>
+            <image src='../../static/images/2icon02.png' mode='cover'></image>
+            <view>
+              <view class='preview-tabs__dynamic-item-tab-text'>5 <text style="font-size:3vw;">个</text></view>
+              分管居民区
+              </view>
+            </view>
+         <button class='preview-tabs__dynamic-item-btn active'>查看详情</button>
+       </view>
+     </view>
+  </view>
+  <!-- progress -->
+  <view class='preview-progress'>
+     <view class='preview-progress__title'>本月党费缴纳</view>
+     <view class='progress'>
+        <view class="progress-bar {{widthProgress === '100%' ? '':'progress-bar-unfull'}}" style="width:{{widthProgress}};"></view>
+        <view class='progress-finish-text'>500</view>
+        <view class='progress-unfinish-text'>200</view>
+      </view>
+      <view class='progress-des'>
+        <view class='progress-des__finish'>已交</view>
+         <view class='progress-des__unfinish'>未交</view>
+      </view>
+  </view>
+
+  <!-- 党建折叠 -->
+  <view class='preview-party'>
+     <view class='preview-party__item'>
+        <view class='preview-party__tab' bindtap='showParty'>
+           <view class='preview-party__name'>党建活动开展情况</view>
+           <view class='preview-party__des'>
+             <view>
+               未达标 <text>4条</text> 
+             </view>
+             <image src='../../static/{{showPartyBlock ? "UP" : "Down"}}.svg' mode='cover'></image>
+           </view>
+        </view>
+        <view class='preview-party__content {{showPartyBlock ?"" : "party-hide"}}' >
+            <view class='preview-party__content-item' wx:for="{{partyData}}" wx:for-item="item" wx:key="index">
+              <view class='preview-party__content-tab' bindtap='showDetailContent' data-param="{{index}}">
+                <view class='preview-party__name'>{{item.name}}</view>
+                <view class='preview-party__des'>
+                  <view>
+                    未达标 <text>{{item.number}}条</text> 
+                  </view>
+                   <image src='../../static/{{partyDetailFlag[index] ? "UP" : "Down"}}.svg' mode='cover'></image>
+                </view>
+             </view>
+             <view class='preview-party__content-item-content {{partyDetailFlag[index] ? "" : "partyDetail-hide"}}' >
+                <view class='preview-party__content-item-content-text' wx:for="{{item.detail}}" wx:for-item="details" wx:key="key">
+                      {{details.name}}
+                </view>
+             </view>
+            </view>
+        </view>
+     </view>
+  </view>
+
+  <!-- 组织生活 -->
+  <view class='preview-party preview-organization'>
+    <view class='preview-party__item'>
+         <view class='preview-party__tab' bindtap='showOrganization'>
+           <view class='preview-party__name'>组织生活开展情况</view>
+           <view class='preview-party__des'>
+             <view>
+               未通过审查 <text>4条</text> 
+             </view>
+             <image src='../../static/{{showOrganizationBlock ? "UP" : "Down"}}.svg' mode='cover'></image>
+           </view>
+        </view>
+         <view class='preview-party__content {{showOrganizationBlock ?"" : "organization-hide"}}' >
+            <view class='preview-party__content-item' wx:for="{{organizationData}}"  wx:for-item="item" wx:key="index">
+              <view class='preview-party__content-tab'  bindtap='showorganizationDetail' data-param="{{index}}">
+                 <view class='preview-organization__name'>{{item.name}}</view>
+                 <view class='preview-party__des preview-organization__des'>
+                    <image src='../../static/{{organizationDetailFlag[index] ? "UP" : "Down"}}.svg' mode='cover'></image>
+                </view>
+              </view>
+               <view class='preview-party__content-item-content {{organizationDetailFlag[index] ? "" : "organizationDetail-hide"}}' >
+                   <view class='preview-party__content-item-content-table' wx:for="{{item.details}}"  wx:for-item="detail" wx:for-index="detailIndex" wx:key="detailKey">
+                       <view class='th'>
+                         <view class='th-name'>
+                           <image src='../../static/images/5icon0{{detailIndex + 1}}.png' mode='cover'></image>
+                           <view>{{detail.name}}</view>
+                         </view>
+                         <view class='th-date'>{{detail.date}}</view>
+                       </view> 
+                       <view class='td'>
+                          <view class='td-des'>
+                           <image src='../../static/images/icon01.png' mode='cover'></image>
+                           <view>{{detail.reason}}</view>
+                         </view>
+                         <view class='td-date'>
+                           <image src='../../static/images/icon02.png'></image>
+                           {{detail.dateCheck}}
+                         </view>
+                       </view>
+                   </view>
+               </view>
+            </view>
+         </view>
+    </view>
+  </view>
+
+   <!-- 分界线 -->
+   <view class='preview-line'></view>
+
+  <!-- 垃圾卡片 -->
+  <view class='preview-rubbish'>
+     <view class='preview-rubbish__tab' bindtap='rubbishLink'>
+        <view class='preview-rubbish__name'>本月可回收垃圾情况</view>
+           <view class='preview-rubbish__des'>
+              详情 <text>></text> 
+            </view>
+     </view>
+     <view class='preview-rubbish__container'>
+       <template is="pieCharts"  data="{{... { pieId: pieId, colors: colors } }}"/>
+     </view>
+  </view>
+</view>

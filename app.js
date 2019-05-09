@@ -1,4 +1,6 @@
 //app.js
+// const AgoraMiniappSDK = require('./utils/mini-app-sdk-production.js');
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -122,6 +124,7 @@ App({
     fileUrl: 'https://file.shyunhua.com',
     imageUrl: 'https://file.shyunhua.com/',
     userInfoWX: null,
+    // "AgoraMiniappSDK": AgoraMiniappSDK,
     // fileUrl: '',
     /** 
      * 检测是否登录或认证了

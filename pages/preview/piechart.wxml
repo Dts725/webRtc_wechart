@@ -1,0 +1,35 @@
+<import src="./pie.wxml" />
+<template name="pieCharts">
+  <view class='preview-pie'>
+    <view class='preview-item'>
+       <template is="pieChart"  data="{{... { pieId: pieId[0], color: colros[0] } }}"/>
+       <view class='preview-item-content'>
+         <view class='preview-item-content-text'>
+            <view style="color:{{colors[0]}};" class='preview-finish-rubbish'>123</view> 
+            <view class='preview-total-rubbish'>/20</view>
+         </view> 
+         <view class='preview-item-des'>干垃圾</view>
+       </view>
+    </view>
+    <view class='preview-item'>
+       <template is="pieChart"  data="{{... { pieId: pieId[1], color: colros[1] } }}"/>
+        <view class='preview-item-content'>
+         <view class='preview-item-content-text'>
+         <view style="color:{{colors[1]}};" class='preview-finish-rubbish' >123</view>
+         <view class='preview-total-rubbish'>/20</view>
+         </view> 
+         <view class='preview-item-des'>湿垃圾</view>
+       </view>
+    </view>
+     <view class='preview-item'>
+      <template is="pieChart"  data="{{... { pieId: pieId[2], color: colros[2] } }}"/>
+       <view class='preview-item-content'>
+         <view class='preview-item-content-text'>
+         <view style="color:{{colors[2]}};" class='preview-finish-rubbish'>123</view>
+         <view class='preview-total-rubbish'>/20</view>
+         </view> 
+         <view class='preview-item-des'>可回收垃圾</view>
+       </view>
+    </view>
+   </view>
+</template>

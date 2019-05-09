@@ -1,0 +1,5 @@
+<template name="pieChart">
+  <view class='piechart-item'>
+     <canvas canvas-id="{{pieId}}" class="canvas"></canvas>
+  </view>
+</template>

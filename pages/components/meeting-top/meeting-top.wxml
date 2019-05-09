@@ -6,7 +6,7 @@
 	</view>
 	<view class='flex-center mt-right'>
 		<view class="mt-right-imgs">
-			<image wx:for="{{list}}" src="{{item.image?item.image:'../../../static/meeting/header.png'}}"></image>
+			<image wx:for="{{list}}" wx:key="{{index}}" src="{{item.image?item.image:'../../../static/meeting/header.png'}}"></image>
 			<!-- <text wx:for="{{list}}">{{item.name}}</text> -->
 		</view>
 		<view class="mt-right-num">申请发言 {{list.length}}人</view>

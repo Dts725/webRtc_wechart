@@ -13,7 +13,7 @@
 
 		<!-- 视频 -->
 		<view class='h-15vh'>
-			<center id="liceCenter" client="{{client}}" class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"></center>
+			<center id="liceCenter" class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"></center>
 		</view>
 		<movable-area class="mov">
 			<view class="flex-center" style='height:70vh;'>

@@ -1,11 +1,15 @@
 // pages/components/meeting-center-video/meeting-center-video.js
 const AgoraMiniappSDK = require('../../../utils/mini-app-sdk-production.js');
-// 测试
-// const APPID = 'a247df868d144f6dbe956114b4a242d4';
-const client = new AgoraMiniappSDK.Client();
+// // 测试
+
 
 // 江川项目
-const APPID = 'cdfad6ea2173410c9c36f1df1e9c6d72';
+// const APPID = 'cdfad6ea2173410c9c36f1df1e9c6d72';
+
+
+
+const app = getApp();
+// const APPID = 'a247df868d144f6dbe956114b4a242d4';
 Component({
   /**
    * 组件的属性列表
@@ -25,14 +29,21 @@ Component({
     srcHost: '',
     srcPoint: '',
     flag: true,
+    count: 0,
+    APPID: 'a247df868d144f6dbe956114b4a242d4',
 
-    firstFlag : true,
+    firstFlag: true,
 
-    userId : []
+    userId: [],
+    client: ""
 
   },
 
   attached() {
+    this.data.client = new AgoraMiniappSDK.Client();
+
+    console.log("进入组建初始化实例", this.data.client)
+
     // 在组件实例进入页面节点树时执行
     // this._startPlaying(this.data.meeting_id, this.data.user_id)
     // this.orderRemote()
@@ -42,8 +53,10 @@ Component({
 
   detached() {
     // this.unpublish()
-    // client.leave()
-    // client.destroy()
+    // this.data.client.leave()
+    // this.data.client.destroy()
+    console.log("组建")
+    this.destroyFn()
   },
 
 
@@ -55,96 +68,210 @@ Component({
    */
   methods: {
 
+    destroyFn() {
+      this.data.client.leave()
+      this.data.client.destroy()
+    },
+
     // 停止订阅
-    unsubscribe () {
-      let arr = Array.from(new Set(this.data.userId))
-      arr.map (res => {
-        client.unsubscribe(res)
+    unsubscribeFn(arr) {
+      console.log("取消订阅", arr)
+      arr.map(res => {
+        this.data.client.unsubscribe(res.id)
 
       })
     },
 
+    // 重连
+
+    rejoinFn(room, uid, uids) {
+
+      console.log(room, uid, uids)
+      uids.map((el, index) => {
+        _rejoin(room, uid, el.id)
+      })
+
+      function _rejoin(room, uid, uids) {
+        this.data.client.rejoin(null, room, uid, uids, res => {
+          // 重新订阅
+          this.data.client.on("stream-added", e => {
+
+            let uid = e.uid;
+            console.count('订阅地址远端01', e)
+
+
+            // console.log('订阅地址远端02', uid, userId, index)
+
+            // 拉流
+
+            if (index === 0) {
+              this.data.client.subscribe(uid, (url) => {
+                this.setData({
+                  flag: true,
+                  srcPoint: url,
+                })
+
+              })
+            }
+
+            if (index === 1) {
+              this.data.client.subscribe(uid, (url) => {
+                this.setData({
+                  flag: true,
+                  srcPoint_02: url,
+                })
+
+              })
+            }
+
+
+
+          }, err => {
+            console.log('订阅错误', err)
+          })
+        })
+      }
+    },
+
     // 订阅远端视频流
-    orderRemote(userId, index) {
-      console.log('订阅地址远端00', userId, index)
+    orderRemote(lis) {
+      console.log('未订阅远端', lis)
+      try {
 
-    //   // 第一次进入直接订阅
-    // if(this.data.firstFlag) {
-    //   client.subscribe(userId, (url) => {
-    //     this.data.userId.push(userId);
-    //     this.setData({
-    //       flag: true,
-    //       srcPoint: url,
-    //     })
 
-    //   })
-    //   if (index === 1) {
-    //     client.subscribe(userId, (url) => {
-    //       this.setData({
-    //         flag: true,
-    //         srcPoint_02: url,
-    //       })
+        lis.map((el, index) => {
 
-    //     })
-    //   }
-    // }
-      client.on("stream-added", e => {
+          if (index === 0) {
+            console.log('顶阅远端try', lis, el)
+            console.log("进入组建调用实例", this.data.client.subscribe)
+            this.subscribeFn(
+             (url) => { this.setData({
+                flag: true,
+                srcPoint: url,
+              })}, el, this)
+            // this.data.client.subscribe(el, (url) => {
+            //   console.log('订阅远端try成功', lis, el)
+
+            //   this.setData({
+            //     flag: true,
+            //     srcPoint: url,
+            //   })
+            // },err => {
+            //   console.log('报错index_0',err)
+            // })
+          }
+
+          if (index === 1) {
+
+            this.subscribeFn(
+
+            url => {
+              this.setData({
+                flag: true,
+                srcPoint_02: url,
+              })}, el, this)
+            // this.data.client.subscribe(el, (url) => {
+            //   this.setData({
+            //     flag: true,
+            //     srcPoint_02: url,
+            //   })
+            // },err => {
+            //   console.log('报错index_1', err)
+
+
+            // })
+          }
+
+        })
+      } catch (err) {
+
+
+        console.log("首次订阅报错", err)
+
+      }
+      // 拉流
+
+
+      this.data.client.on("stream-added", e => {
 
         let uid = e.uid;
         console.count('订阅地址远端01', e)
 
-        if (uid === userId) {
+        let lisIndex = lis.indexOf(uid)
+
+        if (lisIndex !== -1) {
           // console.log('订阅地址远端02', uid, userId, index)
 
           // 拉流
 
-          if (index >0) { 
-            client.subscribe(uid, (url) => {
+          if (lisIndex > 0) {
+            this.subscribeFn(
+              url => {
               this.setData({
                 flag: true,
                 srcPoint_02: url,
-              })
-
-            })
+              })}, uid, this
+            )
+     
           } else {
-            client.subscribe(uid, (url) => {
+            this.subscribeFn(
+              url => {
               this.setData({
                 flag: true,
                 srcPoint: url,
-              })
-
-            })
+              })}
+            ), uid, this
           }
-        } 
+        }
 
-  
+
       }, err => {
         console.log('订阅错误', err)
       })
 
     },
 
-    // 取消订阅远端视频流
-   
+    subscribeFn(callback, uid, _this) {
+      console.log("报错data",_this.data.count)
+      _this.data.count++;
 
-    // 手动推流
-    publish() {
-      client.publish(url => {
-        console.log('推流成功地址', url)
-        this.setData({
-          urlRtc: url,
-          flag: false
-        })
+       _this.data.client.subscribe(uid, (url) => {
+         _this.data.count = 0
+         console.log('订阅远端try成功', url)
+          // 传值执行代码块
+          if(!url) url ="1";
+         callback(url)
+
+      }, err => {
+        if ( _this.data.count < 3) {
+
+          if (err.code == 903) {
+            console.log("网路差尝试恢复连接")
+           this.subscribeFn(callback, uid,_this)
+          } else {
+            console.log('报错尝试恢复', err)
+
+          }
+        }
+
       })
     },
-
     // 停止推流
 
-    unPublish () {
-      client.unpublish();
+    unPublish() {
+      this.data.client.unpublish();
       this.setData({
         urlRtc: "",
         flag: true
+      })
+    },
+    publish() {
+      this.data.client.publish(url => {
+        console.log("推送版本url", url)
+        this.setData({
+          flag: false,
+          urlRtc: url,
+        })
       })
     },
 
@@ -216,12 +343,12 @@ Component({
     _startPlaying(room, uid) {
       // 初始化客户端
 
-      client.init(APPID, res => {
+      this.data.client.init(this.data.APPID, res => {
 
         console.log('初始化客户端成功', room, uid)
 
         // 创建视频流 chancl roomid uid
-        client.join(undefined, room, uid, ovt => {
+        this.data.client.join(null, room, uid, ovt => {
           console.log('加入房间成功', ovt)
 
         })

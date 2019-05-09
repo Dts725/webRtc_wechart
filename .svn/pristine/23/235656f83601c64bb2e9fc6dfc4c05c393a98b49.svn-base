@@ -1,0 +1,28 @@
+.piechart-item{
+  width: 100%;
+  height: 6.375rem;
+  position: relative;
+}
+.canvas{
+  width: 100%;
+  height: 100%;
+
+}
+.preview-item-content{
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center
+}
+.preview-item-content-text{
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+.preview-finish-rubbish{
+  font-size: 3.5vw;
+}
+.preview-total-rubbish,.preview-item-des{
+  font-size: 3vw;
+  color: #A4A4A4
+}

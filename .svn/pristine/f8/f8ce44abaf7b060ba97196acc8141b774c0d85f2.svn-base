@@ -3,7 +3,9 @@ const app = getApp();
 let sorts = require('../../../utils/W.sort.js');
 let dateformat = require('../../../utils/dateformat.js');
 let WxParse = require('../../../utils/wxParse/wxParse.js');
-
+let top = require('../../../pages/components/meeting-top/meeting-top.js')
+let center = require('../../../pages/components/meeting-center-video/meeting-center-video.js')
+// let libs = Object.assign({}, top,center)
 /**
  * WxParse.wxParse(bindName , type, data, target,imagePadding)
  * 1.bindName绑定的数据名(必填)
@@ -183,10 +185,10 @@ Page({
     let child = this.selectComponent('#liceCenter');
     // child.orderRemote(data[0].id, 0)
 
-    // for (let i = 0; i < data.length; i++) {
-      child.orderRemote(data)
+    for (let i = 0; i < data.length; i++) {
+      child.orderRemote(data[i].id, i)
 
-    // }
+    }
 
   },
 
@@ -446,11 +448,7 @@ Page({
         if (dat.upper && dat.upper.length !== 0) {
           if (_this.ArrayValueChange(_this.data.meeting.upper, dat.upper, 'id').changed) {
 
-            let lis = dat.upper.map(el => {
-              return el.id
-            })
-
-  _this.viewLiveFn(lis)
+            _this.viewLiveFn(dat.upper)
 
 
 
@@ -467,9 +465,7 @@ Page({
         // console.log('socket返回的会议流程数据：：',JSON.stringify(dat.data));
         // 设置流程等待开始的状态
         for (let d = 0; d < dat.data.length; d++) {
-					if(d==0){
-						if(dat.data[d].status == 1){dat.data[d].status = 4;}
-					}else if (dat.data[d].status == 2 && d < dat.data.length - 1) {
+          if (dat.data[d].status == 2 && d < dat.data.length - 1) {
             dat.data[d + 1].status = 4;
           }
         }
@@ -490,23 +486,16 @@ Page({
           // console.log('socket返回的会议流程数据2：：',_this.data.flow.keys,dat);
           // _this.setData({'flow.keys':_this.data.flow.keys});
           // debugger;
-					// 查看下一步的流程
-					let nextFlow = _this.CheckCurrentFlow(_this.data.flow.keys, 'status',4);
-					if(nextFlow.flow_step){
-						_this.setData({
-							'flow.nextFlow': nextFlow.name
-						});
-					}
           // 查看当前进行的流程
-          // _this.CheckCurrentFlow(_this.data.flow.keys, 'status').then(cur => {
-						let cur = _this.CheckCurrentFlow(_this.data.flow.keys, 'status');
+          _this.CheckCurrentFlow(_this.data.flow.keys, 'status').then(cur => {
+            // let keyss='data.flow.keys['+Number(cur.flow_step)+'].status';
+            // console.log('keyss:::',_this.data.flow.keys,result);
             // console.log('socket返回的会议流程数据2：：',_this.data.flow.keys,dat,res,app,cur);
-            // 记录当前正在进行的是哪个流程
-						if(cur && cur.flow_step){
-							_this.setData({
-								'flow.curFlow': Number(cur.flow_step)
-							});
-						}
+            // 记录当前是哪个流程
+            // _this.setData({'flow.curFlow':Number(cur.flow_step),keyss:4});
+            _this.setData({
+              'flow.curFlow': Number(cur.flow_step)
+            });
             // 当前的流程为：签到
             if (Number(cur.flow_step) == 1 && Number(cur.status) == 2) {
               if (res.data.indexOf('"user_id":' + _this.data.user_id) < 0) {
@@ -636,7 +625,7 @@ Page({
             }
 
 
-          // });
+          });
         });
 
       }
@@ -1046,21 +1035,21 @@ Page({
       that = new Date(time).getFullYear();
     return Math.ceil(now - that);
   },
-  /** 检测正在进行中的流程  查找数组对象中的某个值 返回数组对象 **/
-  CheckCurrentFlow(flow, key, value) {
+  /** 检测正在进行中的流程 **/
+  CheckCurrentFlow(flow, key) {
     if (!Array.isArray(flow)) {
       return ''
     }
-    let current = {},val = value || 2;
+    let current = '';
     for (let i = 0; i < flow.length; i++) {
-      if (flow[i][key] == val) {
+      if (flow[i][key] == 2) {
         current = flow[i];
       }
     }
-    // return new Promise((resolve, reject) => {
-    //   resolve(current);
-    // });
-    return current;
+    return new Promise((resolve, reject) => {
+      resolve(current);
+    });
+    // return current;
   },
   /** 检测数据变动 **/
   ArrayValueChange(o, n, key) {
@@ -1109,11 +1098,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let child = this.selectComponent('#liceCenter')
-
     // 投票结果 计票 初始化调用和
-    child._startPlaying(options.id, app.globalData.personInfo.id)
-  
 
     this.focursFn('init')
     this.scortFn('init')
@@ -1121,15 +1106,14 @@ Page({
     this.setData({
       meeting_id: options.id,
       user_id: app.globalData.personInfo.id,
-      'meeting.meeting_name': options.meeting_name,
-    
+      'meeting.meeting_name': options.meeting_name
     });
     this.getFlowList(options.id);
     this.initSocket();
 
     // 初始化会议
-    
 
+    this.selectComponent('#liceCenter')._startPlaying(this.data.meeting_id, Number(this.data.user_id))
   },
 
   /**
@@ -1145,7 +1129,6 @@ Page({
   onShow: function(options) {
     // 	console.log('onShow会议初始拿到的:::',options);
     // 	this.getFlowList(options.id);
-
   },
 
   /**
@@ -1156,20 +1139,13 @@ Page({
     wx.closeSocket({
       url: this.data.wsUrl
     });
-    this.selectComponent('#liceCenter').destroyFn()
-
     console.log('生命周期函数--监听页面隐藏111111111');
-
-   
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    this.selectComponent('#liceCenter').destroyFn()
-    // this.selectComponent('#liceCenter').unsubscribeFn(this.data.meeting.upper)
-
     // 关闭socket
     wx.closeSocket({
       url: this.data.wsUrl
