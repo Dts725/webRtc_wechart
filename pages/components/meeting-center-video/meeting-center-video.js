@@ -149,16 +149,7 @@ Component({
                 flag: true,
                 srcPoint: url,
               })}, el, this)
-            // this.data.client.subscribe(el, (url) => {
-            //   console.log('订阅远端try成功', lis, el)
 
-            //   this.setData({
-            //     flag: true,
-            //     srcPoint: url,
-            //   })
-            // },err => {
-            //   console.log('报错index_0',err)
-            // })
           }
 
           if (index === 1) {
@@ -170,18 +161,8 @@ Component({
                 flag: true,
                 srcPoint_02: url,
               })}, el, this)
-            // this.data.client.subscribe(el, (url) => {
-            //   this.setData({
-            //     flag: true,
-            //     srcPoint_02: url,
-            //   })
-            // },err => {
-            //   console.log('报错index_1', err)
-
-
-            // })
           }
-
+0
         })
       } catch (err) {
 
@@ -191,48 +172,13 @@ Component({
       }
       // 拉流
 
-
-      this.data.client.on("stream-added", e => {
-
-        let uid = e.uid;
-        console.count('订阅地址远端01', e)
-
-        let lisIndex = lis.indexOf(uid)
-
-        if (lisIndex !== -1) {
-          // console.log('订阅地址远端02', uid, userId, index)
-
-          // 拉流
-
-          if (lisIndex > 0) {
-            this.subscribeFn(
-              url => {
-              this.setData({
-                flag: true,
-                srcPoint_02: url,
-              })}, uid, this
-            )
-     
-          } else {
-            this.subscribeFn(
-              url => {
-              this.setData({
-                flag: true,
-                srcPoint: url,
-              })}
-            ), uid, this
-          }
-        }
-
-
-      }, err => {
-        console.log('订阅错误', err)
-      })
+ 
 
     },
 
     subscribeFn(callback, uid, _this) {
       console.log("报错data",_this.data.count)
+ 
       _this.data.count++;
 
        _this.data.client.subscribe(uid, (url) => {
@@ -243,7 +189,8 @@ Component({
          callback(url)
 
       }, err => {
-        if ( _this.data.count < 3) {
+
+        if (_this.data.count < 5 && _this.data.count !== 0) {
 
           if (err.code == 903) {
             console.log("网路差尝试恢复连接")

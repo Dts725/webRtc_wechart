@@ -234,14 +234,14 @@ Page({
         'meeting.speechStatus': '2',
       });
     } else if (this.getIndexByKey(this.data.meeting.upper, this.data.user_id, 'id') > -1) {
-      if (this.ArrayValueChange(this.data.oldApply, this.data.meeting.upper).changed) {
+      // if (this.ArrayValueChange(this.data.oldApply, this.data.meeting.upper).changed) {
  
-        this.data.oldApply= this.data.meeting.upper
+      //   this.data.oldApply= this.data.meeting.upper
        
-          console.count('点击下麦')
-              this.hostFn()
+      //     console.count('点击下麦')
+      //         this.hostFn()
 
-      }
+      // }
       this.setData({
         'meeting.speechName': '点击下麦',
         'meeting.speechStatus': '3',
@@ -449,11 +449,17 @@ Page({
             let lis = dat.upper.map(el => {
               return el.id
             })
+            // 订阅远端
+             _this.viewLiveFn(lis)
+            console.log('点击下麦ing-----------', _this.getIndexByKey(_this.data.meeting.upper, _this.data.user_id, 'id'))
 
-  _this.viewLiveFn(lis)
+            if (_this.getIndexByKey(_this.data.meeting.upper, _this.data.user_id, 'id') > -1) {
+                 console.log('点击下麦')
+                //  自己推流
+                _this.hostFn()
 
-
-
+               }
+             
           }
         }
 
