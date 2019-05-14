@@ -26,7 +26,9 @@
     "pages/onlineElection/index",
     "pages/onlineElection/main/main",
     "pages/preview/index"
-     ],
+  
+    
+   ],
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#a51e22",

@@ -722,16 +722,15 @@ Page({
 
 	/** 签到 **/
 	sign(e) {
-		let _this=this;
 		wx.showModal({
 			title: '签到',
 			content: '您確定签到吗！',
 			cancelText: '考虑一下',
 			success(res) {
 				if (res.confirm) {
-					_this.sendMessage({
-						meeting_id: _this.data.meeting_id,
-						user_id: _this.data.user_id,
+					this.sendMessage({
+						meeting_id: this.data.meeting_id,
+						user_id: this.data.user_id,
 						sign_time: dateformat.dateformat.format(new Date(), 'yyyy-MM-dd hh:mm')
 					});
 					// console.log('用户点击确定',dat)
@@ -1089,7 +1088,7 @@ Page({
 	/** 计算年龄 **/
 	getAge(time) {
 		if (!time) {
-			return 0;
+			return new Date().getFullYear();
 		}
 		let type = app.globalData.deviceType;
 		if (type == 'iphone') {
@@ -1199,23 +1198,6 @@ Page({
 	onShow: function (options) {
 		// 	console.log('onShow会议初始拿到的:::',options);
 		// 	this.getFlowList(options.id);
-    // this.getFlowList(options.id);
-    // this.initSocket();
-
-    // 视频重连
-    // let lis = this.data.meeting.upper.map(el => {
-    //   return el.id
-    // })
-    // console.log('onshow被调用',lis)
-
-    // this.viewLiveFn(lis);
-
-    // if (this.data.meeting.speechName === '点击下麦') {
-    //   this.hostFn()
-    // } else {
-    //   this.unPublish()
-    // }
-
 
 	},
 
@@ -1223,17 +1205,14 @@ Page({
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-		// 下麦
+		// // 下麦
 		// this.sendMessage({down: 1});
-		  // 关闭socket
-		  // wx.closeSocket({
-		  //   url: this.data.wsUrl
-		  // });
-		  // this.selectComponent('#liceCenter').destroyFn()
-      wx.navigateTo({
-        url: '../index',
-      })
-		console.log('生命周期函数--监听页面隐藏111111111');
+		//   // 关闭socket
+		//   wx.closeSocket({
+		//     url: this.data.wsUrl
+		//   });
+		//   this.selectComponent('#liceCenter').destroyFn()
+		// console.log('生命周期函数--监听页面隐藏111111111');
 	},
 
 	/**

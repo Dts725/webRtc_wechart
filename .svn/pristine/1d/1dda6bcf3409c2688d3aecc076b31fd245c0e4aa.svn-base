@@ -138,7 +138,6 @@ Component({
       console.log('未订阅远端', lis)
       let ls = lis
       try {
-
           for (let i =0;i<ls.length;i++) {
             console.log('当前状态', ls[i], app.globalData.compere_id)
 
@@ -169,8 +168,33 @@ Component({
             }
           }
 
+        // ls.forEach((el, index,arry) => {
+//           console.log('当前状态', el, app.globalData.compere_id)
 
+//           if (el == app.globalData.compere_id) {
+//             console.log('顶阅远端try', ls, el)
+//             console.log("进入组建调用实例", this.data.client.subscribe)
+//             this.subscribeFn(
+//              (url) => { this.setData({
+//                 flag: true,
+//                 srcPoint: url,
+//               })}, el, this)
 
+//           } 
+
+//           if ( el !== app.globalData.compere_id ) {
+//             console.log('顶阅远端非主持人', el, app.globalData.compere_id)
+
+//             this.subscribeFn(
+//               url => {
+//                 this.setData({
+//                   flag: true,
+//                   srcPoint_02: url,
+//                 })
+//               }, el, this)
+//           }
+// 0
+//         })
       } catch (err) {
 
 
@@ -185,8 +209,6 @@ Component({
 
     subscribeFn(callback, uid, _this) {
       console.log("报错data",_this.data.count)
-      console.time("测试try时间")
-
 
       if (_this.data.upperChild.indexOf(uid) === -1) return true;
       _this.data.count++;
@@ -200,8 +222,6 @@ Component({
          callback(url)
 
       }, err => {
-        console.timeEnd("测试try时间")
-
         console.log("位置网络错误", err, _this.data.count)
 
         if (_this.data.count < 4) {
@@ -214,17 +234,13 @@ Component({
 
           }
         }
-        console.timeEnd("测试try时间")
-
 
       })
-      console.timeEnd("测试try时间")
-
     },
     // 停止推流
 
     unPublish() {
-      // this.data.client.unpublish();
+      this.data.client.unpublish();
       this.setData({
         urlRtc: "",
         flag: true

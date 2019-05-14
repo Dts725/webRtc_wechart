@@ -1,0 +1,15 @@
+<view class='flex-center-wrap h100'>
+	<!-- <view>上海金属结构厂有限公司支部换届选举大会</view> -->
+	<view class="mt-left" bindtap="_applicationSpeech">
+		<image src="../../../static/meeting/hand-icon.png"></image>
+		<text>{{name}}</text>
+	</view>
+	<view class='flex-center mt-right'>
+		<view class="mt-right-imgs">
+			<image wx:for="{{list}}" wx:key="{{index}}" src="{{item.image?item.image:'../../../static/meeting/header.png'}}"></image>
+			<!-- <text wx:for="{{list}}">{{item.name}}</text> -->
+		</view>
+		<view class="mt-right-num">申请发言 {{list.length}}人</view>
+<!-- 		<view class="mt-right-num">参会党员{{list.length}}人</view> -->
+	</view>
+</view>

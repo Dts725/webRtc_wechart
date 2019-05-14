@@ -5,7 +5,7 @@
      <view class='preview-person__image'>
        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
      </view>
-     <view class='preview-person__name'>{{userInfo.nickName}}，您好！</view>
+     <view class='preview-person__name'>王主任，您好！</view>
   </view>
    <!-- tab栏 -->
   <view class='preview-tabs'>

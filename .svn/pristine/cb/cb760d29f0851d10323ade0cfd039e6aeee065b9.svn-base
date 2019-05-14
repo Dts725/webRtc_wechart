@@ -1,10 +1,6 @@
 //app.js
 // const AgoraMiniappSDK = require('./utils/mini-app-sdk-production.js');
 
-// 重置console.log()
-// if (!global.consoleSwitch) {
-//   console.log = () => { }
-// }
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -121,7 +117,6 @@ App({
     userInfo: null,
     personInfo: null, // 这里有用户id
     openid: null,
-    compere_id: "", //主持人Id
     optId: null, // 预约详情的id，会自动清空
     url: 'https://apijcdj.shyunhua.com/',
     api: 'https://apijcdj.shyunhua.com/',

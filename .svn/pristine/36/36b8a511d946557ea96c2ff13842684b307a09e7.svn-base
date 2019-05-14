@@ -1,4 +1,4 @@
-  <!--pages/onlineElection/main/main.js.wxml-->
+<!--pages/onlineElection/main/main.js.wxml-->
 <import src="../../../utils/wxParse/wxParse.wxml" />
 <view class='fz-12'>
 

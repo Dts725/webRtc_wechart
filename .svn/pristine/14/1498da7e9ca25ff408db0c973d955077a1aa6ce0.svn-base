@@ -203,55 +203,31 @@ Page({
 		child.unPublish()
 	},
 
-	/** 顶部左上角--申请发言fun **/
+	/** 申请发言 **/
 	ApplicationSpeech(e) {
 		let _this = this;
 		if (this.data.meeting.apply.indexOf(_this.data.user_id) < 0 && this.data.meeting
 			.upper.indexOf(_this.data.user_id) < 0) {
 			// 上麦逻辑   判断下麦
-			if (this.getIndexByKey(this.data.meeting.apply, this.data.user_id, 'id') == -1 &&
-				this.getIndexByKey(this.data.meeting.upper, this.data.user_id, 'id') == -1) {
-				wx.showModal({
-					title: '申请发言',
-					content: '您確定申请发言吗！',
-					cancelText: '考虑一下',
-					success(res) {
-						if (res.confirm) {
-							_this.sendMessage({
-								apply: 1
-							});
-							// console.log('用户点击确定',dat)
-						} else if (res.cancel) {
-							// console.log('用户点击取消')
-						}
-					}
+			if (this.getIndexByKey(this.data.meeting.apply, this.data.user_id, 'id') ==
+				-1 && this.getIndexByKey(this.data.meeting.upper, this.data.user_id, 'id') ==
+				-1) {
+				this.sendMessage({
+					apply: 1
 				});
-
 			}
 			// 下麦逻辑
-			if (this.getIndexByKey(this.data.meeting.upper, this.data.user_id, 'id') > -1) {
-				wx.showModal({
-					title: '下麦',
-					content: '您確定下麦吗！',
-					cancelText: '考虑一下',
-					success(res) {
-						if (res.confirm) {
-							_this.unPublish()
-							_this.sendMessage({
-								down: 1
-							});
-							// console.log('用户点击确定',dat)
-						} else if (res.cancel) {
-							// console.log('用户点击取消')
-						}
-					}
+			if (this.getIndexByKey(this.data.meeting.upper, this.data.user_id, 'id') >
+				-1) {
+				this.unPublish()
+				this.sendMessage({
+					down: 1
 				});
-
 			}
 
 		}
 	},
-	/** 顶部左上角--设置申请状态和名字 **/
+	/** 设置申请状态和名字 **/
 	applicationSpeechStatusName() {
 		if (this.getIndexByKey(this.data.meeting.apply, this.data.user_id, 'id') >
 			-1) {
@@ -263,7 +239,7 @@ Page({
 				'id') > -1) {
 			if (this.ArrayValueChange(this.data.oldApply, this.data.meeting.upper).changed) {
 				this.data.oldApply = this.data.meeting.upper
-				// console.count('点击下麦')
+				console.count('点击下麦')
 				this.hostFn()
 			}
 			this.setData({
@@ -274,7 +250,7 @@ Page({
 			if (this.ArrayValueChange(this.data.oldApply, this.data.meeting.upper).changed) {
 				this.data.oldApply = this.data.meeting.upper
 				this.unPublish()
-				// console.count('申请发言')
+				console.count('申请发言')
 			}
 			this.setData({
 				'meeting.speechName': '申请发言',
@@ -295,27 +271,31 @@ Page({
 			id = e.currentTarget.dataset.id;
 		}
 		switch (id) {
-			case '0': {
-				this.setData({
-					'flow.jieguo.list': this.data.flow.jieguo.secretary
-				});
-				break
-			}
-			case '1': {
-				this.setData({
-					'flow.jieguo.list': this.data.flow.jieguo.deputy_secretary
-				});
-				break
-			}
-			case '2': {
-				this.setData({
-					'flow.jieguo.list': this.data.flow.jieguo.commissioner
-				});
-				break
-			}
-			default: {
-				break;
-			}
+			case '0':
+				{
+					this.setData({
+						'flow.jieguo.list': this.data.flow.jieguo.secretary
+					});
+					break
+				}
+			case '1':
+				{
+					this.setData({
+						'flow.jieguo.list': this.data.flow.jieguo.deputy_secretary
+					});
+					break
+				}
+			case '2':
+				{
+					this.setData({
+						'flow.jieguo.list': this.data.flow.jieguo.commissioner
+					});
+					break
+				}
+			default:
+				{
+					break;
+				}
 		}
 
 		this.setData({
@@ -336,42 +316,46 @@ Page({
 			id = e.currentTarget.dataset.id;
 		};
 		switch (id) { // 0书记 1副书记 2委员
-			case '0': {
-				data = [{
-					name: '张零零',
-					process: 95,
-					src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
+			case '0':
+				{
+					data = [{
+						name: '张零零',
+						process: 95,
+						src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
 
-				}];
-				other = []
-				break;
-			};
-		case '1': {
-			data = [{
-				name: '张一一',
-				process: 60,
-				src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
+					}];
+					other = []
+					break;
+				};
+			case '1':
+				{
+					data = [{
+						name: '张一一',
+						process: 60,
+						src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
 
-			}, ];
-			other = [{
-				name: '张思思',
-				process: 70,
-				src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
-			}];
-			break;
-		};
-		case '2': {
-			data = [{
-				name: '张二二',
-				process: 80,
-				src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
-			}];
-			other = [];
-			break;
-		};
-		default: {
-			break;
-		};
+					}, ];
+					other = [{
+						name: '张思思',
+						process: 70,
+						src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
+					}];
+					break;
+				};
+			case '2':
+				{
+					data = [{
+						name: '张二二',
+						process: 80,
+						src: 'https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=03ffa97602d79123ffe092749d355917/48540923dd54564e5b271d47bdde9c82d1584f0a.jpg'
+					}];
+					other = [];
+					break;
+				};
+			default:
+				{
+					break;
+				};
 		}
 
 		this.setData({
@@ -399,22 +383,22 @@ Page({
 			header: {
 				'content-type': 'application/json'
 			},
-			success: function (res, a, d, f) {
+			success: function(res, a, d, f) {
 				console.log('socket连接成功:::::', res, a, d, f);
 			},
-			fail: function (res, a, d, f) {
+			fail: function(res, a, d, f) {
 				console.log('socket连接失败:::::', res, a, d, f);
 			},
 		})
 
 		// 打开socket连接
-		wx.onSocketOpen(function (res) {});
+		wx.onSocketOpen(function(res) {});
 
-		wx.onSocketError(function (res) {
+		wx.onSocketError(function(res) {
 			console.log('onSocketError Socket连接打开失败，请检查！' + res.errMsg);
 		});
 		// 监听socket返回的数据
-		wx.onSocketMessage(function (res) {
+		wx.onSocketMessage(function(res) {
 			// console.log('监听socket返回的数据:::::',res);
 			// 发送 会议id
 			if (res && res.data == '连接成功') {
@@ -430,6 +414,7 @@ Page({
 				// 视频控制流程
 				if (dat.upper && dat.upper.length !== 0) {
 					if (_this.ArrayValueChange(_this.data.meeting.upper, dat.upper, 'id').changed) {
+
 						let lis = dat.upper.map(el => {
 							return el.id
 						})
@@ -487,24 +472,24 @@ Page({
 					// 查看下一步的流程
 					let nextFlow = _this.CheckCurrentFlow(_this.data.flow.keys, 'status',
 						4);
-					// if (nextFlow.flow_step) {
+					if (nextFlow.flow_step) {
 						_this.setData({
-							'flow.nextFlow': nextFlow.flow_step?nextFlow.name:''
+							'flow.nextFlow': nextFlow.name
 						});
-					// }
+					}
 					// 查看当前进行的流程
 					// _this.CheckCurrentFlow(_this.data.flow.keys, 'status').then(cur => {
 					let cur = _this.CheckCurrentFlow(_this.data.flow.keys, 'status');
 					// console.log('socket返回的会议流程数据2：：',_this.data.flow.keys,dat,res,app,cur);
 					// 记录当前正在进行的是哪个流程
-					// if (cur && cur.flow_step) {
+					if (cur && cur.flow_step) {
 						_this.setData({
-							'flow.curFlow': cur && cur.flow_step?Number(cur.flow_step):''
+							'flow.curFlow': Number(cur.flow_step)
 						});
-					// }
+					}
 					// 当前的流程为：签到
 					if (Number(cur.flow_step) == 1 && Number(cur.status) == 2) {
-						if (res.data.indexOf('"user_id":' + _this.data.user_id+',') < 0) {
+						if (res.data.indexOf('"user_id":' + _this.data.user_id) < 0) {
 							// 显示签到按钮
 							// _this.data.flow.curFlow = Number(cur.flow_step);
 							_this.setData({
@@ -643,26 +628,6 @@ Page({
 						});
 					}
 
-					// 流程10 表态发言
-					if (Number(cur.flow_step) == 10) {
-						// if (_this.data.flow.jieguo.list.length == 0) {
-						// 	_this.setData({
-						// 		'flow.jieguo.list': dat.secretary_gain.sort(sorts.default.sortBy(
-						// 			'gain', false)),
-						// 	});
-						// }
-						// _this.setData({
-						// 	'flow.jieguo.secretary': dat.secretary_gain.sort(sorts.default.sortBy(
-						// 		'gain', false)),
-						// 	// 'flow.jieguo.list':dat.secretary_gain,
-						// 	'flow.jieguo.deputy_secretary': dat.deputy_secretary_gain.sort(
-						// 		sorts.default.sortBy('gain', false)),
-						// 	'flow.jieguo.commissioner': dat.commissioner_gain.sort(sorts.default
-						// 		.sortBy('gain', false)),
-						// 	'flow.jieguo.party_number': Number(dat.party_number)
-						// });
-					}
-
 
 					// });
 				});
@@ -722,27 +687,14 @@ Page({
 
 	/** 签到 **/
 	sign(e) {
-		let _this=this;
-		wx.showModal({
-			title: '签到',
-			content: '您確定签到吗！',
-			cancelText: '考虑一下',
-			success(res) {
-				if (res.confirm) {
-					_this.sendMessage({
-						meeting_id: _this.data.meeting_id,
-						user_id: _this.data.user_id,
-						sign_time: dateformat.dateformat.format(new Date(), 'yyyy-MM-dd hh:mm')
-					});
-					// console.log('用户点击确定',dat)
-				} else if (res.cancel) {
-					// console.log('用户点击取消')
-				}
-			}
+		this.sendMessage({
+			meeting_id: this.data.meeting_id,
+			user_id: this.data.user_id,
+			sign_time: dateformat.dateformat.format(new Date(), 'yyyy-MM-dd hh:mm')
 		});
 	},
 	/** 签到结果的标签切换	**/
-	tabClick: function (e) {
+	tabClick: function(e) {
 		this.setData({
 			'flow.sign.sliderOffset': e.currentTarget.offsetLeft,
 			'flow.sign.activeIndex': e.currentTarget.id
@@ -1075,7 +1027,7 @@ Page({
 		let index = -1;
 		for (let i = 0; i < arr.length; i++) {
 			if (key) {
-				if (typeof (arr[i]) == 'object' && arr[i][key] == value) {
+				if (typeof(arr[i]) == 'object' && arr[i][key] == value) {
 					index = i;
 				}
 			} else {
@@ -1089,7 +1041,7 @@ Page({
 	/** 计算年龄 **/
 	getAge(time) {
 		if (!time) {
-			return 0;
+			return new Date().getFullYear();
 		}
 		let type = app.globalData.deviceType;
 		if (type == 'iphone') {
@@ -1162,7 +1114,7 @@ Page({
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
-	onLoad: function (options) {
+	onLoad: function(options) {
 		let child = this.selectComponent('#liceCenter')
 
 		// 投票结果 计票 初始化调用和
@@ -1189,57 +1141,37 @@ Page({
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () {
+	onReady: function() {
 
 	},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
-	onShow: function (options) {
+	onShow: function(options) {
 		// 	console.log('onShow会议初始拿到的:::',options);
 		// 	this.getFlowList(options.id);
-    // this.getFlowList(options.id);
-    // this.initSocket();
-
-    // 视频重连
-    // let lis = this.data.meeting.upper.map(el => {
-    //   return el.id
-    // })
-    // console.log('onshow被调用',lis)
-
-    // this.viewLiveFn(lis);
-
-    // if (this.data.meeting.speechName === '点击下麦') {
-    //   this.hostFn()
-    // } else {
-    //   this.unPublish()
-    // }
-
 
 	},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function () {
-		// 下麦
+	onHide: function() {
+		// // 下麦
 		// this.sendMessage({down: 1});
-		  // 关闭socket
-		  // wx.closeSocket({
-		  //   url: this.data.wsUrl
-		  // });
-		  // this.selectComponent('#liceCenter').destroyFn()
-      wx.navigateTo({
-        url: '../index',
-      })
-		console.log('生命周期函数--监听页面隐藏111111111');
+		//   // 关闭socket
+		//   wx.closeSocket({
+		//     url: this.data.wsUrl
+		//   });
+		//   this.selectComponent('#liceCenter').destroyFn()
+		// console.log('生命周期函数--监听页面隐藏111111111');
 	},
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload: function () {
+	onUnload: function() {
 		this.selectComponent('#liceCenter').destroyFn()
 		// this.selectComponent('#liceCenter').unsubscribeFn(this.data.meeting.upper)
 		// 下麦
@@ -1259,21 +1191,21 @@ Page({
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
-	onPullDownRefresh: function () {
+	onPullDownRefresh: function() {
 
 	},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
-	onReachBottom: function () {
+	onReachBottom: function() {
 
 	},
 
 	/**
 	 * 用户点击右上角分享
 	 */
-	onShareAppMessage: function () {
+	onShareAppMessage: function() {
 
 	}
 })

@@ -1,0 +1,9 @@
+
+var toFixs = function (val) {
+  if(val > 0){
+    return val.toFixed(1)
+  }else{
+    return val
+  }
+}
+module.exports.toFixs = toFixs;

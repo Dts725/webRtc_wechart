@@ -12,7 +12,6 @@ Page({
   data: {
     pieId: ['ringCanvas', 'ringCanvas2','ringCanvas3'],
     colors: ['#F35983', '#27C9B2','#EFAB0A'],
-    pieLabel:[],
     personPhoto: '',
     widthProgress:'60%',
     showPartyBlock:false,
@@ -76,26 +75,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (e) {
-    let that = this;
-    wx.request({
-      url: app.globalData.api + '/mini/gc/index',
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      data: {
-        year:new Date().getFullYear()
-      },
-      success: function (res) {
-        let result = res.data.data.stistic_data;
-        that.setData({
-          pieLabel: result
-        })
-        that.initPieChart(that.data.pieId[0], dryChart, [result.dry_garbage_total_output, result.dry_garbage_month_goal_total], that.data.colors[0]);
-        that.initPieChart(that.data.pieId[1], wetChart, [result.wet_garbage_total_output, result.wet_garbage_month_goal_total], that.data.colors[1]);
-        that.initPieChart(that.data.pieId[2], recycleChart, [result.recycleable_garbage_total_output, result.recycleable_garbage_month_goal_total], that.data.colors[2])
-      }
-    })
+    this.initPieChart(this.data.pieId[0], dryChart, [85, 15], this.data.colors[0])
+    this.initPieChart(this.data.pieId[1], wetChart, [20, 80], this.data.colors[1])
+    this.initPieChart(this.data.pieId[2], recycleChart, [100, 0], this.data.colors[2])
   },
   // 饼图初始化
   initPieChart(canvasId,chartPie,data,color){
@@ -118,18 +100,18 @@ Page({
         }
       },
       title: {
-        name: parseInt((data[0] / data[1]) * 100) >= 100 ? (100 + '%') : (parseInt((data[0] / data[1]) * 100) + '%'),
+        name: parseInt((data[0] / (data[0] + data[1]))* 100) +'%',
         color: color,
         fontSize: 12
       },
       series: [{
         name: '已完成',
-        data: parseInt((data[0] / data[1]) * 100) >= 100 ? 100 : data[0],
+        data: data[0],
         stroke: false,
         color: color
       }, {
         name: '未完成',
-        data: parseInt((data[0] / data[1]) * 100) >= 100 ? 0 : data[1],
+        data: data[1],
         stroke: false,
         color: '#fff'
       }],

@@ -15,10 +15,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    upperChild : {
-      type : Array,
-      value :[]
-    }
+
   },
 
   /**
@@ -102,6 +99,9 @@ Component({
             let uid = e.uid;
             console.count('订阅地址远端01', e)
 
+
+            // console.log('订阅地址远端02', uid, userId, index)
+
             // 拉流
 
             if (index === 0) {
@@ -136,41 +136,34 @@ Component({
     // 订阅远端视频流
     orderRemote(lis) {
       console.log('未订阅远端', lis)
-      let ls = lis
       try {
 
-          for (let i =0;i<ls.length;i++) {
-            console.log('当前状态', ls[i], app.globalData.compere_id)
 
-            if (ls[i] == app.globalData.compere_id) {
-              console.log('顶阅远端try', ls, ls[i])
-              console.log("进入组建调用实例", this.data.client.subscribe)
-              this.subscribeFn(
-                (url) => {
-                  this.setData({
-                    flag: true,
-                    srcPoint: url,
-                  })
-                }, ls[i], this)
+        lis.map((el, index) => {
 
-            }
+          if (index === 0) {
+            console.log('顶阅远端try', lis, el)
+            console.log("进入组建调用实例", this.data.client.subscribe)
+            this.subscribeFn(
+             (url) => { this.setData({
+                flag: true,
+                srcPoint: url,
+              })}, el, this)
 
-            if (ls[i] !== app.globalData.compere_id) {
-              console.log('顶阅远端非主持人', ls[i], app.globalData.compere_id)
-
-              this.subscribeFn(
-                url => {
-                  this.setData({
-                    flag: true,
-                    srcPoint_02: url,
-                  })
-                }, ls[i], this)
-
-            }
           }
 
+          if (index === 1) {
 
+            this.subscribeFn(
 
+            url => {
+              this.setData({
+                flag: true,
+                srcPoint_02: url,
+              })}, el, this)
+          }
+0
+        })
       } catch (err) {
 
 
@@ -185,46 +178,35 @@ Component({
 
     subscribeFn(callback, uid, _this) {
       console.log("报错data",_this.data.count)
-      console.time("测试try时间")
-
-
-      if (_this.data.upperChild.indexOf(uid) === -1) return true;
+ 
       _this.data.count++;
 
        _this.data.client.subscribe(uid, (url) => {
-         console.log('订阅远端try成功', url)
          _this.data.count = 0
-
+         console.log('订阅远端try成功', url)
           // 传值执行代码块
           if(!url) url ="1";
          callback(url)
 
       }, err => {
-        console.timeEnd("测试try时间")
 
-        console.log("位置网络错误", err, _this.data.count)
-
-        if (_this.data.count < 4) {
+        if (_this.data.count < 5 && _this.data.count !== 0) {
 
           if (err.code == 903) {
-            console.log("网路差尝试恢复连接", uid)
+            console.log("网路差尝试恢复连接")
            this.subscribeFn(callback, uid,_this)
           } else {
-            console.log('报错尝试恢复', uid, err)
+            console.log('报错尝试恢复', err)
 
           }
         }
-        console.timeEnd("测试try时间")
-
 
       })
-      console.timeEnd("测试try时间")
-
     },
     // 停止推流
 
     unPublish() {
-      // this.data.client.unpublish();
+      this.data.client.unpublish();
       this.setData({
         urlRtc: "",
         flag: true

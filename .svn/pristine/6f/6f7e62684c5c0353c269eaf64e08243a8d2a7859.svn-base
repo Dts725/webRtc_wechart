@@ -1,10 +1,6 @@
 //app.js
 // const AgoraMiniappSDK = require('./utils/mini-app-sdk-production.js');
 
-// 重置console.log()
-// if (!global.consoleSwitch) {
-//   console.log = () => { }
-// }
 App({
   onLaunch: function () {
     // 展示本地存储能力
