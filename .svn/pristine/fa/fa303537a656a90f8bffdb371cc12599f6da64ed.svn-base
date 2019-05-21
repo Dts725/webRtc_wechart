@@ -1067,22 +1067,22 @@ Page({
     // }
     dat.commissioner_ids = dat.secretary_id + ',' + dat.deputy_secretary_id +
       ',' + dat.commissioner_ids.join(',');
-    // _this.setData({
-    //   'data.flow.toupiao.showSureVote': true
-    // });
-    wx.showModal({
-    	title: '提交投票',
-    	content: '您确认要投票吗！',
-    	cancelText: '考虑一下',
-    	success(res) {
-    		if (res.confirm) {
-    			_this.sendMessage(dat);
-    			// console.log('用户点击确定',dat)
-    		} else if (res.cancel) {
-    			// console.log('用户点击取消')
-    		}
-    	}
+    _this.setData({
+      'data.flow.toupiao.showSureVote': true
     });
+    // wx.showModal({
+    // 	title: '提交投票',
+    // 	content: '您确认要投票吗！',
+    // 	cancelText: '考虑一下',
+    // 	success(res) {
+    // 		if (res.confirm) {
+    // 			_this.sendMessage(dat);
+    // 			// console.log('用户点击确定',dat)
+    // 		} else if (res.cancel) {
+    // 			// console.log('用户点击取消')
+    // 		}
+    // 	}
+    // });
   },
   /** 取消投票按钮 **/
   onCancelToupiao(e) {
@@ -1339,14 +1339,10 @@ Page({
     this.selectComponent('#liceCenter').destroyFn()
     // this.selectComponent('#liceCenter').unsubscribeFn(this.data.meeting.upper)
     // 下麦
-
-    if (!this.isHostOline(app.globalData.compere_id)) {
-      this.sendMessage({
-        down: 1
-      });
-    };
-
-
+    if(this.isHostOline(app.globalData.compere_id)) return;
+    this.sendMessage({
+      down: 1
+    });
     // setTimeout(()=>{
     // 关闭socket
     wx.closeSocket({
@@ -1355,8 +1351,6 @@ Page({
     // },2000)
     console.log('监听页面卸载----------------下麦');
     // console.log('生命周期函数--监听页面卸载222222222');
-
-
   },
 
   /**

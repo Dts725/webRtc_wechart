@@ -103,14 +103,13 @@
 				<!------------------------ 3和5-7 项的内容 ------------------------>
 				<view class="mt-con-content" wx:if="{{flow.curFlow>4&&flow.curFlow<8 || flow.curFlow==2|| flow.curFlow==3}}">
 					<template is="wxParse" data="{{wxParseData:article.nodes}}" />
-					<button class="bg-blue white" bindtap="sureAlreadyRead" wx:if="{{data.meeting.showConfirmBtn}}">确认已读</button>
 				</view>
 				<!------------------------ 4 候选人介绍 ------------------------>
 				<view class="mt-flow-con-4" wx:if="{{flow.curFlow==4}}">
 					<text class="mt-flow-con-tip">{{flow.tipName}}</text>
 					<!-- 书记 -->
 					<view class="mt-flow-wraper">
-						<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{flow.houxuan.secretary.id}}">
+						<view class="mt-flow-wraper-left">
 							<text class="mt-flow-name">{{flow.houxuan.secretary.name}}</text>
 							<image src="../../../static/meeting/{{flow.houxuan.secretary.sex==1?'gender01':'gender02'}}.png"></image>
 							<!-- <text>{{flow.houxuan.secretary.sex==1?'男':'女'}}</text> -->
@@ -122,7 +121,7 @@
 					</view>
 					<!-- 副书记 -->
 					<view class="mt-flow-wraper">
-						<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{flow.houxuan.deputy_secretary.id}}">
+						<view class="mt-flow-wraper-left">
 							<text class="mt-flow-name">{{flow.houxuan.deputy_secretary.name}}</text>
 							<image src="../../../static/meeting/{{flow.houxuan.deputy_secretary.sex==1?'gender01':'gender02'}}.png"></image>
 							<!-- <text>{{flow.houxuan.deputy_secretary.sex==1?'男':'女'}}</text> -->
@@ -134,7 +133,7 @@
 					</view>
 					<!-- 委员 -->
 					<view class="mt-flow-wraper" wx:for="{{flow.houxuan.commissioner}}">
-						<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{item.id}}">
+						<view class="mt-flow-wraper-left">
 							<text class="mt-flow-name">{{item.name}}</text>
 							<image src="../../../static/meeting/{{item.sex==1?'gender01':'gender02'}}.png"></image>
 							<!-- <text>{{item.sex==1?'男':'女'}}</text> -->
@@ -154,7 +153,7 @@
 					<view class="mt-flow-con-8-wraper" wx:if="{{flow.toupiao.secretary.name && !flow.jipiao.show}}">
 						<!-- 书记 -->
 						<view class="mt-flow-wraper">
-							<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{flow.toupiao.secretary.id}}">
+							<view class="mt-flow-wraper-left">
 								<text class="mt-flow-wraper-identity bg-red">书记</text>
 								<text class="mt-flow-name">{{flow.toupiao.secretary.name}}</text>
 								<image src="../../../static/meeting/{{flow.toupiao.secretary.sex==1?'gender01':'gender02'}}.png"></image>
@@ -170,7 +169,7 @@
 						</view>
 						<!-- 副书记 -->
 						<view class="mt-flow-wraper">
-							<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{flow.toupiao.deputy_secretary.id}}">
+							<view class="mt-flow-wraper-left">
 								<text class="mt-flow-wraper-identity bg-blue">副书记</text>
 								<text class="mt-flow-name">{{flow.toupiao.deputy_secretary.name}}</text>
 								<image src="../../../static/meeting/{{flow.toupiao.deputy_secretary.sex==1?'gender01':'gender02'}}.png"></image>
@@ -223,7 +222,7 @@
 						</view>
 						<!-- 委员 -->
 						<view class="mt-flow-wraper" wx:for="{{flow.toupiao.commissioner}}" wx:key="{{item.id}}">
-							<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{item.id}}">
+							<view class="mt-flow-wraper-left">
 								<text class="mt-flow-wraper-identity bg-green">委员</text>
 								<text class="mt-flow-name">{{item.name}}</text>
 								<image src="../../../static/meeting/{{item.sex==1?'gender01':'gender02'}}.png"></image>
@@ -430,12 +429,9 @@
 
 				<!-- 第9项 end -->
 
-				<!-------------------- 确认投票弹窗 ↓ -------------------->
-				<view class="mt-container-sure-vote" wx:if="{{data.flow.toupiao.showSureVote}}">
-					确认投票弹窗
-				</view>
-						
-				<!-------------------- 确认投票弹窗 ↑ -------------------->
+
+
+
 
 
 

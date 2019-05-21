@@ -25,22 +25,20 @@ Component({
    * 组件的初始数据
    */
   data: {
-    videoSrc: '../../../static/liveVideo/icon01.png',
-    videoSrc_01: '../../../static/liveVideo/icon01.png',
-    audioSrc: '../../../static/liveVideo/icon02.png',
-    audioSrc_01: '../../../static/liveVideo/icon02.png',
-    coverSrc: '../../../static/images/full.png', //全屏
+
+    coverSrc: '../../../static/images/full.png',
     fullScreenFlag: false,
-    srcPointId: '',
-    srcPoint_02_id: '',
     urlRtc: '',
     srcHost: '',
     srcPoint: '',
     flag: true,
     count: 0,
-    videoIs: true, //视频显示区域
+    videoIs: true,//视频显示区域
+
     APPID: 'a247df868d144f6dbe956114b4a242d4',
+
     firstFlag: true,
+
     userId: [],
     client: ""
 
@@ -88,133 +86,9 @@ Component({
 
       })
     },
-    // 停止订阅远端音视频
-    /**
-     * 
-     *  audio：远端用户发送的音频流，即声音   video：远端用户发送的视频流，即视频画面  all：远端用户发送的音视频流，即声音和视频画面
-     * 
-     * */
-    //  停止订阅远端视频
-    muteVideo(tap, uid) {
-      this.data.client.mute(uid, 'video', el => {
-        this.liveStatusImg(tap, 1)
-      });
-    },
-
-    // 继续订阅远端视频
-    unmuteVideo(tap, uid) {
-      this.data.client.unmute(uid, 'video', el => {
-        this.liveStatusImg(tap, 0)
-
-      })
-    },
-
-    // 停止订阅音频
-    muteAudio(tap, uid) {
-      console.log('测试停止播放', tap, uid )
-
-      this.data.client.mute(uid, 'audio', el => {
-        this.liveStatusImg(tap, 3)
-
-      });
-    },
-    // 继续订阅音频
-    unmuteAudio(tap, uid) {
-      this.data.client.mute(uid, 'audio', el => {
-        this.liveStatusImg(tap,2)
-
-      });
-    },
-
-
-    // 维护状态事件
-    changeStatus(e) {
-      let tap = e.currentTarget.dataset.type.split(',');
-      let status = this.statusFn(tap)
-      let uid = this.uidFn(tap[2])
-   
-
-      switch (status) {
-        // 视频播放中
-        case 1:
-          {
-            this.muteVideo(tap[1], uid);
-            break;
-          }
-          // 视频暂停中
-        case 2:
-          {
-            this.unmuteVideo(tap[1], uid);
-            break;
-          }
-          // 音频播放中
-        case 3:
-          {
-
-            this.muteAudio(tap[1], uid);
-            break;
-          }
-          // 音频暂停中
-        case 4:
-          {
-            this.unmuteAudio(tap[1], uid);
-            break;
-          }
-        default:
-          {
-            break;
-          }
-      }
-    },
-
-    // 判断当前按钮状态
-    statusFn(tap) {
-      // 是否视频 或者音频
-      let tmp = tap[1]
-      if (tap[0] === 'video') {
-        if (this.data[tmp] === '../../../static/liveVideo/icon01.png') {
-          // 状态:视频接收中
-          return 1
-        } else {
-          // 状态: 视频暂停中
-          return 2
-        }
-      } else {
-        if (this.data[tmp] === '../../../static/liveVideo/icon02.png') {
-          // 状态: 音频接收中
-          return 3
-        } else {
-          // 状态 : 音频暂停中
-          return 4
-        }
-      }
-
-    },
-
-    // 判断当前uid
-    uidFn(tap) {
-      if(tap == 1) {
-        return this.data.srcPointId
-      } else {
-        return this.data.srcPoint_02_id
-      }
-    },
-    //直播订阅按钮处理
-    liveStatusImg(tap, index) {
-      let src = [
-        '../../../static/liveVideo/icon01.png',
-        '../../../static/liveVideo/icon01-1.png',
-        '../../../static/liveVideo/icon02.png',
-        '../../../static/liveVideo/icon02-1.png',
-      ];
-      let del = src[index];
-      this.setData({
-        [tap]:del
-      })
-    },
-
 
     // 重连
+
     rejoinFn(room, uid, uids) {
 
       console.log(room, uid, uids)
@@ -270,12 +144,9 @@ Component({
         for (let i = 0; i < ls.length; i++) {
           console.log('当前状态', ls[i], app.globalData.compere_id)
 
-          if (ls[i] == app.globalData.compere_id && app.globalData.compere_id != app.globalData.personInfo.id) {
+          if (ls[i] == app.globalData.compere_id) {
             console.log('顶阅远端try', ls, ls[i])
             console.log("进入组建调用实例", this.data.client.subscribe)
-            this.setData({
-              srcPointId: ls[i]
-            })
             this.subscribeFn(
               (url) => {
                 this.setData({
@@ -288,9 +159,7 @@ Component({
 
           if (ls[i] !== app.globalData.compere_id) {
             console.log('顶阅远端非主持人', ls[i], app.globalData.compere_id)
-            this.setData({
-              srcPoint_02_id: ls[i]
-            })
+
             this.subscribeFn(
               url => {
                 this.setData({
@@ -370,6 +239,24 @@ Component({
           flag: false,
           urlRtc: url,
         })
+      })
+    },
+    // 停止订阅远端音视频
+    /**
+     * 
+     *  audio：远端用户发送的音频流，即声音   video：远端用户发送的视频流，即视频画面  all：远端用户发送的音视频流，即声音和视频画面
+     * 
+     * */
+    muteFn() {
+      this.data.client.mute(uid, target, el => {
+
+      });
+    },
+
+    // 继续订阅远端音视频
+    unmuteFn() {
+      this.data.client.unmute(uid, tartget, el => {
+
       })
     },
 

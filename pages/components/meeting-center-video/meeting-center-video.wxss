@@ -30,3 +30,10 @@
   width: 40px;
   height: 40px;
 }
+.coverImage-01 {
+  position: absolute;
+  bottom: 0px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+}
