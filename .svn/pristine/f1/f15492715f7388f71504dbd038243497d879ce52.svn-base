@@ -1,0 +1,179 @@
+// pages/onlineElection/index.js
+const app = getApp();
+let dateformat = require('../../utils/dateformat.js');
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    roomId: '2556',
+    url: app.globalData.url,
+    meeting: {
+      timer: '', // 存储定时器循环
+      currentPage: 1,
+      list: []
+    }
+  },
+
+  // 路由
+  router(e, d, f) {
+    let id = e.target.dataset.data.id;
+    let status = e.target.dataset.data.status;
+    if (status == 3) {
+      wx.showToast({
+        title: '会议已结束！！！',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
+    // wx.redirectTo({
+    wx.navigateTo({
+      url: './main/main?id=' + id + '&user_id=' + app.globalData.personInfo.id + '&meeting_name=' + e.currentTarget.dataset.data.meeting_name
+    })
+  },
+  getNextPage(e, d, f) {
+    console.log('pullDown:::', e, d, f);
+    this.getMeetingList(this.data.meeting.currentPage + 1);
+  },
+  /** 返回会议状态 **/
+  getStatus(status, t) {
+    let name = '';
+    // start = t.replace(/\s\d\d?:.+?\d\d?:.+?\d/g,''),
+    // now = dateformat.dateformat.format(new Date(), 'yyyy-MM-dd');
+    switch (status) {
+      case 1:
+        name = '暂未开始';
+        break;
+      case 2:
+        name = '正在进行';
+        break;
+      case 3:
+        name = '已结束';
+        break;
+    }
+    return name;
+    // switch (status) {
+    // 	case 1:
+    // 		if(start>now){
+    // 			name = '暂未开始';
+    // 		}else if(start==now){
+    // 			name = '正在进行';
+    // 		}else{
+    // 			name = '已过期';
+    // 		}
+    // 		break;
+    // 	case 2:
+    // 		name = '正在进行';
+    // 		break;
+    // 	case 3:
+    // 		name = '已结束';
+    // 		break;
+    // }
+    // return name;
+
+  },
+  /** 获取会议列表 **/
+  getMeetingList(page) {
+    page = page ? page : this.data.meeting.currentPage;
+    let _this = this,
+      url = 'Meeting?user_id=' + app.globalData.personInfo.id + '&page=' + page;
+    // 			wx.showLoading({
+    // 			  title: '加载中',
+    // 			});
+    console.log('获取会议列表url:::', url);
+    wx.request({
+      url: _this.data.url + url,
+      method: 'get',
+      success: (res) => {
+        if (res.data.code == 0) {
+          // wx.hideLoading();
+          let sts = '';
+          // 遍历会议记录，设置会议状态等
+          res.data.data.data.forEach(el => {
+            el.status_name = _this.getStatus(Number(el.status), el.start_time);
+          });
+          this.setData({
+            'meeting.list': res.data.data.data,
+            'meeting.currentPage': res.data.data.current_page
+          });
+          console.log('getMeetingList::', this.data.meeting.list, app.globalData);
+
+        }
+      },
+      fail: (res) => {
+        console.log('fail', res);
+      }
+    });
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    let _this = this;
+    setTimeout(function () {
+      _this.getMeetingList();
+    }, 500);
+    if (this.data.meeting.timer) {
+      clearInterval(this.data.meeting.timer);
+    }
+    this.data.meeting.timer = setInterval(function () {
+      _this.getMeetingList();
+    }, 3000);
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    if (this.data.meeting.timer) {
+      clearInterval(this.data.meeting.timer);
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    if (this.data.meeting.timer) {
+      clearInterval(this.data.meeting.timer);
+    }
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

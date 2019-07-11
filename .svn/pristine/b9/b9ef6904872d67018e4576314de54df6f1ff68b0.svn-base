@@ -1,0 +1,597 @@
+<!--pages/onlineElection/main/main.js.wxml-->
+<import src="../../../utils/wxParse/wxParse.wxml" />
+<view class='fz-12'>
+
+	<!-- <view class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"> -->
+	<view class="meeting-hide">
+
+
+		<!-- <view class='h-15vh'> -->
+		<view class='mt-top-con h-15vh'>
+			<top bind:speechEvent="ApplicationSpeech" name="{{meeting.speechName}}" list="{{meeting.speakList}}"></top>
+		</view>
+
+		<!-- 视频 -->
+		<view class='h-15vh'>
+			<center id="liceCenter" upperChild="{{upperChild}}" client="{{client}}"
+				class="{{flow.show? 'meeting-body' : 'meeting-hide'}}"></center>
+		</view>
+		<movable-area class="mov">
+			<view class="flex-center" style='height:70vh;'>
+				<!-- 统计页面 -->
+			</view>
+
+
+
+			<movable-view bindtap="showFlows" class='button' x="{{0}}" y="{{0}}" direction="all">
+				<!-- 菜单 -->
+				<image src="../../../static/meeting/menuIcon.png"></image>
+			</movable-view>
+			<!-------------------- 内容展示区域 ↓ -------------------->
+			<view class="mt-con" style="{{flow.curFlow==1?'background-color:rgba(255,255,255,0.5);':''}}"
+				bindtap="unShowMenu">
+				<text class="mt-con-tip" wx:if="{{flow.curFlow==1}}">{{flow.tipName}}</text>
+				<view class="mt-no-info" wx:if="{{flow.curFlow==10}}">
+					<view class="mt-no-info-con">表态发言！</view>
+				</view>
+				<!-- 无流程时显示 -->
+				<view class="mt-no-info" wx:if="{{!flow.curFlow}}">
+					<block wx:if="{{flow.nextFlow}}">
+						<view class="mt-no-info-title">欢迎参加 <text>{{meeting.meeting_name}}</text> 会议</view>
+						<view class="mt-no-info-con">议程 <text>{{flow.nextFlow}}</text> 即将开始 ！</view>
+					</block>
+					<block wx:else>
+						<view class="mt-no-info-con">会议已结束！</view>
+					</block>
+				</view>
+				<!-- 签到 -->
+				<view class="mt-con-sign" wx:if="{{flow.curFlow==1}}">
+					<button bindtap="sign" wx:if="{{flow.curFlow==1 && flow.curFlowStatus==1}}">马上签到</button>
+				</view>
+				<!-- 遮罩层 被上方的元素挤下去了，top等参数无效-->
+				<!-- <view class="mt-con-mask" wx:if="{{flow.tipName}}"></view> -->
+
+				<!-- 签到结果 -->
+				<view class="mt-con-sign-result" wx:if="{{flow.curFlow==1 && flow.curFlowStatus==2}}">
+					<view class="mt-con-sign-result-title">签到结果统计</view>
+					<div class="mt-con-sign-result-con">
+						<div class="mt-con-sign-result-wraper">
+							<p class="red"><strong>{{flow.sign.required}}</strong>人</p>
+							<span>应到</span>
+							<image src="../../../static/meeting/pie02.png"></image>
+						</div>
+						<div class="mt-con-sign-result-wraper">
+							<p class="blue"><strong>{{flow.sign.attend}}</strong>人</p>
+							<span>实到</span>
+							<image src="../../../static/meeting/pie01.png"></image>
+						</div>
+						<div class="mt-con-sign-result-wraper">
+							<p class="green"><strong>{{flow.sign.ratio}}%</strong></p>
+							<span>占比</span>
+							<image src="../../../static/meeting/pie03.png"></image>
+						</div>
+					</div>
+
+
+
+
+					<!-- 顶部tab切换 备用 -->
+					<!-- <view class="weui-tab">
+			  <view class="weui-navbar">
+			    <block wx:for="{{flow.sign.tabs}}" wx:key="*this">
+			      <view id="{{index}}" class="weui-navbar__item {{flow.sign.activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+			        <view class="weui-navbar__title">{{item}}</view>
+			      </view>
+			    </block>
+			    <view class="weui-navbar__slider" style="left: {{flow.sign.sliderLeft}}px; transform: translateX({{flow.sign.sliderOffset}}px); -webkit-transform: translateX({{flow.sign.sliderOffset}}px);"></view>
+			  </view>
+			  <view class="weui-tab__panel">
+			    <view class="weui-tab__content" >
+			      <!-- 党员签到 -->
+					<!--  <view class='mt-con-sign-result-1' wx:if="{{flow.sign.activeIndex==0}}">
+			        党员
+			      </view> -->
+					<!-- 群众签到 -->
+					<!-- <view class='mt-con-sign-result-2' wx:if="{{flow.sign.activeIndex==1}}">
+				    群众
+				  </view>
+			    </view>
+			  </view>
+			</view> -->
+
+				</view>
+
+				<!------------------------ 3和5-7 项的内容 ------------------------>
+				<view class="mt-con-content" wx:if="{{flow.curFlow>4&&flow.curFlow<8 || flow.curFlow==2|| flow.curFlow==3}}">
+					<template is="wxParse" data="{{wxParseData:article.nodes}}" />
+					<button class="bg-blue white" bindtap="sureAlreadyRead" wx:if="{{data.meeting.showConfirmBtn}}">确认已读</button>
+				</view>
+				<!------------------------ 4 候选人介绍 ------------------------>
+				<view class="mt-flow-con-4" wx:if="{{flow.curFlow==4}}">
+					<text class="mt-flow-con-tip">{{flow.tipName}}</text>
+					<!-- 书记 -->
+					<view class="mt-flow-wraper">
+						<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{flow.houxuan.secretary.id}}"
+							data-name="{{flow.houxuan.secretary.name}}">
+							<!--<view class="mt-flow-photo" data-id="{{flow.houxuan.secretary.id}}" data-name="{{flow.houxuan.secretary.name}}">
+								<image wx:if="{{flow.houxuan.secretary.image}}" src="{{flow.houxuan.secretary.image}}"></image>
+								<view wx:else class="mt-flow-photo-div">{{flow.houxuan.secretary.name}}</view>
+							</view>-->
+							<text class="mt-flow-name">{{flow.houxuan.secretary.name}}</text>
+							<image src="../../../static/meeting/{{flow.houxuan.secretary.sex==1?'gender01':'gender02'}}.png"></image>
+							<!-- <text>{{flow.houxuan.secretary.sex==1?'男':'女'}}</text> -->
+							<!-- <image class="mt-flow-photo" src="{{'data:image/jpeg;base64'+flow.houxuan.secretary.image}}"></image> -->
+							<text class="mt-flow-age">{{flow.houxuan.secretary.age}}岁</text>
+						</view>
+						<view class="mt-flow-wraper-right">
+							候选职位：<text>书记</text>
+						</view>
+					</view>
+					<!-- 副书记 -->
+					<view class="mt-flow-wraper">
+						<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{flow.houxuan.deputy_secretary.id}}"
+							data-name="{{flow.houxuan.deputy_secretary.name}}">
+							<text class="mt-flow-name">{{flow.houxuan.deputy_secretary.name}}</text>
+							<image src="../../../static/meeting/{{flow.houxuan.deputy_secretary.sex==1?'gender01':'gender02'}}.png">
+							</image>
+							<!-- <image class="mt-flow-photo" src="{{'data:image/jpeg;base64'+flow.houxuan.deputy_secretary.image}}">
+							</image> -->
+							<!-- <text>{{flow.houxuan.deputy_secretary.sex==1?'男':'女'}}</text> -->
+							<text class="mt-flow-age">{{flow.houxuan.deputy_secretary.age}}岁</text>
+						</view>
+						<view class="mt-flow-wraper-right">
+							候选职位：<text>副书记</text>
+						</view>
+					</view>
+					<!-- 委员 -->
+					<view class="mt-flow-wraper" wx:for="{{flow.houxuan.commissioner}}">
+						<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{item.id}}"
+							data-name="{{item.name}}">
+							<text class="mt-flow-name">{{item.name}}</text>
+							<image src="../../../static/meeting/{{item.sex==1?'gender01':'gender02'}}.png"></image>
+							<!-- <text>{{item.sex==1?'男':'女'}}</text> -->
+							<!-- <image class="mt-flow-photo" src="{{'data:image/jpeg;base64'+item.image}}"></image> -->
+							<text class="mt-flow-age">{{item.age}}岁</text>
+						</view>
+						<view class="mt-flow-wraper-right">
+							候选职位：<text>委员</text>
+						</view>
+					</view>
+				</view>
+				<!------------------------ 8 投票计票 ------------------------>
+				<view class="mt-flow-con-8" wx:if="{{flow.curFlow==8}}">
+					<!-- 				<view class="mt-flow-con-8" wx:if="{{flow.curFlow==8 && !flow.jipiao.show}}"> -->
+					<!-- <text class="mt-flow-con-tip">{{flow.tipName}}</text> -->
+					<text class="mt-flow-con-tip">投票</text>
+					<view class="mt-flow-con-tip-vice">应当选出的委员数量：<text class="green">{{flow.toupiao.elected_num}}</text> ，
+						包含：书记1名，副书记1名。</view>
+					<view class="mt-flow-con-tip-vice" wx:if="{{flow.canVoteTip && !flow.jipiao.show}}">温馨提示：{{flow.canVoteTip}}
+					</view>
+					<view class="mt-flow-con-8-wraper" wx:if="{{flow.toupiao.secretary.name && !flow.jipiao.show}}">
+						<!-- 书记 -->
+						<view class="mt-flow-wraper">
+							<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{flow.toupiao.secretary.id}}"
+								data-name="{{flow.toupiao.secretary.name}}">
+								<text class="mt-flow-wraper-identity bg-red">书记</text>
+								<image class="mt-user-image" src="{{imageUrl+flow.toupiao.secretary.user_image}}"
+									wx:if="{{flow.toupiao.secretary.user_image}}"></image>
+								<text class="mt-flow-name">{{flow.toupiao.secretary.name}}</text>
+								<image src="../../../static/meeting/{{flow.toupiao.secretary.sex==1?'gender01':'gender02'}}.png">
+								</image>
+								<!-- <text>{{flow.toupiao.secretary.sex==1?'男':'女'}}</text> -->
+								<text class="mt-flow-age">{{flow.toupiao.secretary.age}}岁</text>
+							</view>
+							<view class="mt-flow-wraper-right">
+								<div class="mt-flow-btn-border {{flow.toupiao.secretary.selected?'is-active-blue':''}}"
+									data-id="{{flow.toupiao.secretary.id}}" data-type="secretary" bindtap="onSelectToupiao"
+									wx:if="{{flow.canVote}}">{{flow.toupiao.secretary.selected?'已选':'我要投票'}}</div>
+								<!-- <div >弃权</div> -->
+								<!-- {{flow.toupiao.secretary.selected}} -->
+							</view>
+						</view>
+						<!-- 副书记 -->
+						<view class="mt-flow-wraper">
+							<view class="mt-flow-wraper-left" bindtap="introduceHouXuan"
+								data-id="{{flow.toupiao.deputy_secretary.id}}" data-name="{{flow.toupiao.deputy_secretary.name}}">
+								<text class="mt-flow-wraper-identity bg-blue">副书记</text>
+								<image class="mt-user-image" src="{{imageUrl+flow.toupiao.deputy_secretary.user_image}}"
+									wx:if="{{flow.toupiao.deputy_secretary.user_image}}"></image>
+								<text class="mt-flow-name">{{flow.toupiao.deputy_secretary.name}}</text>
+								<image src="../../../static/meeting/{{flow.toupiao.deputy_secretary.sex==1?'gender01':'gender02'}}.png">
+								</image>
+								<!-- <text>{{flow.toupiao.deputy_secretary.sex==1?'男':'女'}}</text> -->
+								<text class="mt-flow-age">{{flow.toupiao.deputy_secretary.age}}岁</text>
+							</view>
+							<view class="mt-flow-wraper-right">
+								<div class="mt-flow-btn-border {{flow.toupiao.deputy_secretary.selected?'is-active-blue':''}}"
+									data-id="{{flow.toupiao.deputy_secretary.id}}" data-type="deputy_secretary" bindtap="onSelectToupiao"
+									wx:if="{{flow.canVote}}">{{flow.toupiao.deputy_secretary.selected?'已选':'我要投票'}}</div>
+								<!-- <div >弃权</div> -->
+								<!-- {{flow.toupiao.deputy_secretary.selected}} -->
+							</view>
+						</view>
+						<!-- 委员 - 正副书记 -->
+						<!-- <view class="mt-flow-wraper" wx:for="{{flow.toupiao.commissionerZF}}" wx:key="{{item.id}}" wx:if="{{item.id}}">
+							<view class="mt-flow-wraper-left">
+								<text class="mt-flow-wraper-identity bg-green">委员</text>
+								<text class="mt-flow-name">{{item.name}}</text>
+								<image src="../../../static/meeting/{{item.sex==1?'gender01':'gender02'}}.png"></image>
+								<text class="mt-flow-age">{{item.age}}岁</text>
+							</view>
+							<view class="mt-flow-wraper-right">
+								<div class="mt-flow-btn-border is-active-blue" data-id="{{item.id}}">已选</div>
+							</view>
+						</view> -->
+						<!-- 委员 - 正书记 -->
+						<view class="mt-flow-wraper"
+							wx:if="{{flow.toupiao.secretary.selectedIndex==0 && flow.toupiao.secretary.selected}}">
+							<view class="mt-flow-wraper-left">
+								<text class="mt-flow-wraper-identity bg-green">委员</text>
+								<image class="mt-user-image" src="{{imageUrl+flow.toupiao.commissionerZF[0].user_image}}"
+									wx:if="{{flow.toupiao.commissionerZF[0].user_image}}"></image>
+								<text class="mt-flow-name">{{flow.toupiao.commissionerZF[0].name}}</text>
+								<image
+									src="../../../static/meeting/{{flow.toupiao.commissionerZF[0].sex==1?'gender01':'gender02'}}.png">
+								</image>
+								<text class="mt-flow-age">{{flow.toupiao.commissionerZF[0].age}}岁</text>
+							</view>
+							<view class="mt-flow-wraper-right">
+								<div class="mt-flow-btn-border is-active-blue">已选</div>
+							</view>
+						</view>
+						<!-- 委员 - 副书记 -->
+						<view class="mt-flow-wraper"
+							wx:if="{{flow.toupiao.secretary.selectedIndex==0 &&flow.toupiao.deputy_secretary.selected}}">
+							<view class="mt-flow-wraper-left">
+								<text class="mt-flow-wraper-identity bg-green">委员</text>
+								<image class="mt-user-image" src="{{imageUrl+flow.toupiao.commissionerZF[1].user_image}}"
+									wx:if="{{flow.toupiao.commissionerZF[1].user_image}}"></image>
+								<text class="mt-flow-name">{{flow.toupiao.commissionerZF[1].name}}</text>
+								<image
+									src="../../../static/meeting/{{flow.toupiao.commissionerZF[1].sex==1?'gender01':'gender02'}}.png">
+								</image>
+								<text class="mt-flow-age">{{flow.toupiao.commissionerZF[1].age}}岁</text>
+							</view>
+							<view class="mt-flow-wraper-right">
+								<div class="mt-flow-btn-border is-active-blue">已选</div>
+							</view>
+						</view>
+						<!-- 委员 -->
+						<view class="mt-flow-wraper" wx:for="{{flow.toupiao.commissioner}}" wx:key="{{item.id}}">
+							<view class="mt-flow-wraper-left" bindtap="introduceHouXuan" data-id="{{item.id}}"
+								data-name="{{item.name}}">
+								<text class="mt-flow-wraper-identity bg-green">委员</text>
+								<image class="mt-user-image" src="{{imageUrl+item.user_image}}" wx:if="{{item.user_image}}"></image>
+								<text class="mt-flow-name">{{item.name}}</text>
+								<image src="../../../static/meeting/{{item.sex==1?'gender01':'gender02'}}.png"></image>
+								<!-- <text>{{item.sex==1?'男':'女'}}</text> -->
+								<text class="mt-flow-age">{{item.age}}岁</text>
+							</view>
+							<view class="mt-flow-wraper-right">
+								<div class="mt-flow-btn-border {{item.selected?'is-active-blue':''}}" data-id="{{item.id}}"
+									data-type="commissioner" bindtap="onSelectToupiao" wx:if="{{flow.canVote}}">
+									{{item.selected?'已选':'我要投票'}}</div>
+								<!-- <div >弃权</div> -->
+								<!-- {{item.selected}} -->
+							</view>
+						</view>
+					</view>
+
+					<!-- 另选他人 -->
+					<view class="mt-flow-select-other-wraper"
+						wx:if="{{flow.toupiao.secretary.name && !flow.jipiao.show && flow.canVote}}">
+						<view class="mt-flow-select-other-wraper-title" bindtap="showSelectOther">
+							<view class="mt-flow-select-other-wraper-title-line"></view>
+							<view class="mt-flow-select-other-wraper-title-con">另选他人
+								<image class="mt-flow-select-other-wraper-title-icon" bindtap="showSelectOther"
+									wx:if="{{!flow.toupiao.showSelectOther}}" src="../../../static/meeting/dir-right.png"></image>
+								<image class="mt-flow-select-other-wraper-title-icon" bindtap="showSelectOther"
+									wx:if="{{flow.toupiao.showSelectOther}}" src="../../../static/meeting/dir-down.png"></image>
+							</view>
+						</view>
+						<view class="mt-flow-select-other-wraper-con" wx:if="{{flow.toupiao.showSelectOther}}">
+							<!-- 另选书记 -->
+							<view class="mt-flow-select-other-row">
+								<picker mode="selector" bindchange="bindPickerChangeSelectOther"
+									value="{{flow.toupiao.secretary.selectedIndex}}" range="{{flow.toupiao.party}}" range-key="collect"
+									data-id="{{flow.toupiao.secretary.id}}" data-type="secretary"
+									disabled="{{flow.toupiao.secretary.selected}}" data-index="{{0}}">
+									<view class="picker">
+										<text class="mt-flow-select-other-wraper-con-name red">书记</text>
+										<text
+											class="mt-flow-select-other-wraper-con-name-con bg-green-light {{flow.toupiao.secretary.selected?'bg-gray-light gray':''}}">{{flow.toupiao.party[flow.toupiao.secretary.selectedIndex].name}}</text>
+									</view>
+								</picker>
+							</view>
+							<!-- 另选副书记 -->
+							<view class="mt-flow-select-other-row">
+								<picker mode="selector" bindchange="bindPickerChangeSelectOther"
+									value="{{flow.toupiao.deputy_secretary.selectedIndex}}" range="{{flow.toupiao.party}}"
+									range-key="collect" data-id="{{flow.toupiao.deputy_secretary.id}}" data-type="deputy_secretary"
+									disabled="{{flow.toupiao.deputy_secretary.selected}}" data-index="{{1}}">
+									<view class="picker">
+										<text class="mt-flow-select-other-wraper-con-name blue">副书记</text>
+										<text
+											class="mt-flow-select-other-wraper-con-name-con bg-green-light {{flow.toupiao.deputy_secretary.selected?'bg-gray-light gray':''}}">{{flow.toupiao.party[flow.toupiao.deputy_secretary.selectedIndex].name||'请选择'}}</text>
+									</view>
+								</picker>
+							</view>
+							<!-- 另选委员 正书记 -->
+							<view class="mt-flow-select-other-row" wx:if="{{flow.toupiao.secretary.selectedIndex>0}}">
+								<view class="picker">
+									<text class="mt-flow-select-other-wraper-con-name green">委员</text>
+									<text
+										class="mt-flow-select-other-wraper-con-name-con bg-green-light">{{flow.toupiao.commissionerZF[0].name}}</text>
+								</view>
+							</view>
+							<!-- 另选委员 副书记 -->
+							<view class="mt-flow-select-other-row" wx:if="{{flow.toupiao.deputy_secretary.selectedIndex>0}}">
+								<view class="picker">
+									<text class="mt-flow-select-other-wraper-con-name green">委员</text>
+									<text
+										class="mt-flow-select-other-wraper-con-name-con bg-green-light">{{flow.toupiao.commissionerZF[1].name}}</text>
+								</view>
+							</view>
+							<!-- 另选委员 -->
+							<view class="mt-flow-select-other-row" wx:for="{{flow.toupiao.commissioner}}" wx:key="{{item.id}}">
+								<picker mode="selector" bindchange="bindPickerChangeSelectOther"
+									value="{{flow.toupiao.commissioner.selectedIndex}}" range="{{flow.toupiao.party}}" range-key="collect"
+									data-id="{{item.id}}" data-type="commissioner" disabled="{{item.selected}}" data-index="{{index}}">
+									<view class="picker">
+										<text class="mt-flow-select-other-wraper-con-name green">委员</text>
+										<text
+											class="mt-flow-select-other-wraper-con-name-con bg-green-light {{item.selected?'bg-gray-light gray':''}}">{{flow.toupiao.party[flow.toupiao.commissioner[index].selectedIndex].name||'请选择'}}</text>
+									</view>
+								</picker>
+							</view>
+						</view>
+					</view>
+					<view class="mt-flow-con-8-bottom"
+						wx:if="{{flow.toupiao.secretary.name && !flow.jipiao.show && flow.canVote}}">
+						<button class="bg-blue white" bindtap="onSubmitToupiao">确认投票</button>
+						<!-- <button class="bg-gray-light gray" bindtap="onCancelToupiao">取消</button> -->
+					</view>
+					<!-- 投票结束 -->
+					<view class="mt-flow-con-8-result-tip" wx:if="{{flow.jipiao.show}}">
+						您已投票完成，稍后将公布投票结果！！！
+					</view>
+				</view>
+
+
+
+
+
+				<!-- 第8-2项内容 计票 start-->
+				<!-- <view class='flex-center-wrap  w95'   wx:if="{{flow.curFlow>1&&flow.curFlow === 4}}"> -->
+
+				<!-- 此处生产环境重新配置 wx:if -->
+				<view class='flex-center-wrap  w100' wx:if="{{flow.curFlow === 100000 &&flow.jipiao.show}}">
+					<view class="fw-700 w95 t-left fz-2em">计票</view>
+					<view class="co-cc w95 t-left m-bottom">选出的委员数量：<text class="green">{{flow.toupiao.elected_num}}</text> ，
+						包含：书记1名，副书记1名。</view>
+					<view class='flex-between w95 t-table'>
+						<view class="{{flow.jipiao.focursStatus == 0 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}"
+							data-id='0' bindtap='focursFn'>书记</view>
+						<view class="{{flow.jipiao.focursStatus ==1 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}"
+							data-id='1' bindtap='focursFn'>副书记</view>
+						<view class="{{flow.jipiao.focursStatus ==2 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}"
+							data-id='2' bindtap='focursFn'>委员</view>
+					</view>
+					<!-- 一条数据start -->
+					<view wx:for="{{flow.jipiao.nnounceResults}}" wx:for-index="index" wx:for-item="item" wx:key="index"
+						class='flex-between w95 t-result'>
+						<image wx:if="{{item.src}}" class='t-imags' src='{{item.src}}'></image>
+						<view class='w80'>
+							<view class='flex-between process'>
+								<view>
+									<span class='fw-700'>{{item.name}}</span>
+								</view>
+								<view>
+									<span class='fz-15rem fw-700 red'>{{item.process}}</span>
+									<span>/票</span>
+								</view>
+							</view>
+
+							<view>
+								<progress percent="{{item.process}}" activeColor="#E94649" border-radius="100" active-mode='forwards' />
+							</view>
+						</view>
+					</view>
+					<!-- 一条数据end -->
+					<!-- 另选书记计票 start -->
+					<view wx-if="{{flow.jipiao.otherResult.length !== 0}}" class='flex-center-wrap  w95'>
+						<view class="fw-700 t-other co-48F fz-15em">另选书记计票</view>
+						<!-- 一条数据start -->
+						<view wx:for="{{flow.jipiao.otherResult}}" wx:for-index="index" wx:for-item="item" wx:key="index"
+							class='flex-between w95 t-result'>
+							<image wx:if="{{item.src}}" class='t-imags' src='{{item.src}}'></image>
+							<view class='w80'>
+								<view class='flex-between process'>
+									<view>
+										<span class='fw-700'>{{item.name}}</span>
+									</view>
+									<view>
+										<span class='fz-15rem fw-700 red'>{{item.process}}</span>
+										<span>/票</span>
+									</view>
+								</view>
+								<view>
+									<progress percent="{{item.process}}" activeColor="#E94649" border-radius="100"
+										active-mode='forwards' />
+								</view>
+							</view>
+						</view>
+						<!-- 一条数据end -->
+					</view>
+					<!-- 另选书记计票 end -->
+				</view>
+				<!-- 第8项内容 end-->
+
+
+
+				<!-- 第9项 start -->
+
+				<!-- 生产环境重新配置 wx:if -->
+				<view class='flex-center-wrap w100' wx:if="{{flow.curFlow === 9}}">
+					<view class="flex-center-wrap-top">
+						<view class="flex-center-wrap-top-con-1 flex-h-center fw-700 w95 t-left fz-2em">公布结果</view>
+						<view class="flex-center-wrap-top-con-2 flex-h-center co-cc w95 t-left">到会党员：<text
+								class="green">{{flow.jieguo.party_number}}</text> 人</view>
+						<view class='flex-center-wrap-top-con-3 flex-h-center flex-between w95 t-table'>
+							<view class="{{flow.jieguo.activeId == 0 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}"
+								data-id='0' bindtap='scortFn'>书记</view>
+							<view class="{{flow.jieguo.activeId ==1 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}"
+								data-id='1' bindtap='scortFn'>副书记</view>
+							<view class="{{flow.jieguo.activeId ==2 ? 'flex-center w30 focurs' :  'flex-center w30 focurs-none'}}"
+								data-id='2' bindtap='scortFn'>委员</view>
+						</view>
+					</view>
+					<!-- 一条数据start -->
+					<view class="flex-center-wrap-con">
+						<view wx:for="{{flow.jieguo.list}}" wx:for-index="index" wx:for-item="item" wx:key="index"
+							class='flex-between t-result'>
+
+							<view wx:if="{{index === 0}}" class='bg-E54 t-scrot flex-center'>{{index+1}}</view>
+							<view wx:elif="{{index === 1}}" class='bg-F82 t-scrot flex-center'>{{index+1}}</view>
+							<view wx:else="{{index >1}}" class='bg-cc t-scrot flex-center'>{{index+1}}</view>
+							<image wx:if="{{item.src}}" class='t-imags' src='{{item.src}}'></image>
+							<view class='w80'>
+								<view class='flex-between process'>
+									<view bindtap="introduceHouXuan" data-id="{{item.id}}" data-name="{{item.name}}">
+										<span class='fw-700'>{{item.name}}</span>
+									</view>
+									<view>
+										<span class='fz-15rem fw-700 red'>{{item.gain}}</span>
+										<span>/票</span>
+									</view>
+								</view>
+
+								<view>
+									<progress percent="{{item.gain/(flow.jieguo.party_number+2)*100}}" activeColor="#E94649"
+										border-radius="100" active-mode='forwards' />
+								</view>
+							</view>
+						</view>
+					</view>
+
+
+				</view>
+
+				<!-- 第9项 end -->
+
+				<!-------------------- 候选人详情弹窗 ↓ -------------------->
+				<view class="mt-container-houxuan-detail" wx:if="{{flow.houxuan.detail.show}}">
+
+					<view class="bg-blue white mt-container-houxuan-detail-header">
+						<view>
+							<image class="" src="{{imageUrl+flow.houxuan.detail.user_image}}"
+								wx:if="{{flow.houxuan.detail.user_image}}"></image>
+							<text>{{flow.houxuan.detail.user_name?flow.houxuan.detail.user_name:'候选人详情弹窗'}}</text>
+						</view>
+					</view>
+					<view class="mt-container-houxuan-detail-con">
+						<!--<view class="" >{{flow.houxuan.detail.introduction}}</view>-->
+						<template is="wxParse" data="{{wxParseData:introduction.nodes}}" />
+					</view>
+					<view class="mt-container-houxuan-detail-bottom" bindtap="hidePopup">关闭窗口</view>
+				</view>
+
+				<!-------------------- 候选人详情弹窗 ↑ -------------------->
+
+				<!-------------------- 确认投票弹窗 ↓ -------------------->
+				<view class="mt-container-sure-vote" wx:if="{{data.flow.toupiao.showSureVote}}">
+					<view class="mt-container-sure-vote-header bg-blue white ">当前已选择</view>
+					<view class="mt-container-sure-vote-body ">
+						<view class="mt-flow-con-tip-vice">应当选出的委员数量：<text class="green">{{flow.toupiao.elected_num}}</text> ，
+							包含：书记1名，副书记1名。</view>
+						<view class="row">
+							<text class="mt-container-sure-vote-body-left red">书记：</text>
+							<text class="mt-container-sure-vote-body-con"
+								wx:if="{{flow.toupiao.selectAlready.secretary[0].name}}">{{flow.toupiao.selectAlready.secretary[0].name}}</text>
+							<text class="mt-container-sure-vote-body-con gray" wx:else>{{'弃权'}}</text>
+						</view>
+						<view class="row">
+							<text class="mt-container-sure-vote-body-left blue">副书记：</text>
+							<text class="mt-container-sure-vote-body-con"
+								wx:if="{{flow.toupiao.selectAlready.deputy_secretary[0].name}}">{{flow.toupiao.selectAlready.deputy_secretary[0].name}}</text>
+							<text class="mt-container-sure-vote-body-con gray" wx:else>{{'弃权'}}</text>
+						</view>
+						<!--<view class="row" wx:for="{{flow.toupiao.selectAlready.commissioner}}" wx:key="item">
+							<text class="mt-container-sure-vote-body-left">委员：</text>
+							<text class="mt-container-sure-vote-body-con">{{item.name}}</text>
+							<text class="mt-container-sure-vote-body-con">{{flow.toupiao.selectAlready.commissioner[index].name}}</text>
+						</view>-->
+						<view class="row" wx:for="{{flow.toupiao.elected_num}}" wx:key="index">
+							<text class="mt-container-sure-vote-body-left green">委员：</text>
+							<text class="mt-container-sure-vote-body-con"
+								wx:if="{{flow.toupiao.selectAlready.commissioner[index].name}}">{{flow.toupiao.selectAlready.commissioner[index].name}}</text>
+							<text class="mt-container-sure-vote-body-con gray" wx:else>{{'弃权'}}</text>
+						</view>
+
+					</view>
+					<view class="mt-container-sure-vote-footer">
+						<view class="comput">
+							<!--
+							<text class="comput-formula">请计算并输入下面公式的结果：</text>
+							<text class="comput-formula">{{flow.toupiao.calculation.q}} = {{flow.toupiao.calculation.a}} </text>
+							<input class="comput-result" value="{{flow.toupiao.calculation_u}}" type="number" placeholder="结果" bindinput="setComputResult" bindfocus="" bindblur="" bindconfirm=""></input>
+							-->
+						</view>
+
+						<text class="f-btn bg-blue white" bindtap="onCancelToupiao">继续选择</text>
+						<text class="f-btn bg-green white" bindtap="onSubmitToupiaoAgain">确定</text>
+					</view>
+				</view>
+
+				<!-------------------- 确认投票弹窗 ↑ -------------------->
+
+
+
+			</view>
+			<!-------------------- 内容展示区域 ↑ -------------------->
+		</movable-area>
+	</view>
+
+
+	<!-------------------- 流程菜单 ↓ -------------------->
+	<!-- <view  class="{{flow.show ? 'flow-show' : 'flow-hide'}}">
+		<text class="flow-title">大会议程</text>
+		<view class="row" wx:for="{{flow.list}}" wx:key='index'>
+			<view class="flow-li">
+				<img src="{{item.src}}" alt=""/>
+				<text>{{item.name}}</text>
+			</view>
+			<view class="flow-li-status">
+				<text>{{item.status}}</text>
+			</view>
+		</view>
+	</view> -->
+
+	<!-- 原生组件版 -->
+	<!-- <cover-view bindtap="showFlows" class="flow-menu" style="{{flow.showMenu?'left:0':'left:-50%'}}"> -->
+	<cover-view bindtap="showFlows" class="flow-menu" style="{{flow.showMenu?'bottom:0':'bottom:-75%'}}">
+		<cover-view class="flow-title">大会议程</cover-view>
+		<cover-view class="row" wx:for="{{flow.keys}}" wx:key='index'>
+			<cover-view wx:if="{{item.flow_step!=='line'}}" class="flow-li">
+				<cover-image class="flow-li-icon" src="{{item.src}}"></cover-image>
+				<cover-view class="flow-li-text">{{item.name}}</cover-view>
+				<!-- <cover-view>{{item.status}}</cover-view> -->
+				<!-- <cover-view class="line-blue-lignt">.</cover-view>
+				<cover-view class="line-blue">.</cover-view> -->
+			</cover-view>
+			<cover-view wx:if="{{item.flow_step!=='line'}}" class="flow-li-status">
+				<cover-image class="flow-li-icon-right"
+					src="{{item.status==2?'../../../static/meeting/menu-bing.gif':(item.status==3?'../../../static/meeting/menu-end.png':(item.status==4?'../../../static/meeting/menu-hold.png':'../../../static/meeting/menu-default.png'))}}">
+				</cover-image>
+			</cover-view>
+			<!-- <cover-image wx:if="{{item.flow_step=='line'}}" class="flow-menu-line" src="{{item.src}}"></cover-image> -->
+			<cover-image wx:if="{{index==2 || index==7}}" class="flow-menu-line2" src="../../../static/meeting/menu-line.png">
+			</cover-image>
+		</cover-view>
+	</cover-view>
+	<!-------------------- 流程菜单 ↑ -------------------->
+
+
+
+
+</view>

@@ -1,0 +1,44 @@
+/**
+ * js 加减乘计算验证 --------------------- by Wang 20190520
+ * type: Number 类型  1加、2减、3乘  默认1
+ * max: Number 最大值  默认100
+ * min: Number 最小值  默认1
+ * 返回：{q:'1+2',a:3}
+ */
+const calculation = {
+	init: function (type, max, min) {
+		type = type || 1;
+		if (typeof (type) == 'string' || typeof (type) == 'number') {
+			type = Number(type);
+		} else {
+			type = 1;
+		}
+		let formula = '', m = '', n = '', t = '', a = '';
+		max = max && (typeof (max) == 'number' || typeof (max) == 'string') ? Number(max) : 100;
+		min = min && (typeof (min) == 'number' || typeof (min) == 'string') ? Number(min) : 1;
+		m = Math.floor(Math.random() * (max - min) + min);
+		n = Math.floor(Math.random() * (max - min) + min);
+		switch (type) {
+			case 1:
+				t = '+';
+				a = m + n;
+				break;
+			case 2:
+				t = '-';
+				a = m - n;
+				break;
+			case 3:
+				t = '×';
+				a = m * n;
+				break;
+		}
+		return {
+			q: m + t + n,
+			a: a
+		}
+	}
+};
+
+
+
+export default calculation;

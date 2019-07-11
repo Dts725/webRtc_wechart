@@ -1,0 +1,6 @@
+<!--pages/redIndexSpecial/special.wxml-->
+<!-- <text>pages/redIndexSpecial/special.wxml</text> -->
+<view class='web-view'>
+  <!-- <web-view src="https://jcdjadmin.shyunhua.com/zu_ji_special/#/index.html"></web-view> -->
+  <web-view src="{{url}}"></web-view>
+</view>

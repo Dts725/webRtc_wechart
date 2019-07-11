@@ -1,0 +1,34 @@
+<view class='flex-between  h100'>
+      <!-- <cover-image class='coverImage' data-id='player' bindtap='_fullScreenFn' src="{{coverSrc}}" /> -->
+
+
+  <!-- 拉流用标签 -->
+
+  <view  class='w50 flex-center h100'>
+    <live-player id="player" class='h100 fr' src="{{srcPoint}}" mode="live" autoplay object-fit="contain" >
+      <cover-image class='coverImage' data-type='video,videoSrc,1' bindtap='changeStatus' src="{{videoSrc}}" />
+      <cover-image class='coverImage-01' data-type='audio,audioSrc,1' bindtap='changeStatus' src="{{audioSrc}}" />
+			<cover-image wx:if="{{!srcPoint}}" class='video-loading' src="../../../static/meeting/meeting1.png" />
+    </live-player>
+  </view>
+
+  <view wx:if="{{flag}}"  class='w50 flex-center h100'>
+    <live-player id="player_02" class='h100 fr' src="{{srcPoint_02}}" mode="live" autoplay object-fit="contain" >
+      <cover-image class='coverImage' data-type='video,videoSrc_01,2' bindtap='changeStatus' src="{{videoSrc_01}}" />
+      <cover-image class='coverImage-01' data-type='audio,audioSrc_02,2' bindtap='changeStatus' src="{{audioSrc_01}}" />
+      <cover-image wx:if="{{!srcPoint_02}}" class='video-loading' src="../../../static/meeting/meeting2.png" />
+    </live-player>
+  </view>
+	
+	<!-- 推流用标签 -->
+	  <view  wx:else  class='w50 flex-center h100'>
+	    <live-pusher id='pusher'  url="{{urlRtc}}" mode="RTC" class='h100  fr' autopush  beauty="2" whiteness="2"> 
+			<cover-image wx:if="{{!urlRtc}}" class='video-loading' src="../../../static/meeting/meeting2.png" />
+	    </live-pusher>
+	  </view>
+
+  <!-- <view style='display:none'>
+    <live-pusher   url="{{urlRtc}}" mode="RTC" autopush >
+    </live-pusher>
+  </view> -->
+</view>

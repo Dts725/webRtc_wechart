@@ -1,0 +1,23 @@
+<view class="mt-container content">
+	<!-- <div bindtap='router'>点击查看正在进行中的会议</div> -->
+	<!-- <view class="mt-row">
+		<text class="mt-row-title">会议名字</text>
+		<text class="mt-row-time">开始时间</text>
+		<view class="mt-row-status">
+			状态 <text bindtap='router' class="mt-row-sign">参加</text>
+		</view>
+	</view> -->
+	<scroll-view class='scroll-box' bindscrolltoupper='getMeetingList' bindscrolltolower="getNextPage" scroll-y scroll-with-animation>
+	<view class="mt-warper-row" wx:for="{{meeting.list}}" wx:key='index'>
+		<view class="mt-row" data-data="{{item}}" bindtap='router'>
+			<text class="mt-row-title" data-data="{{item}}">{{item.meeting_name}}</text>
+			<!-- <text wx:if="{{item.status==2}}" bindtap='router' class="mt-row-sign">参加</text> -->
+			<text class="mt-row-sign" data-data="{{item}}">点击参加</text>
+		</view>
+		<view class="mt-row">
+			<text class="mt-row-time">{{item.start_time}}</text>
+			<view class="mt-row-status status-{{item.status}}">{{item.status_name}}</view>
+		</view>
+	</view>
+	</scroll-view>
+</view>
